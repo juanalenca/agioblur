@@ -51,6 +51,8 @@ const ui = {
   inputPin: document.getElementById('input-pin'),
   btnPinAction: document.getElementById('btn-pin-action'),
   btnResetPin: document.getElementById('btn-reset-pin'),
+  btnRelock: document.getElementById('btn-relock'),
+  lockActionsRow: document.getElementById('lock-actions-row'),
   lockDescription: document.getElementById('lock-description'),
   lockBadge: document.getElementById('lock-badge'),
   overlayCategories: document.getElementById('overlay-categories'),
@@ -138,33 +140,38 @@ function applyLockState() {
   // Atualizar a seção de PIN
   if (!hasPin) {
     // Sem PIN definido
+    ui.inputPin.style.display = 'block';
     ui.inputPin.placeholder = 'Definir novo PIN...';
     ui.btnPinAction.textContent = 'Salvar PIN';
     ui.btnPinAction.className = 'btn-lock primary';
+    ui.btnPinAction.disabled = false;
+    ui.btnPinAction.style.display = 'block';
     ui.lockDescription.textContent = 'Defina um PIN para impedir que terceiros desativem a proteção ou leiam conteúdos ao passar o mouse.';
     ui.lockBadge.textContent = 'Sem PIN';
     ui.lockBadge.className = 'lock-badge unlocked';
-    ui.btnResetPin.style.display = 'none';
+    ui.lockActionsRow.style.display = 'none';
   } else if (locked) {
     // PIN definido, bloqueado
+    ui.inputPin.style.display = 'block';
     ui.inputPin.placeholder = 'Digitar PIN para desbloquear...';
     ui.btnPinAction.textContent = 'Desbloquear';
     ui.btnPinAction.className = 'btn-lock primary';
+    ui.btnPinAction.disabled = false;
+    ui.btnPinAction.style.display = 'block';
     ui.lockDescription.textContent = 'Um PIN está ativo. Desbloqueie para alterar configurações ou permitir leitura por hover (5 min).';
     ui.lockBadge.textContent = '🔒 Bloqueado';
     ui.lockBadge.className = 'lock-badge locked';
-    ui.btnResetPin.style.display = 'none';
+    ui.lockActionsRow.style.display = 'none';
   } else {
     // PIN definido, desbloqueado
-    ui.inputPin.placeholder = 'Sessão desbloqueada';
+    ui.inputPin.style.display = 'none';
     ui.inputPin.value = '';
-    ui.btnPinAction.textContent = '✓ Desbloqueado';
-    ui.btnPinAction.className = 'btn-lock primary';
     ui.btnPinAction.disabled = true;
-    ui.lockDescription.textContent = 'Sessão desbloqueada temporariamente. Você pode alterar as configurações normalmente.';
+    ui.btnPinAction.style.display = 'none';
+    ui.lockDescription.textContent = 'Sessão desbloqueada por 5 minutos. Você pode alterar as configurações ou visualizar mensagens passando o mouse.';
     ui.lockBadge.textContent = '🔓 Desbloqueado';
     ui.lockBadge.className = 'lock-badge unlocked';
-    ui.btnResetPin.style.display = 'block';
+    ui.lockActionsRow.style.display = 'flex';
   }
 }
 
@@ -210,6 +217,18 @@ async function loadAndSync() {
       // Lock
       isSessionUnlocked = false;
       applyLockState();
+
+      // Sincronizar estado real do content script
+      chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
+        if (tabs.length > 0) {
+          chrome.tabs.sendMessage(tabs[0].id, { action: 'status' }, (response) => {
+            if (!chrome.runtime.lastError && response && response.isUnlocked) {
+              isSessionUnlocked = true;
+              applyLockState();
+            }
+          });
+        }
+      });
 
       resolve();
     });
@@ -265,6 +284,15 @@ async function handlePinAction() {
     ui.inputPin.value = '';
     isSessionUnlocked = false;
     applyLockState();
+    
+    // Enviar comando para o content script bloquear imediatamente a página
+    chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
+      tabs.forEach((tab) => {
+        chrome.tabs.sendMessage(tab.id, { action: 'relock' }, () => {
+          if (chrome.runtime.lastError) { /* ignore */ }
+        });
+      });
+    });
     return;
   }
 
@@ -296,6 +324,30 @@ async function handleResetPin() {
   await saveSettings(newSettings);
   isSessionUnlocked = false;
   applyLockState();
+
+  // Enviar comando para o content script bloquear imediatamente
+  chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
+    tabs.forEach((tab) => {
+      chrome.tabs.sendMessage(tab.id, { action: 'relock' }, () => {
+        if (chrome.runtime.lastError) { /* ignore se aba fechada */ }
+      });
+    });
+  });
+}
+
+async function handleRelock() {
+  if (!isSessionUnlocked) return;
+  isSessionUnlocked = false;
+  applyLockState();
+  
+  // Enviar comando para o content script bloquear imediatamente
+  chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
+    tabs.forEach((tab) => {
+      chrome.tabs.sendMessage(tab.id, { action: 'relock' }, () => {
+        if (chrome.runtime.lastError) { /* ignore se aba fechada */ }
+      });
+    });
+  });
 }
 
 /* ==========================================================================
@@ -318,6 +370,7 @@ ui.inputPin.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') handlePinAction();
 });
 ui.btnResetPin.addEventListener('click', handleResetPin);
+ui.btnRelock.addEventListener('click', handleRelock);
 
 /* ==========================================================================
    Init

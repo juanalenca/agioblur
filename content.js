@@ -472,6 +472,15 @@ function listenForRuntimeMessages() {
         }
       }, message.duration || 300000);
       sendResponse({ success: true });
+    } else if (message.action === 'relock') {
+      isUnlocked = false;
+      if (unlockTimeout) clearTimeout(unlockTimeout);
+      if (currentSettings.savedPin) {
+        document.body.classList.add('wpb-locked');
+      }
+      sendResponse({ success: true });
+    } else if (message.action === 'status') {
+      sendResponse({ isUnlocked: isUnlocked });
     }
   });
 }

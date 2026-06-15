@@ -402,6 +402,25 @@
       opacity: 0.5;
       cursor: not-allowed;
     }
+    .btn-lock.secondary {
+      background: transparent;
+      color: #00a884;
+      border: 1px solid rgba(0,168,132,0.3);
+      flex: 1;
+    }
+    .btn-lock.secondary:hover {
+      background: rgba(0,168,132,0.1);
+    }
+    .lock-actions-row {
+      display: flex;
+      gap: 6px;
+      width: 100%;
+      margin-top: 2px;
+    }
+    .btn-lock.danger {
+      flex: 1;
+      margin-top: 0;
+    }
 
     .lock-status {
       display: flex;
@@ -641,7 +660,10 @@
         <div class="lock-form">
           <input type="password" id="input-pin" placeholder="Definir novo PIN..." class="input-pin">
           <button class="btn-lock primary" id="btn-pin-action">Salvar PIN</button>
-          <button class="btn-lock danger" id="btn-reset-pin" style="display: none;">Remover PIN</button>
+          <div class="lock-actions-row" id="lock-actions-row" style="display: none;">
+            <button class="btn-lock secondary" id="btn-relock">Bloquear Agora</button>
+            <button class="btn-lock danger" id="btn-reset-pin">Remover PIN</button>
+          </div>
         </div>
         <div class="lock-status" id="lock-status">
           <span class="lock-badge unlocked" id="lock-badge">Sem PIN</span>
