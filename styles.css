@@ -1,0 +1,278 @@
+/*
+ * WhatsApp Privacy Blur — Folha de estilos
+ *
+ * Injetada via manifest.json em document_start.
+ *
+ * Lógica de hover:
+ * - Por padrão, :hover revela o conteúdo censurado.
+ * - Quando .wpb-locked está no body (PIN ativo), o :hover é bloqueado.
+ */
+
+/* ==========================================================================
+   Variáveis
+   ========================================================================== */
+
+:root {
+  --wpb-blur: 8px;
+  --wpb-blur-heavy: 12px;
+  --wpb-speed: 0.2s;
+  --wpb-easing: ease-out;
+}
+
+/* ==========================================================================
+   Blur por categoria — Modo Desfoque (padrão)
+   Hover revela por padrão. .wpb-locked neutraliza o hover.
+   ========================================================================== */
+
+/* Fotos de perfil */
+.wpb-blur-photo {
+  filter: blur(var(--wpb-blur)) !important;
+  transition: filter var(--wpb-speed) var(--wpb-easing) !important;
+}
+.wpb-blur-photo:hover {
+  filter: blur(0) !important;
+}
+.wpb-locked .wpb-blur-photo:hover {
+  filter: blur(var(--wpb-blur)) !important;
+}
+
+/* Nomes de contato / números */
+.wpb-blur-name {
+  filter: blur(var(--wpb-blur)) !important;
+  transition: filter var(--wpb-speed) var(--wpb-easing) !important;
+}
+.wpb-blur-name:hover {
+  filter: blur(0) !important;
+}
+.wpb-locked .wpb-blur-name:hover {
+  filter: blur(var(--wpb-blur)) !important;
+}
+
+/* Mensagens (preview sidebar + conteúdo da conversa) */
+.wpb-blur-msg {
+  filter: blur(var(--wpb-blur)) !important;
+  transition: filter var(--wpb-speed) var(--wpb-easing) !important;
+}
+.wpb-blur-msg:hover {
+  filter: blur(0) !important;
+}
+.wpb-locked .wpb-blur-msg:hover {
+  filter: blur(var(--wpb-blur)) !important;
+}
+
+/* Mídia (imagens/vídeos dentro de mensagens) */
+.wpb-blur-media {
+  filter: blur(var(--wpb-blur-heavy)) !important;
+  transition: filter var(--wpb-speed) var(--wpb-easing) !important;
+}
+.wpb-blur-media:hover {
+  filter: blur(0) !important;
+}
+.wpb-locked .wpb-blur-media:hover {
+  filter: blur(var(--wpb-blur-heavy)) !important;
+}
+
+/* Campo de digitação (compose) */
+.wpb-blur-compose {
+  filter: blur(var(--wpb-blur)) !important;
+  transition: filter var(--wpb-speed) var(--wpb-easing) !important;
+}
+.wpb-blur-compose:hover {
+  filter: blur(0) !important;
+}
+.wpb-locked .wpb-blur-compose:hover {
+  filter: blur(var(--wpb-blur)) !important;
+}
+
+/* ==========================================================================
+   Modo Tarja Preta Sólida
+   ========================================================================== */
+
+:root.wpb-solid-mode .wpb-blur-photo {
+  filter: none !important;
+  background-color: #000 !important;
+  opacity: 0 !important;
+  transition: opacity var(--wpb-speed) var(--wpb-easing) !important;
+}
+:root.wpb-solid-mode .wpb-blur-photo:hover {
+  opacity: 1 !important;
+}
+:root.wpb-solid-mode .wpb-locked .wpb-blur-photo:hover {
+  opacity: 0 !important;
+}
+
+:root.wpb-solid-mode .wpb-blur-name {
+  filter: none !important;
+  background-color: #000 !important;
+  color: transparent !important;
+  border-radius: 3px;
+  transition: background-color var(--wpb-speed) var(--wpb-easing), color var(--wpb-speed) var(--wpb-easing) !important;
+}
+:root.wpb-solid-mode .wpb-blur-name *,
+:root.wpb-solid-mode .wpb-blur-name a {
+  color: transparent !important;
+}
+:root.wpb-solid-mode .wpb-blur-name:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+:root.wpb-solid-mode .wpb-blur-name:hover *,
+:root.wpb-solid-mode .wpb-blur-name:hover a {
+  color: inherit !important;
+}
+:root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover {
+  background-color: #000 !important;
+  color: transparent !important;
+}
+:root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover *,
+:root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover a {
+  color: transparent !important;
+}
+
+:root.wpb-solid-mode .wpb-blur-msg {
+  filter: none !important;
+  background-color: #000 !important;
+  color: transparent !important;
+  border-radius: 3px;
+  transition: background-color var(--wpb-speed) var(--wpb-easing), color var(--wpb-speed) var(--wpb-easing) !important;
+}
+:root.wpb-solid-mode .wpb-blur-msg *,
+:root.wpb-solid-mode .wpb-blur-msg a {
+  color: transparent !important;
+}
+:root.wpb-solid-mode .wpb-blur-msg:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+:root.wpb-solid-mode .wpb-blur-msg:hover *,
+:root.wpb-solid-mode .wpb-blur-msg:hover a {
+  color: inherit !important;
+}
+:root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover {
+  background-color: #000 !important;
+  color: transparent !important;
+}
+:root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover *,
+:root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover a {
+  color: transparent !important;
+}
+
+:root.wpb-solid-mode .wpb-blur-media {
+  filter: none !important;
+  background-color: #000 !important;
+  opacity: 0 !important;
+  transition: opacity var(--wpb-speed) var(--wpb-easing) !important;
+}
+:root.wpb-solid-mode .wpb-blur-media:hover {
+  opacity: 1 !important;
+}
+:root.wpb-solid-mode .wpb-locked .wpb-blur-media:hover {
+  opacity: 0 !important;
+}
+
+:root.wpb-solid-mode .wpb-blur-compose {
+  filter: none !important;
+  background-color: #000 !important;
+  color: transparent !important;
+  border-radius: 3px;
+  transition: background-color var(--wpb-speed) var(--wpb-easing), color var(--wpb-speed) var(--wpb-easing) !important;
+}
+:root.wpb-solid-mode .wpb-blur-compose *,
+:root.wpb-solid-mode .wpb-blur-compose a {
+  color: transparent !important;
+}
+:root.wpb-solid-mode .wpb-blur-compose:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+:root.wpb-solid-mode .wpb-blur-compose:hover *,
+:root.wpb-solid-mode .wpb-blur-compose:hover a {
+  color: inherit !important;
+}
+:root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover {
+  background-color: #000 !important;
+  color: transparent !important;
+}
+:root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover *,
+:root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover a {
+  color: transparent !important;
+}
+
+/* ==========================================================================
+   Modo Fake Data
+   ========================================================================== */
+
+.wpb-fake-data.wpb-blur-name,
+.wpb-fake-data.wpb-blur-msg {
+  filter: none !important;
+  background-color: transparent !important;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: none !important;
+  position: relative;
+}
+.wpb-fake-data.wpb-blur-name *,
+.wpb-fake-data.wpb-blur-name a,
+.wpb-fake-data.wpb-blur-msg *,
+.wpb-fake-data.wpb-blur-msg a {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  text-shadow: none !important;
+}
+
+:root.wpb-solid-mode .wpb-fake-data.wpb-blur-name,
+:root.wpb-solid-mode .wpb-fake-data.wpb-blur-msg {
+  background-color: transparent !important;
+}
+
+.wpb-fake-data.wpb-blur-name::after {
+  content: attr(data-fake-name);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #e9edef !important;
+  -webkit-text-fill-color: #e9edef !important;
+  font-size: 14.2px !important;
+  line-height: 1.3 !important;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.wpb-fake-data.wpb-blur-msg::after {
+  content: attr(data-fake-text);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8696a0 !important;
+  -webkit-text-fill-color: #8696a0 !important;
+  font-size: 13px !important;
+  line-height: 1.3 !important;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+/* Hover revela o texto real por padrão */
+.wpb-fake-data:hover::after {
+  display: none !important;
+}
+.wpb-fake-data:hover,
+.wpb-fake-data:hover *,
+.wpb-fake-data:hover a {
+  color: inherit !important;
+  -webkit-text-fill-color: inherit !important;
+}
+/* Locked: mantém o fake data mesmo no hover */
+.wpb-locked .wpb-fake-data:hover::after {
+  display: block !important;
+}
+.wpb-locked .wpb-fake-data:hover,
+.wpb-locked .wpb-fake-data:hover *,
+.wpb-locked .wpb-fake-data:hover a {
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+}
