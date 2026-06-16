@@ -9,7 +9,12 @@
     {
       "matches": ["https://web.whatsapp.com/*"],
       "css": ["styles.css"],
-      "js": ["content.js"],
+      "js": [
+        "content/constants.js",
+        "content/state.js",
+        "content/dom.js",
+        "content/main.js"
+      ],
       "run_at": "document_start"
     }
   ],

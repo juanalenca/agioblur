@@ -1,0 +1,27 @@
+name: Chrome Web Store Release
+
+on:
+  push:
+    tags:
+      - 'v*' # Dispara quando uma tag começando com 'v' for criada (ex: v1.0.0)
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Create Zip Archive
+      run: |
+        # Cria um arquivo zip excluindo arquivos e pastas de desenvolvimento
+        zip -r agioblur-${{ github.ref_name }}.zip . -x "*.git*" "*.github*" "*node_modules*" "package-lock.json" "package.json" "eslint.config.mjs" "*.md"
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: agioblur-${{ github.ref_name }}.zip
+        generate_release_notes: true
