@@ -81,4 +81,4 @@ Este projeto utiliza **GitHub Actions** para automação de processos, asseguran
 
 ## 📜 Licença
 
-Distribuído sob a licença MIT. (Pode ser adaptado caso queira comercializar ou fechar o código posteriormente).
+Distribuído sob a licença MIT.
