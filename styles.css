@@ -111,6 +111,7 @@
 :root.wpb-solid-mode .wpb-blur-name *,
 :root.wpb-solid-mode .wpb-blur-name a {
   color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
 }
 :root.wpb-solid-mode .wpb-blur-name:hover {
   background-color: transparent !important;
@@ -119,6 +120,7 @@
 :root.wpb-solid-mode .wpb-blur-name:hover *,
 :root.wpb-solid-mode .wpb-blur-name:hover a {
   color: inherit !important;
+  -webkit-text-fill-color: initial !important;
 }
 :root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover {
   background-color: #000 !important;
@@ -127,6 +129,7 @@
 :root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover *,
 :root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover a {
   color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
 }
 :root.wpb-solid-mode .wpb-blur-name img { opacity: 0 !important; }
 :root.wpb-solid-mode .wpb-blur-name:hover img { opacity: 1 !important; }
@@ -142,6 +145,7 @@
 :root.wpb-solid-mode .wpb-blur-msg *,
 :root.wpb-solid-mode .wpb-blur-msg a {
   color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
 }
 :root.wpb-solid-mode .wpb-blur-msg:hover {
   background-color: transparent !important;
@@ -150,6 +154,7 @@
 :root.wpb-solid-mode .wpb-blur-msg:hover *,
 :root.wpb-solid-mode .wpb-blur-msg:hover a {
   color: inherit !important;
+  -webkit-text-fill-color: initial !important;
 }
 :root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover {
   background-color: #000 !important;
@@ -158,6 +163,7 @@
 :root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover *,
 :root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover a {
   color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
 }
 :root.wpb-solid-mode .wpb-blur-msg img { opacity: 0 !important; }
 :root.wpb-solid-mode .wpb-blur-msg:hover img { opacity: 1 !important; }
@@ -186,6 +192,7 @@
 :root.wpb-solid-mode .wpb-blur-compose *,
 :root.wpb-solid-mode .wpb-blur-compose a {
   color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
 }
 :root.wpb-solid-mode .wpb-blur-compose:hover {
   background-color: transparent !important;
@@ -194,6 +201,7 @@
 :root.wpb-solid-mode .wpb-blur-compose:hover *,
 :root.wpb-solid-mode .wpb-blur-compose:hover a {
   color: inherit !important;
+  -webkit-text-fill-color: initial !important;
 }
 :root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover {
   background-color: #000 !important;
@@ -202,6 +210,7 @@
 :root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover *,
 :root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover a {
   color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
 }
 :root.wpb-solid-mode .wpb-blur-compose img { opacity: 0 !important; }
 :root.wpb-solid-mode .wpb-blur-compose:hover img { opacity: 1 !important; }
