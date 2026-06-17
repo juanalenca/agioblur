@@ -12,6 +12,7 @@
       "js": [
         "content/constants.js",
         "content/state.js",
+        "content/pii.js",
         "content/dom.js",
         "content/main.js"
       ],

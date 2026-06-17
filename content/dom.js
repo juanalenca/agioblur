@@ -2,7 +2,7 @@
  * @fileoverview Lógica de manipulação de DOM e MutationObserver.
  */
 
-/* global WPB_CONSTANTS, WPB_STATE */
+/* global WPB_CONSTANTS, WPB_STATE, WPB_PII */
 /* exported WPB_DOM */
 'use strict';
 
@@ -164,6 +164,10 @@ const WPB_DOM = (function() {
           }
         }
       }
+    }
+
+    if (typeof WPB_PII !== 'undefined') {
+      WPB_PII.scan(root);
     }
   }
 

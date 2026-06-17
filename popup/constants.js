@@ -13,6 +13,11 @@ const POPUP_CONSTANTS = {
     messages: 'toggle-messages',
     media: 'toggle-media',
     compose: 'toggle-compose',
+    piiCpf: 'toggle-pii-cpf',
+    piiEmail: 'toggle-pii-email',
+    piiCard: 'toggle-pii-card',
+    piiPhone: 'toggle-pii-phone',
+    piiPix: 'toggle-pii-pix'
   },
 
   DEFAULTS_CATEGORIES: {
@@ -21,6 +26,11 @@ const POPUP_CONSTANTS = {
     messages: true,
     media: true,
     compose: true,
+    piiCpf: false,
+    piiEmail: false,
+    piiCard: false,
+    piiPhone: false,
+    piiPix: false
   },
 
   DEFAULTS_SETTINGS: {
