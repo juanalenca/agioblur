@@ -7,7 +7,7 @@
 'use strict';
 
 // eslint-disable-next-line no-unused-vars
-const WPB_PII = (function() {
+window.WPB_PII = (function() {
   const originalTextMap = new WeakMap();
   let hoverListenerAdded = false;
 
@@ -61,7 +61,16 @@ const WPB_PII = (function() {
     while ((node = walker.nextNode())) {
       if (originalTextMap.has(node)) {
         const original = originalTextMap.get(node);
-        node.nodeValue = maskString(original, regex);
+        const cleanOriginal = original.replace(/[\u200B-\u200D\uFEFF\u200E\u200F\u202A-\u202E]/g, '');
+        
+        regex.lastIndex = 0;
+        const masked = maskString(cleanOriginal, regex);
+        if (masked !== cleanOriginal) {
+          node.nodeValue = masked;
+        } else {
+          regex.lastIndex = 0;
+          node.nodeValue = maskString(original, regex);
+        }
       }
     }
   }
@@ -80,39 +89,31 @@ const WPB_PII = (function() {
     ensureListeners();
 
     // Filtra elementos que não devem ser scaneados
-    const filter = {
-      acceptNode: function(node) {
-        const parent = node.parentElement;
-        if (!parent) return NodeFilter.FILTER_SKIP;
-        
-        // Ignora scripts, styles, etc
-        const tag = parent.tagName;
-        if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT') return NodeFilter.FILTER_REJECT;
-        
-        // Se a mensagem já está com blur genérico ligado, não precisa aplicar PII!
-        // Wait, o CSS do blur genérico aplica blur na caixa inteira.
-        // Se a caixa inteira está borrada, o PII ainda pode rodar, não tem problema.
-
-        return NodeFilter.FILTER_ACCEPT;
-      }
-    };
-
-    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, filter, false);
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
     const nodesToUpdate = [];
     
     let node;
     while ((node = walker.nextNode())) {
+      const parent = node.parentElement;
+      if (!parent) continue;
+      
+      const tag = parent.tagName;
+      if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT') continue;
+
       const text = originalTextMap.has(node) ? originalTextMap.get(node) : node.nodeValue;
       if (!text || text.trim().length === 0) continue;
 
+      // WhatsApp Web inserts directionality marks (LRM, RLM, etc) which break regexes!
+      const cleanText = text.replace(/[\u200B-\u200D\uFEFF\u200E\u200F\u202A-\u202E]/g, '');
+
       regex.lastIndex = 0; // reset regex state
-      if (regex.test(text)) {
-        nodesToUpdate.push({ node, text });
+      if (regex.test(cleanText) || regex.test(text)) {
+        nodesToUpdate.push({ node, text, cleanText });
       }
     }
 
     // Aplica as mudanças
-    for (const { node, text } of nodesToUpdate) {
+    for (const { node, text, cleanText } of nodesToUpdate) {
       if (!originalTextMap.has(node)) {
         originalTextMap.set(node, text);
       }
@@ -125,7 +126,15 @@ const WPB_PII = (function() {
         // Se não estiver em hover, aplica a máscara
         if (!parent.matches(':hover')) {
           regex.lastIndex = 0;
-          node.nodeValue = maskString(text, regex);
+          // Se o text original tem caracteres invisíveis que quebram o replace, usamos o cleanText!
+          const masked = maskString(cleanText, regex);
+          if (masked !== cleanText) {
+             node.nodeValue = masked;
+          } else {
+             // Fallback se não conseguir substituir exatamente
+             regex.lastIndex = 0;
+             node.nodeValue = maskString(text, regex);
+          }
         }
       }
     }

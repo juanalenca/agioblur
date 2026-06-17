@@ -101,9 +101,6 @@ async function handleUnlock() {
 }
 
 async function handleResetPin() {
-  const isUnlocked = POPUP_STATE.getIsUnlocked();
-  if (!isUnlocked) return;
-  
   const currentSettings = POPUP_STATE.getSettings();
   const newSettings = { ...currentSettings, savedPin: '' };
   
@@ -111,12 +108,9 @@ async function handleResetPin() {
   POPUP_STATE.setIsUnlocked(false);
   POPUP_UI.applyLockState();
 
-  
   chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
     tabs.forEach((tab) => {
-      
       chrome.tabs.sendMessage(tab.id, { action: 'relock' }, () => {
-        
         if (chrome.runtime.lastError) { /* ignore */ }
       });
     });
@@ -133,29 +127,21 @@ async function handleResetPinFromOverlay() {
     POPUP_STATE.setIsUnlocked(false);
     POPUP_UI.applyLockState();
     
-    
     chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
       tabs.forEach((tab) => {
-        
         chrome.tabs.sendMessage(tab.id, { action: 'relock' }, () => {
-          
           if (chrome.runtime.lastError) { /* ignore */ }
         });
       });
     });
   } else {
-    
     alert('Para remover o PIN bloqueado, digite o PIN correto no campo e clique em Remover PIN.');
   }
 }
 
 async function handleRelock() {
-  const isUnlocked = POPUP_STATE.getIsUnlocked();
-  if (!isUnlocked) return;
-  
   POPUP_STATE.setIsUnlocked(false);
   POPUP_UI.applyLockState();
-  
   
   chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
     tabs.forEach((tab) => {

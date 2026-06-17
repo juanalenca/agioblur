@@ -131,9 +131,12 @@
   color: transparent !important;
   -webkit-text-fill-color: transparent !important;
 }
-:root.wpb-solid-mode .wpb-blur-name img { opacity: 0 !important; }
-:root.wpb-solid-mode .wpb-blur-name:hover img { opacity: 1 !important; }
-:root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover img { opacity: 0 !important; }
+:root.wpb-solid-mode .wpb-blur-name img,
+:root.wpb-solid-mode .wpb-blur-name span.emoji { opacity: 0 !important; }
+:root.wpb-solid-mode .wpb-blur-name:hover img,
+:root.wpb-solid-mode .wpb-blur-name:hover span.emoji { opacity: 1 !important; }
+:root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover img,
+:root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover span.emoji { opacity: 0 !important; }
 
 :root.wpb-solid-mode .wpb-blur-msg {
   filter: none !important;
@@ -165,9 +168,12 @@
   color: transparent !important;
   -webkit-text-fill-color: transparent !important;
 }
-:root.wpb-solid-mode .wpb-blur-msg img { opacity: 0 !important; }
-:root.wpb-solid-mode .wpb-blur-msg:hover img { opacity: 1 !important; }
-:root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover img { opacity: 0 !important; }
+:root.wpb-solid-mode .wpb-blur-msg img,
+:root.wpb-solid-mode .wpb-blur-msg span.emoji { opacity: 0 !important; }
+:root.wpb-solid-mode .wpb-blur-msg:hover img,
+:root.wpb-solid-mode .wpb-blur-msg:hover span.emoji { opacity: 1 !important; }
+:root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover img,
+:root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover span.emoji { opacity: 0 !important; }
 
 :root.wpb-solid-mode .wpb-blur-media {
   filter: none !important;
@@ -212,9 +218,12 @@
   color: transparent !important;
   -webkit-text-fill-color: transparent !important;
 }
-:root.wpb-solid-mode .wpb-blur-compose img { opacity: 0 !important; }
-:root.wpb-solid-mode .wpb-blur-compose:hover img { opacity: 1 !important; }
-:root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover img { opacity: 0 !important; }
+:root.wpb-solid-mode .wpb-blur-compose img,
+:root.wpb-solid-mode .wpb-blur-compose span.emoji { opacity: 0 !important; }
+:root.wpb-solid-mode .wpb-blur-compose:hover img,
+:root.wpb-solid-mode .wpb-blur-compose:hover span.emoji { opacity: 1 !important; }
+:root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover img,
+:root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover span.emoji { opacity: 0 !important; }
 
 /* ==========================================================================
    Modo Fake Data
@@ -238,7 +247,9 @@
   text-shadow: none !important;
 }
 .wpb-fake-data.wpb-blur-name img,
-.wpb-fake-data.wpb-blur-msg img {
+.wpb-fake-data.wpb-blur-msg img,
+.wpb-fake-data.wpb-blur-name span.emoji,
+.wpb-fake-data.wpb-blur-msg span.emoji {
   opacity: 0 !important;
 }
 
