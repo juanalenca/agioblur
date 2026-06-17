@@ -81,7 +81,10 @@ const WPB_CONSTANTS = {
         '[title="Mensagem"]',
         '[title="Digite uma mensagem"]'
       ],
-    },
+    }
+  },
+
+  PII_CATEGORIES: {
     piiCpf: { defaultEnabled: false },
     piiEmail: { defaultEnabled: false },
     piiCard: { defaultEnabled: false },

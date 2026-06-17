@@ -2,7 +2,7 @@
  * @fileoverview Ponto de entrada do Content Script e listeners de mensagens.
  */
 
-/* global WPB_CONSTANTS, WPB_STATE, WPB_DOM */
+/* global WPB_CONSTANTS, WPB_STATE, WPB_DOM, WPB_PII */
 'use strict';
 
 /**
@@ -64,6 +64,9 @@ function listenForStorageChanges() {
       for (const [key, config] of Object.entries(WPB_CONSTANTS.CATEGORIES)) {
         defaults[key] = config.defaultEnabled;
       }
+      for (const [key, config] of Object.entries(WPB_CONSTANTS.PII_CATEGORIES)) {
+        defaults[key] = config.defaultEnabled;
+      }
       const incoming = { ...defaults, ...newState };
 
       const currentSettings = WPB_STATE.getSettings();
@@ -80,12 +83,23 @@ function listenForStorageChanges() {
       }
 
       WPB_STATE.setCategoryState(incoming);
+      let piiChanged = false;
+      for (const key of Object.keys(WPB_CONSTANTS.PII_CATEGORIES)) {
+        const wasActive = oldState[key];
+        const isActive = incoming[key];
+        if (wasActive !== isActive) piiChanged = true;
+      }
 
       for (const key of Object.keys(WPB_CONSTANTS.CATEGORIES)) {
         const wasActive = oldState[key];
         const isActive = incoming[key];
         if (wasActive && !isActive) WPB_DOM.clearCategory(key);
         else if (!wasActive && isActive) WPB_DOM.scanAndApply(document);
+      }
+
+      if (piiChanged && typeof WPB_PII !== 'undefined') {
+        WPB_PII.restore(document.body);
+        WPB_PII.scan(document.body);
       }
     }
   });
