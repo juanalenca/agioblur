@@ -15,11 +15,11 @@ const WPB_CONSTANTS = {
       cssClass: 'wpb-blur-photo',
       defaultEnabled: true,
       selectors: [
-        '#pane-side img[draggable="false"]',
-        '[role="listitem"] img[draggable="false"]',
-        '[role="row"] img[draggable="false"]',
+        '#pane-side img',
+        '[role="listitem"] img',
+        '[role="row"] img',
         '[data-testid="cell-frame-container"] img',
-        'header img[draggable="false"]',
+        'header img',
         '[data-testid="chat-info-drawer"] img',
       ],
     },
@@ -91,5 +91,8 @@ const WPB_CONSTANTS = {
     '[role="main"]',
     '[data-testid="conversation-panel-body"]',
     '[role="application"]',
+    '#main',
+    '#app',
+    '.app-wrapper-web'
   ]
 };

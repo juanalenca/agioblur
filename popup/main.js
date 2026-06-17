@@ -194,7 +194,7 @@ function attachListeners() {
   POPUP_UI.elements.btnRemovePinOverlay.addEventListener('click', handleResetPinFromOverlay);
 
   // Active UI actions
-  POPUP_UI.elements.btnResetPin.addEventListener('click', handleResetPin);
+  POPUP_UI.elements.btnRemovePin.addEventListener('click', handleResetPin);
   POPUP_UI.elements.btnRelock.addEventListener('click', handleRelock);
 }
 

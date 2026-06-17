@@ -239,16 +239,10 @@ const WPB_DOM = (function() {
     return found;
   }
 
-  function startPolling(intervalMs = 500, maxAttempts = 120) {
-    let attempts = 0;
+  function startPolling(intervalMs = 2000) {
     if (pollIntervalId) clearInterval(pollIntervalId);
     pollIntervalId = setInterval(() => {
-      attempts++;
       findAndObserveContainers();
-      if (observedContainers.size >= 2 || attempts >= maxAttempts) {
-        clearInterval(pollIntervalId);
-        pollIntervalId = null;
-      }
     }, intervalMs);
   }
 

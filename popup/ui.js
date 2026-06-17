@@ -62,12 +62,14 @@ const POPUP_UI = (function() {
 
     // Se estiver bloqueado, mostra o overlay gigante na frente de tudo
     if (locked) {
+      document.body.style.overflow = 'hidden';
       elements.overlay.classList.add('active');
       elements.pinSetupContainer.style.display = 'none';
       elements.pinActiveContainer.style.display = 'none';
       
       elements.inputPinOverlay.value = '';
     } else {
+      document.body.style.overflow = '';
       elements.overlay.classList.remove('active');
       
       if (hasPin) {
