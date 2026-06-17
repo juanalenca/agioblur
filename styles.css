@@ -128,6 +128,9 @@
 :root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover a {
   color: transparent !important;
 }
+:root.wpb-solid-mode .wpb-blur-name img { opacity: 0 !important; }
+:root.wpb-solid-mode .wpb-blur-name:hover img { opacity: 1 !important; }
+:root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover img { opacity: 0 !important; }
 
 :root.wpb-solid-mode .wpb-blur-msg {
   filter: none !important;
@@ -156,6 +159,9 @@
 :root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover a {
   color: transparent !important;
 }
+:root.wpb-solid-mode .wpb-blur-msg img { opacity: 0 !important; }
+:root.wpb-solid-mode .wpb-blur-msg:hover img { opacity: 1 !important; }
+:root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover img { opacity: 0 !important; }
 
 :root.wpb-solid-mode .wpb-blur-media {
   filter: none !important;
@@ -197,6 +203,9 @@
 :root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover a {
   color: transparent !important;
 }
+:root.wpb-solid-mode .wpb-blur-compose img { opacity: 0 !important; }
+:root.wpb-solid-mode .wpb-blur-compose:hover img { opacity: 1 !important; }
+:root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover img { opacity: 0 !important; }
 
 /* ==========================================================================
    Modo Fake Data
@@ -218,6 +227,10 @@
   color: transparent !important;
   -webkit-text-fill-color: transparent !important;
   text-shadow: none !important;
+}
+.wpb-fake-data.wpb-blur-name img,
+.wpb-fake-data.wpb-blur-msg img {
+  opacity: 0 !important;
 }
 
 :root.wpb-solid-mode .wpb-fake-data.wpb-blur-name,
