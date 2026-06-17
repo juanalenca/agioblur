@@ -45,51 +45,58 @@ async function setAll(value) {
   await POPUP_STORAGE.saveState(state);
 }
 
-async function handlePinAction() {
+async function handleSavePin() {
   const pin = POPUP_UI.elements.inputPin.value.trim();
+  if (!pin) return;
+  if (pin.length < 3) {
+    
+    alert('O PIN deve ter pelo menos 3 caracteres.');
+    return;
+  }
+  const currentSettings = POPUP_STATE.getSettings();
+  const newSettings = { ...currentSettings, savedPin: pin };
+  await POPUP_STORAGE.saveSettings(newSettings);
+  POPUP_UI.elements.inputPin.value = '';
+  POPUP_STATE.setIsUnlocked(false);
+  POPUP_UI.applyLockState();
+  
+  
+  chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
+    tabs.forEach((tab) => {
+      
+      chrome.tabs.sendMessage(tab.id, { action: 'relock' }, () => {
+        
+        if (chrome.runtime.lastError) { /* ignore */ }
+      });
+    });
+  });
+}
+
+async function handleUnlock() {
+  const pin = POPUP_UI.elements.inputPinOverlay.value.trim();
   if (!pin) return;
 
   const currentSettings = POPUP_STATE.getSettings();
-  const isUnlocked = POPUP_STATE.getIsUnlocked();
-
-  if (!currentSettings.savedPin) {
-    if (pin.length < 3) {
-      alert('O PIN deve ter pelo menos 3 caracteres.');
-      return;
-    }
-    const newSettings = { ...currentSettings, savedPin: pin };
-    await POPUP_STORAGE.saveSettings(newSettings);
-    POPUP_UI.elements.inputPin.value = '';
-    POPUP_STATE.setIsUnlocked(false);
+  
+  if (pin === currentSettings.savedPin) {
+    POPUP_STATE.setIsUnlocked(true);
+    POPUP_UI.elements.inputPinOverlay.value = '';
     POPUP_UI.applyLockState();
+
     
     chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
       tabs.forEach((tab) => {
-        chrome.tabs.sendMessage(tab.id, { action: 'relock' }, () => {
+        
+        chrome.tabs.sendMessage(tab.id, { action: 'unlock', duration: 5 * 60 * 1000 }, () => {
+          
           if (chrome.runtime.lastError) { /* ignore */ }
         });
       });
     });
-    return;
-  }
-
-  if (!isUnlocked) {
-    if (pin === currentSettings.savedPin) {
-      POPUP_STATE.setIsUnlocked(true);
-      POPUP_UI.elements.inputPin.value = '';
-      POPUP_UI.applyLockState();
-
-      chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
-        tabs.forEach((tab) => {
-          chrome.tabs.sendMessage(tab.id, { action: 'unlock', duration: 5 * 60 * 1000 }, () => {
-            if (chrome.runtime.lastError) { /* tab fechada, ok */ }
-          });
-        });
-      });
-    } else {
-      alert('PIN incorreto!');
-      POPUP_UI.elements.inputPin.value = '';
-    }
+  } else {
+    
+    alert('PIN incorreto!');
+    POPUP_UI.elements.inputPinOverlay.value = '';
   }
 }
 
@@ -104,13 +111,42 @@ async function handleResetPin() {
   POPUP_STATE.setIsUnlocked(false);
   POPUP_UI.applyLockState();
 
+  
   chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
     tabs.forEach((tab) => {
+      
       chrome.tabs.sendMessage(tab.id, { action: 'relock' }, () => {
-        if (chrome.runtime.lastError) { /* ignore se aba fechada */ }
+        
+        if (chrome.runtime.lastError) { /* ignore */ }
       });
     });
   });
+}
+
+async function handleResetPinFromOverlay() {
+  const pin = POPUP_UI.elements.inputPinOverlay.value.trim();
+  const currentSettings = POPUP_STATE.getSettings();
+  
+  if (pin === currentSettings.savedPin) {
+    const newSettings = { ...currentSettings, savedPin: '' };
+    await POPUP_STORAGE.saveSettings(newSettings);
+    POPUP_STATE.setIsUnlocked(false);
+    POPUP_UI.applyLockState();
+    
+    
+    chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
+      tabs.forEach((tab) => {
+        
+        chrome.tabs.sendMessage(tab.id, { action: 'relock' }, () => {
+          
+          if (chrome.runtime.lastError) { /* ignore */ }
+        });
+      });
+    });
+  } else {
+    
+    alert('Para remover o PIN bloqueado, digite o PIN correto no campo e clique em Remover PIN.');
+  }
 }
 
 async function handleRelock() {
@@ -120,10 +156,13 @@ async function handleRelock() {
   POPUP_STATE.setIsUnlocked(false);
   POPUP_UI.applyLockState();
   
+  
   chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
     tabs.forEach((tab) => {
+      
       chrome.tabs.sendMessage(tab.id, { action: 'relock' }, () => {
-        if (chrome.runtime.lastError) { /* ignore se aba fechada */ }
+        
+        if (chrome.runtime.lastError) { /* ignore */ }
       });
     });
   });
@@ -141,10 +180,20 @@ function attachListeners() {
   POPUP_UI.elements.toggleSolid.addEventListener('change', onSettingsChange);
   POPUP_UI.elements.toggleFakeData.addEventListener('change', onSettingsChange);
 
-  POPUP_UI.elements.btnPinAction.addEventListener('click', handlePinAction);
+  // Setup PIN
+  POPUP_UI.elements.btnSavePin.addEventListener('click', handleSavePin);
   POPUP_UI.elements.inputPin.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') handlePinAction();
+    if (e.key === 'Enter') handleSavePin();
   });
+  
+  // Overlay actions
+  POPUP_UI.elements.btnPinOverlay.addEventListener('click', handleUnlock);
+  POPUP_UI.elements.inputPinOverlay.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') handleUnlock();
+  });
+  POPUP_UI.elements.btnRemovePinOverlay.addEventListener('click', handleResetPinFromOverlay);
+
+  // Active UI actions
   POPUP_UI.elements.btnResetPin.addEventListener('click', handleResetPin);
   POPUP_UI.elements.btnRelock.addEventListener('click', handleRelock);
 }

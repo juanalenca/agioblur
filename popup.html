@@ -5,770 +5,187 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WhatsApp Privacy Blur</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-      width: 340px;
-      background: #0b141a;
-      color: #e0e0e0;
-      overflow-x: hidden;
-    }
-
-    /* ── Banner topo ── */
-    .popup-banner {
-      background: linear-gradient(135deg, #005c4b 0%, #00a884 100%);
-      padding: 18px 20px 14px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .popup-banner::before {
-      content: '';
-      position: absolute;
-      top: -20px;
-      right: -20px;
-      width: 80px;
-      height: 80px;
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 50%;
-    }
-
-    .popup-banner::after {
-      content: '';
-      position: absolute;
-      bottom: -30px;
-      left: 40px;
-      width: 60px;
-      height: 60px;
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 50%;
-    }
-
-    .banner-content {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .banner-icon {
-      width: 54px;
-      height: 54px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .banner-icon svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .banner-text h1 {
-      font-size: 15px;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: -0.2px;
-    }
-
-    .banner-text p {
-      font-size: 10px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-top: 1px;
-    }
-
-    /* ── Container principal ── */
-    .popup-body {
-      padding: 14px 16px 16px;
-    }
-
-    /* ── Seções ── */
-    .section {
-      margin-bottom: 14px;
-    }
-
-    .section:last-child {
-      margin-bottom: 0;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-
-    .section-icon {
-      font-size: 11px;
-    }
-
-    .section-title {
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #8696a0;
-    }
-
-    /* ── Card container ── */
-    .card {
-      background: #1b2b33;
-      border: 1px solid #233a44;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    /* ── Category rows ── */
-    .cat-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 14px;
-      transition: background 0.15s ease;
-    }
-
-    .cat-row:not(:last-child) {
-      border-bottom: 1px solid rgba(35, 58, 68, 0.5);
-    }
-
-    .cat-row:hover {
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .cat-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .cat-emoji {
-      font-size: 15px;
-      width: 20px;
-      text-align: center;
-      line-height: 1;
-    }
-
-    .cat-label {
-      font-size: 13px;
-      font-weight: 500;
-      color: #d1d7db;
-    }
-
-    /* ── Toggle switch ── */
-    .toggle {
-      position: relative;
-      width: 36px;
-      height: 20px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .toggle input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .toggle-track {
-      position: absolute;
-      inset: 0;
-      background: #3b4a54;
-      border-radius: 10px;
-      transition: background 0.2s ease;
-    }
-
-    .toggle-track::before {
-      content: '';
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      left: 2px;
-      top: 2px;
-      background: #8696a0;
-      border-radius: 50%;
-      transition: transform 0.2s ease, background 0.2s ease;
-    }
-
-    .toggle input:checked+.toggle-track {
-      background: #00a884;
-    }
-
-    .toggle input:checked+.toggle-track::before {
-      transform: translateX(16px);
-      background: #fff;
-    }
-
-    .toggle input:disabled+.toggle-track {
-      opacity: 0.35;
-      cursor: not-allowed;
-    }
-
-    /* ── Quick action buttons ── */
-    .quick-row {
-      display: flex;
-      gap: 6px;
-      margin-top: 8px;
-    }
-
-    .btn {
-      flex: 1;
-      padding: 7px 0;
-      border: 1px solid #233a44;
-      border-radius: 8px;
-      background: #1b2b33;
-      color: #8696a0;
-      font-family: inherit;
-      font-size: 11px;
-      font-weight: 600;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.15s ease;
-    }
-
-    .btn:hover {
-      background: #22333d;
-      color: #d1d7db;
-      border-color: #00a884;
-    }
-
-    .btn:active {
-      transform: scale(0.97);
-    }
-
-    .btn:disabled {
-      opacity: 0.35;
-      pointer-events: none;
-    }
-
-    /* ── Slider ── */
-    .slider-row {
-      padding: 10px 14px;
-    }
-
-    .slider-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-
-    .slider-label {
-      font-size: 12px;
-      color: #d1d7db;
-      font-weight: 500;
-    }
-
-    .slider-value {
-      font-size: 11px;
-      color: #00a884;
-      font-weight: 700;
-      background: rgba(0, 168, 132, 0.1);
-      padding: 2px 8px;
-      border-radius: 6px;
-    }
-
-    .range {
-      -webkit-appearance: none;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, #00a884 0%, #3b4a54 0%);
-      border-radius: 2px;
-      outline: none;
-    }
-
-    .range::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: #00a884;
-      cursor: pointer;
-      border: 2px solid #0b141a;
-      box-shadow: 0 0 6px rgba(0, 168, 132, 0.4);
-    }
-
-    .range:disabled {
-      opacity: 0.35;
-    }
-
-    /* ── Checkbox row (inline em card) ── */
-    .check-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 14px;
-      cursor: pointer;
-      transition: background 0.15s;
-    }
-
-    .check-row:not(:last-child) {
-      border-bottom: 1px solid rgba(35, 58, 68, 0.5);
-    }
-
-    .check-row:hover {
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .check-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .check-emoji {
-      font-size: 14px;
-    }
-
-    .check-text {
-      font-size: 12px;
-      font-weight: 500;
-      color: #d1d7db;
-    }
-
-    .check-desc {
-      font-size: 10px;
-      color: #8696a0;
-      margin-top: 1px;
-    }
-
-    .checkbox-box {
-      width: 18px;
-      height: 18px;
-      border: 2px solid #3b4a54;
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: all 0.2s;
-    }
-
-    .check-row input {
-      display: none;
-    }
-
-    .check-row input:checked~.checkbox-box {
-      background: #00a884;
-      border-color: #00a884;
-    }
-
-    .check-row input:checked~.checkbox-box::after {
-      content: '✓';
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .check-row input:disabled~.checkbox-box {
-      opacity: 0.35;
-    }
-
-    .check-row input:disabled~.check-info {
-      opacity: 0.35;
-    }
-
-    /* ── PIN / Lock section ── */
-    .lock-card {
-      background: #1b2b33;
-      border: 1px solid #233a44;
-      border-radius: 10px;
-      padding: 12px 14px;
-    }
-
-    .lock-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-
-    .lock-emoji {
-      font-size: 16px;
-    }
-
-    .lock-title {
-      font-size: 12px;
-      font-weight: 600;
-      color: #d1d7db;
-    }
-
-    .lock-desc {
-      font-size: 10px;
-      color: #8696a0;
-      margin-bottom: 10px;
-      line-height: 1.4;
-    }
-
-    .lock-form {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .input-pin {
-      width: 100%;
-      padding: 9px 12px;
-      background: #111b21;
-      border: 1px solid #3b4a54;
-      border-radius: 8px;
-      color: #e0e0e0;
-      font-family: inherit;
-      font-size: 12px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .input-pin:focus {
-      border-color: #00a884;
-    }
-
-    .btn-lock {
-      width: 100%;
-      padding: 9px 14px;
-      border: none;
-      border-radius: 8px;
-      font-family: inherit;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s;
-      white-space: nowrap;
-    }
-
-    .btn-lock.primary {
-      background: #00a884;
-      color: #fff;
-    }
-
-    .btn-lock.primary:hover {
-      background: #00c49a;
-    }
-
-    .btn-lock.danger {
-      background: transparent;
-      color: #e74c3c;
-      border: 1px solid rgba(231, 76, 60, 0.3);
-      margin-top: 2px;
-    }
-
-    .btn-lock.danger:hover {
-      background: rgba(231, 76, 60, 0.1);
-    }
-
-    .btn-lock:active {
-      transform: scale(0.97);
-    }
-
-    .btn-lock:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .btn-lock.secondary {
-      background: transparent;
-      color: #00a884;
-      border: 1px solid rgba(0, 168, 132, 0.3);
-      flex: 1;
-    }
-
-    .btn-lock.secondary:hover {
-      background: rgba(0, 168, 132, 0.1);
-    }
-
-    .lock-actions-row {
-      display: flex;
-      gap: 6px;
-      width: 100%;
-      margin-top: 2px;
-    }
-
-    .btn-lock.danger {
-      flex: 1;
-      margin-top: 0;
-    }
-
-    .lock-status {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 10px;
-      padding-top: 10px;
-      border-top: 1px solid rgba(35, 58, 68, 0.5);
-    }
-
-    .lock-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 3px 10px;
-      border-radius: 6px;
-      font-size: 10px;
-      font-weight: 600;
-    }
-
-    .lock-badge.locked {
-      background: rgba(231, 76, 60, 0.15);
-      color: #e74c3c;
-    }
-
-    .lock-badge.unlocked {
-      background: rgba(0, 168, 132, 0.15);
-      color: #00a884;
-    }
-
-    /* ── Status bar ── */
-    .status-bar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 8px;
-      margin-top: 14px;
-      background: rgba(0, 168, 132, 0.06);
-      border-radius: 8px;
-    }
-
-    .status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #3b4a54;
-      transition: background 0.25s;
-    }
-
-    .status-dot.active {
-      background: #00a884;
-      box-shadow: 0 0 6px rgba(0, 168, 132, 0.5);
-    }
-
-    .status-label {
-      font-size: 11px;
-      color: #8696a0;
-      font-weight: 500;
-    }
-
-    /* ── Footer ── */
-    .popup-footer {
-      text-align: center;
-      font-size: 9px;
-      color: #3b4a54;
-      padding: 10px 0 4px;
-    }
-
-    /* ── Overlay de bloqueio ── */
-    .locked-overlay {
-      display: none;
-      position: absolute;
-      inset: 0;
-      background: rgba(11, 20, 26, 0.85);
-      backdrop-filter: blur(4px);
-      z-index: 10;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 30px;
-      border-radius: 10px;
-    }
-
-    .locked-overlay.visible {
-      display: flex;
-    }
-
-    .locked-overlay .lock-big-icon {
-      font-size: 32px;
-    }
-
-    .locked-overlay .lock-big-text {
-      font-size: 12px;
-      color: #8696a0;
-      text-align: center;
-      line-height: 1.5;
-    }
-
-    .section.lockable {
-      position: relative;
-    }
-  </style>
+  <link rel="stylesheet" href="popup/styles.css">
 </head>
 
 <body>
+  <!-- Overlay (PIN / Desbloqueio) -->
+  <div id="overlay" class="overlay">
+    <div class="overlay-content">
+      <div class="overlay-icon">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+      </div>
+      <h2>Acesso Restrito</h2>
+      <p>Sessão protegida por PIN.</p>
+      
+      <div id="lock-state" style="margin-bottom: 20px; display: none;">
+        <span class="status-badge" id="lock-status-badge">Bloqueado</span>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="input-pin-overlay" placeholder="Digite seu PIN" autocomplete="off" />
+        <button id="btn-pin-overlay" class="btn-primary">OK</button>
+      </div>
+      <button id="btn-remove-pin-overlay" class="btn" style="margin-top:12px; border-color:var(--danger); color:var(--danger); width:100%;">Remover PIN</button>
+    </div>
+  </div>
+
   <!-- Banner -->
   <div class="popup-banner">
     <div class="banner-content">
-      <div class="banner-icon" style="background: transparent;">
-        <img src="icons/icon48.png" alt="Logo"
-          style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px;">
+      <div class="banner-icon">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+        </svg>
       </div>
       <div class="banner-text">
         <h1>AgioBlur</h1>
-        <p>Proteção visual para WhatsApp Web</p>
+        <p>WhatsApp Privacy Shield</p>
       </div>
     </div>
   </div>
 
   <div class="popup-body">
-
-    <!-- ═══ Categorias ═══ -->
-    <div class="section lockable" id="section-categories">
+    
+    <!-- Módulos de Privacidade -->
+    <div class="section">
       <div class="section-header">
-        <span class="section-icon">🛡️</span>
-        <span class="section-title">Categorias de Proteção</span>
+        <span class="section-title">Proteção de Conteúdo</span>
       </div>
-      <div class="card" id="card-categories">
+      
+      <div class="card">
         <div class="cat-row">
           <div class="cat-info">
             <span class="cat-emoji">🖼️</span>
-            <span class="cat-label">Fotos de perfil</span>
+            <span class="cat-label">Fotos de Perfil</span>
           </div>
           <label class="toggle">
-            <input type="checkbox" id="toggle-photos" checked>
+            <input type="checkbox" id="toggle-photos">
             <span class="toggle-track"></span>
           </label>
         </div>
+
         <div class="cat-row">
           <div class="cat-info">
             <span class="cat-emoji">👤</span>
-            <span class="cat-label">Nomes / Números</span>
+            <span class="cat-label">Nomes e Números</span>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-names">
             <span class="toggle-track"></span>
           </label>
         </div>
+
         <div class="cat-row">
           <div class="cat-info">
             <span class="cat-emoji">💬</span>
-            <span class="cat-label">Mensagens</span>
+            <span class="cat-label">Mensagens de Texto</span>
           </div>
           <label class="toggle">
-            <input type="checkbox" id="toggle-messages" checked>
+            <input type="checkbox" id="toggle-messages">
             <span class="toggle-track"></span>
           </label>
         </div>
+
         <div class="cat-row">
           <div class="cat-info">
-            <span class="cat-emoji">📷</span>
-            <span class="cat-label">Mídias (fotos/vídeos)</span>
+            <span class="cat-emoji">📸</span>
+            <span class="cat-label">Mídias Recebidas</span>
           </div>
           <label class="toggle">
-            <input type="checkbox" id="toggle-media" checked>
+            <input type="checkbox" id="toggle-media">
             <span class="toggle-track"></span>
           </label>
         </div>
+
         <div class="cat-row">
           <div class="cat-info">
-            <span class="cat-emoji">✍️</span>
-            <span class="cat-label">Campo de digitação</span>
+            <span class="cat-emoji">⌨️</span>
+            <span class="cat-label">O que estou digitando</span>
           </div>
           <label class="toggle">
-            <input type="checkbox" id="toggle-compose" checked>
+            <input type="checkbox" id="toggle-compose">
             <span class="toggle-track"></span>
           </label>
         </div>
       </div>
+      
       <div class="quick-row">
-        <button class="btn" id="btn-all-on">Ativar tudo</button>
-        <button class="btn" id="btn-all-off">Desativar tudo</button>
-      </div>
-
-      <!-- Overlay que bloqueia quando PIN está ativo -->
-      <div class="locked-overlay" id="overlay-categories">
-        <span class="lock-big-icon">🔒</span>
-        <span class="lock-big-text">Bloqueado por PIN.<br>Desbloqueie abaixo para alterar.</span>
+        <button id="btn-all-on" class="btn">Ativar Tudo</button>
+        <button id="btn-all-off" class="btn">Desativar Tudo</button>
       </div>
     </div>
 
-    <!-- ═══ Modo de Ocultação ═══ -->
-    <div class="section lockable" id="section-mode">
-      <div class="section-header">
-        <span class="section-icon">🎨</span>
-        <span class="section-title">Modo de Ocultação</span>
-      </div>
-      <div class="card">
-        <div class="slider-row">
-          <div class="slider-top">
-            <span class="slider-label">Intensidade do desfoque</span>
-            <span class="slider-value" id="blur-value-label">8px</span>
-          </div>
-          <input type="range" id="slider-blur" min="2" max="20" value="8" class="range">
-        </div>
-        <label class="check-row" for="toggle-solid">
-          <input type="checkbox" id="toggle-solid">
-          <div class="check-info">
-            <span class="check-emoji">⬛</span>
-            <div>
-              <div class="check-text">Tarja Preta Sólida</div>
-              <div class="check-desc">Substitui o desfoque por blocos pretos</div>
-            </div>
-          </div>
-          <span class="checkbox-box"></span>
-        </label>
-        <label class="check-row" for="toggle-fakedata">
-          <input type="checkbox" id="toggle-fakedata">
-          <div class="check-info">
-            <span class="check-emoji">🎭</span>
-            <div>
-              <div class="check-text">Modo Fake Data</div>
-              <div class="check-desc">Nomes e mensagens falsos para aparência natural</div>
-            </div>
-          </div>
-          <span class="checkbox-box"></span>
-        </label>
-      </div>
-
-      <!-- Overlay que bloqueia quando PIN está ativo -->
-      <div class="locked-overlay" id="overlay-mode">
-        <span class="lock-big-icon">🔒</span>
-        <span class="lock-big-text">Bloqueado por PIN.<br>Desbloqueie abaixo para alterar.</span>
-      </div>
-    </div>
-
-    <!-- ═══ Bloqueio por PIN ═══ -->
+    <!-- Filtros Avançados -->
     <div class="section">
       <div class="section-header">
-        <span class="section-icon">🔐</span>
-        <span class="section-title">Bloqueio por PIN</span>
+        <span class="section-title">Modos Especiais</span>
       </div>
-      <div class="lock-card">
-        <div class="lock-desc" id="lock-description">
-          Defina um PIN para impedir que terceiros desativem a proteção ou leiam conteúdos ao passar o mouse.
+      
+      <div class="card">
+        <div class="cat-row">
+          <div class="cat-info">
+            <span class="cat-emoji">⬛</span>
+            <span class="cat-label">Censura Sólida</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="toggle-solid">
+            <span class="toggle-track"></span>
+          </label>
         </div>
-        <div class="lock-form">
-          <input type="password" id="input-pin" placeholder="Definir novo PIN..." class="input-pin">
-          <button class="btn-lock primary" id="btn-pin-action">Salvar PIN</button>
-          <div class="lock-actions-row" id="lock-actions-row" style="display: none;">
-            <button class="btn-lock secondary" id="btn-relock">Bloquear Agora</button>
-            <button class="btn-lock danger" id="btn-reset-pin">Remover PIN</button>
+
+        <div class="cat-row">
+          <div class="cat-info">
+            <span class="cat-emoji">🎭</span>
+            <span class="cat-label">Modo Fake Data</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="toggle-fake-data">
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        
+        <div class="range-container">
+          <div class="range-header">
+            <span>Intensidade do Desfoque</span>
+            <span class="range-val" id="blur-val">8px</span>
+          </div>
+          <input type="range" id="slider-blur" min="2" max="20" value="8">
+        </div>
+      </div>
+    </div>
+
+    <!-- PIN e Segurança -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-title">Segurança</span>
+      </div>
+      
+      <div class="card" id="pin-settings">
+        <!-- Container principal de PIN (exibido quando não há PIN salvo) -->
+        <div id="pin-setup-container">
+          <p>Defina um PIN para impedir que desativem a proteção ou leiam com o hover.</p>
+          <div class="input-group">
+            <input type="password" id="input-pin" placeholder="Criar novo PIN..." autocomplete="off">
+            <button id="btn-save-pin" class="btn-primary">Salvar PIN</button>
           </div>
         </div>
-        <div class="lock-status" id="lock-status">
-          <span class="lock-badge unlocked" id="lock-badge">Sem PIN</span>
+
+        <!-- Container de controle ativo (exibido quando há PIN salvo) -->
+        <div id="pin-active-container" style="display: none;">
+          <p style="color:var(--accent); font-weight:500;">Sessão desbloqueada temporariamente.</p>
+          <div class="quick-row">
+            <button id="btn-relock" class="btn" style="border-color:var(--accent); color:var(--accent);">Bloquear Agora</button>
+            <button id="btn-remove-pin" class="btn" style="border-color:var(--danger); color:var(--danger);">Remover PIN</button>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- ═══ Status ═══ -->
-    <div class="status-bar">
-      <span class="status-dot active" id="status-dot"></span>
-      <span class="status-label" id="status-label">Proteção parcial ativa</span>
-    </div>
-
-    <div class="popup-footer">
-      WhatsApp Privacy Blur v2.1
-    </div>
   </div>
 
   <script src="popup/constants.js"></script>
