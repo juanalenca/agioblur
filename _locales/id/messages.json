@@ -10,6 +10,7 @@
   "labelCompose": { "message": "Kotak tulis" },
   
   "titleLgpdFilters": { "message": "Filter Pintar (PII)" },
+  "descLgpdFilters": { "message": "Mengaburkan data rahasia di dalam teks. Arahkan kursor untuk mengungkapkan." },
   "labelCpf": { "message": "ID Nasional" },
   "labelEmail": { "message": "E-mail" },
   "labelCard": { "message": "Kartu Kredit" },

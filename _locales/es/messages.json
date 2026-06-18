@@ -10,6 +10,7 @@
   "labelCompose": { "message": "Caja de escritura" },
   
   "titleLgpdFilters": { "message": "Filtros Inteligentes (PII)" },
+  "descLgpdFilters": { "message": "Desenfoca datos confidenciales en el texto. Pase el ratón para revelar." },
   "labelCpf": { "message": "Documentos (IDs)" },
   "labelEmail": { "message": "Correos electrónicos" },
   "labelCard": { "message": "Tarjetas de Crédito" },

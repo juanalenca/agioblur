@@ -10,6 +10,7 @@
   "labelCompose": { "message": "Campo de digitação" },
   
   "titleLgpdFilters": { "message": "Filtros Inteligentes (LGPD)" },
+  "descLgpdFilters": { "message": "Desfoca dados confidenciais no meio de textos. Passe o mouse para revelar." },
   "labelCpf": { "message": "CPFs / CNPJs" },
   "labelEmail": { "message": "E-mails" },
   "labelCard": { "message": "Cartões de Crédito" },

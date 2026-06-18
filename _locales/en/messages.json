@@ -10,6 +10,7 @@
   "labelCompose": { "message": "Compose box" },
   
   "titleLgpdFilters": { "message": "Smart Filters (PII/LGPD)" },
+  "descLgpdFilters": { "message": "Blurs confidential data inside texts. Hover to reveal." },
   "labelCpf": { "message": "National IDs" },
   "labelEmail": { "message": "E-mails" },
   "labelCard": { "message": "Credit Cards" },

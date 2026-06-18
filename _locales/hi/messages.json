@@ -10,6 +10,7 @@
   "labelCompose": { "message": "संदेश बॉक्स" },
   
   "titleLgpdFilters": { "message": "स्मार्ट फ़िल्टर (PII)" },
+  "descLgpdFilters": { "message": "टेक्स्ट के अंदर गोपनीय डेटा को धुंधला करता है। देखने के लिए माउस घुमाएँ।" },
   "labelCpf": { "message": "राष्ट्रीय आईडी" },
   "labelEmail": { "message": "ईमेल" },
   "labelCard": { "message": "क्रेडिट कार्ड" },
