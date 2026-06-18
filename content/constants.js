@@ -77,9 +77,7 @@ const WPB_CONSTANTS = {
       defaultEnabled: true,
       selectors: [
         '[data-testid="conversation-compose-box-input"]',
-        '#main footer [contenteditable="true"]',
-        '[title="Mensagem"]',
-        '[title="Digite uma mensagem"]'
+        '#main footer [contenteditable="true"]'
       ],
     }
   },
@@ -95,7 +93,7 @@ const WPB_CONSTANTS = {
   PII_PATTERNS: {
     piiCpf: /\b(?:\d{3}[\s.-]?\d{3}[\s.-]?\d{3}[\s.-]?\d{2}|\d{2}[\s.-]?\d{3}[\s.-]?\d{3}[\s.-]?\/?\d{4}[\s.-]?\d{2})\b/g,
     piiEmail: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g,
-    piiCard: /\b(?:\d[ -]*?){13,16}\b/g,
+    piiCard: /\b(?:\d{4}[ -]?){3}\d{4}\b|\b\d{4}[ -]?\d{6}[ -]?\d{5}\b/g,
     piiPhone: /\b(?:\+?55\s?)?(?:\(?0?[1-9]{2}\)?\s?)?(?:9[\s-]?\d{4}[\s-]?\d{4}|\d{4}[\s-]?\d{4})\b/g,
     piiPix: /\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b/g
   },

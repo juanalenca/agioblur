@@ -1,6 +1,6 @@
 Add-Type -AssemblyName System.Drawing
 
-$sourcePath = "c:\Users\juan.alencar\projetos\navegador-extensao\logo-extensao.png"
+$sourcePath = ".\logo-extensao.png"
 $sourceImg = [System.Drawing.Bitmap]::FromFile($sourcePath)
 
 $width = $sourceImg.Width
@@ -41,8 +41,12 @@ $maxDim = [Math]::Max($cropWidth, $cropHeight)
 $offsetX = [int](($maxDim - $cropWidth) / 2)
 $offsetY = [int](($maxDim - $cropHeight) / 2)
 
-foreach ($size in @(16, 48, 128)) {
-    $destPath = "c:\Users\juan.alencar\projetos\navegador-extensao\icons\icon$size.png"
+if (-not (Test-Path ".\icons")) {
+    New-Item -ItemType Directory -Path ".\icons" | Out-Null
+}
+
+foreach ($size in @(16, 32, 48, 128)) {
+    $destPath = ".\icons\icon$size.png"
     $bmp = New-Object System.Drawing.Bitmap($size, $size)
     $graph = [System.Drawing.Graphics]::FromImage($bmp)
     $graph.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic

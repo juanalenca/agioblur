@@ -5,13 +5,20 @@
 /* global POPUP_CONSTANTS, POPUP_STATE, POPUP_UI, POPUP_STORAGE */
 'use strict';
 
+async function hashPin(pin) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(pin);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 async function onToggleChange() {
   const settings = POPUP_STATE.getSettings();
   const unlocked = POPUP_STATE.getIsUnlocked();
   if (settings.savedPin && !unlocked) return;
 
   const state = POPUP_UI.readUIState();
-  POPUP_UI.updateStatus(state);
   await POPUP_STORAGE.saveState(state);
 }
 
@@ -28,7 +35,6 @@ async function onSettingsChange() {
   };
   
   POPUP_UI.elements.blurLabel.textContent = newSettings.blurIntensity + 'px';
-  POPUP_UI.updateSliderGradient();
   await POPUP_STORAGE.saveSettings(newSettings);
 }
 
@@ -41,7 +47,6 @@ async function setAll(value) {
     POPUP_UI.getToggle(key).checked = value;
   }
   const state = POPUP_UI.readUIState();
-  POPUP_UI.updateStatus(state);
   await POPUP_STORAGE.saveState(state);
 }
 
@@ -53,8 +58,9 @@ async function handleSavePin() {
     alert('O PIN deve ter pelo menos 3 caracteres.');
     return;
   }
+  const hashedPin = await hashPin(pin);
   const currentSettings = POPUP_STATE.getSettings();
-  const newSettings = { ...currentSettings, savedPin: pin };
+  const newSettings = { ...currentSettings, savedPin: hashedPin };
   await POPUP_STORAGE.saveSettings(newSettings);
   POPUP_UI.elements.inputPin.value = '';
   POPUP_STATE.setIsUnlocked(false);
@@ -77,8 +83,9 @@ async function handleUnlock() {
   if (!pin) return;
 
   const currentSettings = POPUP_STATE.getSettings();
+  const hashedPin = await hashPin(pin);
   
-  if (pin === currentSettings.savedPin) {
+  if (hashedPin === currentSettings.savedPin) {
     POPUP_STATE.setIsUnlocked(true);
     POPUP_UI.elements.inputPinOverlay.value = '';
     POPUP_UI.applyLockState();
@@ -120,8 +127,9 @@ async function handleResetPin() {
 async function handleResetPinFromOverlay() {
   const pin = POPUP_UI.elements.inputPinOverlay.value.trim();
   const currentSettings = POPUP_STATE.getSettings();
+  const hashedPin = await hashPin(pin);
   
-  if (pin === currentSettings.savedPin) {
+  if (hashedPin === currentSettings.savedPin) {
     const newSettings = { ...currentSettings, savedPin: '' };
     await POPUP_STORAGE.saveSettings(newSettings);
     POPUP_STATE.setIsUnlocked(false);

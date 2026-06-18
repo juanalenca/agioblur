@@ -30,7 +30,6 @@ const POPUP_STORAGE = (function() {
           const toggle = POPUP_UI.getToggle(key);
           if (toggle) toggle.checked = checked;
         }
-        POPUP_UI.updateStatus(state);
 
         const savedSettings = result[POPUP_CONSTANTS.SETTINGS_KEY];
         const currentSettings = savedSettings ? { ...POPUP_CONSTANTS.DEFAULTS_SETTINGS, ...savedSettings } : { ...POPUP_CONSTANTS.DEFAULTS_SETTINGS };
@@ -40,7 +39,6 @@ const POPUP_STORAGE = (function() {
         POPUP_UI.elements.blurLabel.textContent = currentSettings.blurIntensity + 'px';
         POPUP_UI.elements.toggleSolid.checked = currentSettings.solidMode;
         POPUP_UI.elements.toggleFakeData.checked = currentSettings.fakeData;
-        POPUP_UI.updateSliderGradient();
 
         POPUP_STATE.setIsUnlocked(false);
         POPUP_UI.applyLockState();

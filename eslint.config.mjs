@@ -9,7 +9,7 @@ export default [
   {
     languageOptions: {
       ecmaVersion: 2022,
-      sourceType: "module",
+      sourceType: "script",
       globals: {
         ...globals.browser,
         chrome: "readonly"

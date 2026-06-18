@@ -45,13 +45,7 @@ const POPUP_UI = (function() {
     return state;
   }
 
-  function updateSliderGradient() {
-    // Redesign simplificado para range input
-  }
 
-  function updateStatus() {
-    // Status simplificado removido no redesign
-  }
 
   function applyLockState() {
     const currentSettings = POPUP_STATE.getSettings();
@@ -89,8 +83,6 @@ const POPUP_UI = (function() {
     elements,
     getToggle,
     readUIState,
-    updateSliderGradient,
-    updateStatus,
     applyLockState
   };
 })();
