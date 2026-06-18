@@ -8,6 +8,8 @@
   "labelMessages": { "message": "Mensagens da lista" },
   "labelMedia": { "message": "Miniaturas de mídia" },
   "labelCompose": { "message": "Campo de digitação" },
+  "btnAllOn": { "message": "Ativar Tudo" },
+  "btnAllOff": { "message": "Desativar Tudo" },
   
   "titleLgpdFilters": { "message": "Filtros Inteligentes (LGPD)" },
   "descLgpdFilters": { "message": "Desfoca dados confidenciais no meio de textos. Passe o mouse para revelar." },

@@ -6,8 +6,10 @@
   "labelPhotos": { "message": "Fotos de perfil" },
   "labelNames": { "message": "Nombres / Números" },
   "labelMessages": { "message": "Mensajes de la lista" },
-  "labelMedia": { "message": "Miniaturas de medios" },
-  "labelCompose": { "message": "Caja de escritura" },
+  "labelMedia": { "message": "Miniaturas de multimedia" },
+  "labelCompose": { "message": "Área de mensaje" },
+  "btnAllOn": { "message": "Activar todo" },
+  "btnAllOff": { "message": "Desactivar todo" },
   
   "titleLgpdFilters": { "message": "Filtros Inteligentes (PII)" },
   "descLgpdFilters": { "message": "Desenfoca datos confidenciales en el texto. Pase el ratón para revelar." },

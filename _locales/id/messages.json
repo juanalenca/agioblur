@@ -5,17 +5,19 @@
   "titleContentProtection": { "message": "Perlindungan Konten" },
   "labelPhotos": { "message": "Foto profil" },
   "labelNames": { "message": "Nama / Nomor" },
-  "labelMessages": { "message": "Pesan daftar" },
+  "labelMessages": { "message": "Daftar pesan" },
   "labelMedia": { "message": "Gambar mini media" },
-  "labelCompose": { "message": "Kotak tulis" },
+  "labelCompose": { "message": "Kolom input" },
+  "btnAllOn": { "message": "Aktifkan Semua" },
+  "btnAllOff": { "message": "Nonaktifkan Semua" },
   
   "titleLgpdFilters": { "message": "Filter Pintar (PII)" },
-  "descLgpdFilters": { "message": "Mengaburkan data rahasia di dalam teks. Arahkan kursor untuk mengungkapkan." },
+  "descLgpdFilters": { "message": "Mengaburkan data rahasia di dalam teks. Arahkan kursor untuk melihat." },
   "labelCpf": { "message": "ID Nasional" },
   "labelEmail": { "message": "E-mail" },
   "labelCard": { "message": "Kartu Kredit" },
   "labelPhone": { "message": "Nomor telepon" },
-  "labelPix": { "message": "Kunci Bank" },
+  "labelPix": { "message": "Kredensial Bank" },
   
   "titleCustomization": { "message": "Kustomisasi" },
   "labelIntensity": { "message": "Intensitas" },
@@ -25,7 +27,7 @@
   "descFakeData": { "message": "Mengganti teks asli dengan data palsu yang dibuat." },
   
   "titleSecurity": { "message": "Keamanan" },
-  "descSecurity": { "message": "PIN mengunci pengaturan dan mencegah hover-to-reveal." },
+  "descSecurity": { "message": "PIN mengunci pengaturan dan mencegah terlihatnya data saat kursor diarahkan." },
   "placeholderPin": { "message": "Masukkan PIN..." },
   "btnSavePin": { "message": "Simpan PIN" },
   

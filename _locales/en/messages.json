@@ -8,6 +8,8 @@
   "labelMessages": { "message": "List messages" },
   "labelMedia": { "message": "Media thumbnails" },
   "labelCompose": { "message": "Compose box" },
+  "btnAllOn": { "message": "Enable All" },
+  "btnAllOff": { "message": "Disable All" },
   
   "titleLgpdFilters": { "message": "Smart Filters (PII/LGPD)" },
   "descLgpdFilters": { "message": "Blurs confidential data inside texts. Hover to reveal." },
