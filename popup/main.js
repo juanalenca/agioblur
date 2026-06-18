@@ -54,8 +54,7 @@ async function handleSavePin() {
   const pin = POPUP_UI.elements.inputPin.value.trim();
   if (!pin) return;
   if (pin.length < 3) {
-    
-    alert('O PIN deve ter pelo menos 3 caracteres.');
+    alert(chrome.i18n.getMessage('alertPinLength'));
     return;
   }
   const hashedPin = await hashPin(pin);
@@ -101,8 +100,7 @@ async function handleUnlock() {
       });
     });
   } else {
-    
-    alert('PIN incorreto!');
+    alert(chrome.i18n.getMessage('alertPinIncorrect'));
     POPUP_UI.elements.inputPinOverlay.value = '';
   }
 }
@@ -143,7 +141,7 @@ async function handleResetPinFromOverlay() {
       });
     });
   } else {
-    alert('Para remover o PIN bloqueado, digite o PIN correto no campo e clique em Remover PIN.');
+    alert(chrome.i18n.getMessage('alertPinRemoveLock'));
   }
 }
 
@@ -193,5 +191,6 @@ function attachListeners() {
 }
 
 // Inicializar
+POPUP_UI.localizeUI();
 attachListeners();
 POPUP_STORAGE.loadAndSync();

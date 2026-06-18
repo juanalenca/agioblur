@@ -1,0 +1,44 @@
+{
+  "extName": { "message": "AgioBlur | Privasi WhatsApp Web" },
+  "extDescription": { "message": "Mengaburkan info rahasia di WhatsApp Web. Perlindungan layar dan filter data dari pengintip." },
+  
+  "titleContentProtection": { "message": "Perlindungan Konten" },
+  "labelPhotos": { "message": "Foto profil" },
+  "labelNames": { "message": "Nama / Nomor" },
+  "labelMessages": { "message": "Pesan daftar" },
+  "labelMedia": { "message": "Gambar mini media" },
+  "labelCompose": { "message": "Kotak tulis" },
+  
+  "titleLgpdFilters": { "message": "Filter Pintar (PII)" },
+  "labelCpf": { "message": "ID Nasional" },
+  "labelEmail": { "message": "E-mail" },
+  "labelCard": { "message": "Kartu Kredit" },
+  "labelPhone": { "message": "Nomor telepon" },
+  "labelPix": { "message": "Kunci Bank" },
+  
+  "titleCustomization": { "message": "Kustomisasi" },
+  "labelIntensity": { "message": "Intensitas" },
+  "labelSolidMode": { "message": "Sensor Solid" },
+  "descSolidMode": { "message": "Menggunakan bilah hitam solid sebagai ganti blur." },
+  "labelFakeData": { "message": "Data Palsu" },
+  "descFakeData": { "message": "Mengganti teks asli dengan data palsu yang dibuat." },
+  
+  "titleSecurity": { "message": "Keamanan" },
+  "descSecurity": { "message": "PIN mengunci pengaturan dan mencegah hover-to-reveal." },
+  "placeholderPin": { "message": "Masukkan PIN..." },
+  "btnSavePin": { "message": "Simpan PIN" },
+  
+  "textPinActive": { "message": "Sesi dilindungi oleh PIN." },
+  "btnRemovePin": { "message": "Hapus PIN" },
+  "btnRelock": { "message": "Kunci Sekarang" },
+  
+  "overlayTitle": { "message": "Ekstensi Terkunci" },
+  "overlayDesc": { "message": "Sesi Anda telah berakhir. Masukkan PIN untuk mengakses pengaturan dan membaca." },
+  "btnUnlock": { "message": "Buka Kunci" },
+  
+  "alertPinLength": { "message": "PIN harus memiliki minimal 3 karakter." },
+  "alertPinIncorrect": { "message": "PIN salah!" },
+  "alertPinRemoveLock": { "message": "Untuk menghapus PIN yang terkunci, masukkan PIN yang benar di bidang dan klik Hapus PIN." },
+  
+  "fakeNamesList": { "message": "Klien,Pemasok,Kontak VIP,Budi,Siti,Agus,Dewi,Hendra" }
+}

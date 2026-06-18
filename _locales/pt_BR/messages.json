@@ -1,0 +1,44 @@
+{
+  "extName": { "message": "AgioBlur | Privacidade para WhatsApp Web" },
+  "extDescription": { "message": "Borra informações confidenciais no WhatsApp Web. Proteção de tela e filtros LGPD contra curiosos." },
+  
+  "titleContentProtection": { "message": "Proteção de Conteúdo" },
+  "labelPhotos": { "message": "Fotos de perfil" },
+  "labelNames": { "message": "Nomes / Números" },
+  "labelMessages": { "message": "Mensagens da lista" },
+  "labelMedia": { "message": "Miniaturas de mídia" },
+  "labelCompose": { "message": "Campo de digitação" },
+  
+  "titleLgpdFilters": { "message": "Filtros Inteligentes (LGPD)" },
+  "labelCpf": { "message": "CPFs / CNPJs" },
+  "labelEmail": { "message": "E-mails" },
+  "labelCard": { "message": "Cartões de Crédito" },
+  "labelPhone": { "message": "Telefones" },
+  "labelPix": { "message": "Chaves Pix" },
+  
+  "titleCustomization": { "message": "Personalização" },
+  "labelIntensity": { "message": "Intensidade" },
+  "labelSolidMode": { "message": "Censura Sólida" },
+  "descSolidMode": { "message": "Usa tarja preta sólida em vez de desfoque suave." },
+  "labelFakeData": { "message": "Fake Data" },
+  "descFakeData": { "message": "Substitui textos reais por dados falsos gerados." },
+  
+  "titleSecurity": { "message": "Segurança" },
+  "descSecurity": { "message": "Um PIN bloqueia configurações e impede que o mouse revele o que está censurado." },
+  "placeholderPin": { "message": "Digite o PIN..." },
+  "btnSavePin": { "message": "Salvar PIN" },
+  
+  "textPinActive": { "message": "Sessão protegida por PIN." },
+  "btnRemovePin": { "message": "Remover PIN" },
+  "btnRelock": { "message": "Bloquear Agora" },
+  
+  "overlayTitle": { "message": "Extensão Bloqueada" },
+  "overlayDesc": { "message": "Sua sessão de segurança expirou. Digite seu PIN para acessar as configurações e liberar a leitura." },
+  "btnUnlock": { "message": "Desbloquear" },
+  
+  "alertPinLength": { "message": "O PIN deve ter pelo menos 3 caracteres." },
+  "alertPinIncorrect": { "message": "PIN incorreto!" },
+  "alertPinRemoveLock": { "message": "Para remover o PIN bloqueado, digite o PIN correto no campo e clique em Remover PIN." },
+  
+  "fakeNamesList": { "message": "Cliente,Fornecedor,Contato VIP,João,Maria,Pedro,Ana,Carlos" }
+}

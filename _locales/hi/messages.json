@@ -1,0 +1,44 @@
+{
+  "extName": { "message": "AgioBlur | WhatsApp Web गोपनीयता" },
+  "extDescription": { "message": "WhatsApp Web पर गोपनीय जानकारी को धुंधला करता है। स्क्रीन सुरक्षा और डेटा फ़िल्टर।" },
+  
+  "titleContentProtection": { "message": "सामग्री सुरक्षा" },
+  "labelPhotos": { "message": "प्रोफ़ाइल फ़ोटो" },
+  "labelNames": { "message": "नाम / नंबर" },
+  "labelMessages": { "message": "सूची संदेश" },
+  "labelMedia": { "message": "मीडिया थंबनेल" },
+  "labelCompose": { "message": "संदेश बॉक्स" },
+  
+  "titleLgpdFilters": { "message": "स्मार्ट फ़िल्टर (PII)" },
+  "labelCpf": { "message": "राष्ट्रीय आईडी" },
+  "labelEmail": { "message": "ईमेल" },
+  "labelCard": { "message": "क्रेडिट कार्ड" },
+  "labelPhone": { "message": "फ़ोन नंबर" },
+  "labelPix": { "message": "बैंक कुंजी" },
+  
+  "titleCustomization": { "message": "अनुकूलन" },
+  "labelIntensity": { "message": "तीव्रता" },
+  "labelSolidMode": { "message": "ठोस सेंसर" },
+  "descSolidMode": { "message": "नरम धुंधलापन के बजाय एक ठोस काली पट्टी का उपयोग करता है।" },
+  "labelFakeData": { "message": "फ़ेक डेटा" },
+  "descFakeData": { "message": "असली टेक्स्ट को नकली डेटा से बदलता है।" },
+  
+  "titleSecurity": { "message": "सुरक्षा" },
+  "descSecurity": { "message": "पिन सेटिंग्स को लॉक करता है और माउस घुमाने पर देखने से रोकता है।" },
+  "placeholderPin": { "message": "पिन दर्ज करें..." },
+  "btnSavePin": { "message": "पिन सहेजें" },
+  
+  "textPinActive": { "message": "सत्र पिन द्वारा सुरक्षित है।" },
+  "btnRemovePin": { "message": "पिन हटाएं" },
+  "btnRelock": { "message": "अभी लॉक करें" },
+  
+  "overlayTitle": { "message": "एक्सटेंशन लॉक है" },
+  "overlayDesc": { "message": "आपका सुरक्षा सत्र समाप्त हो गया। सेटिंग्स तक पहुंचने और पढ़ने के लिए पिन दर्ज करें।" },
+  "btnUnlock": { "message": "अनलॉक करें" },
+  
+  "alertPinLength": { "message": "पिन कम से कम 3 वर्णों का होना चाहिए।" },
+  "alertPinIncorrect": { "message": "गलत पिन!" },
+  "alertPinRemoveLock": { "message": "लॉक पिन हटाने के लिए, सही पिन दर्ज करें और पिन हटाएं पर क्लिक करें।" },
+  
+  "fakeNamesList": { "message": "ग्राहक,आपूर्तिकर्ता,वीआईपी संपर्क,राहुल,प्रिया,अमित,नेहा,रोहित" }
+}

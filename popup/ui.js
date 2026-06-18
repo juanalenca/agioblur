@@ -79,10 +79,25 @@ const POPUP_UI = (function() {
     }
   }
 
+  function localizeUI() {
+    const elementsWithI18n = document.querySelectorAll('[data-i18n]');
+    elementsWithI18n.forEach(el => {
+      const msg = chrome.i18n.getMessage(el.getAttribute('data-i18n'));
+      if (msg) el.textContent = msg;
+    });
+
+    const elementsWithPlaceholder = document.querySelectorAll('[data-i18n-placeholder]');
+    elementsWithPlaceholder.forEach(el => {
+      const msg = chrome.i18n.getMessage(el.getAttribute('data-i18n-placeholder'));
+      if (msg) el.placeholder = msg;
+    });
+  }
+
   return {
     elements,
     getToggle,
     readUIState,
-    applyLockState
+    applyLockState,
+    localizeUI
   };
 })();

@@ -22,7 +22,11 @@ const WPB_DOM = (function() {
   function getFakeName(text) {
     if (!text) return 'Contato Desconhecido';
     const hash = Array.from(text).reduce((s, c) => Math.imul(31, s) + c.charCodeAt(0) | 0, 0);
-    const names = ['Cliente', 'Fornecedor', 'Contato VIP', 'Alice', 'Bob', 'Suporte', 'Vendas', 'RH', 'Financeiro'];
+    let names = ['Cliente', 'Fornecedor', 'Contato VIP', 'Alice', 'Bob', 'Suporte', 'Vendas', 'RH', 'Financeiro'];
+    if (typeof chrome !== 'undefined' && chrome.i18n) {
+      const i18nNames = chrome.i18n.getMessage('fakeNamesList');
+      if (i18nNames) names = i18nNames.split(',');
+    }
     return names[Math.abs(hash) % names.length] + ' ' + (Math.abs(hash) % 100);
   }
 

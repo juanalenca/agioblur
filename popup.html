@@ -15,18 +15,18 @@
       <div class="overlay-icon">
         <img src="icons/icon128.png" alt="AgioBlur Lock" style="width: 100%; height: 100%; object-fit: contain;" />
       </div>
-      <h2>Acesso Restrito</h2>
-      <p>Sessão protegida por PIN.</p>
+      <h2 data-i18n="overlayTitle">Acesso Restrito</h2>
+      <p data-i18n="overlayDesc">Sessão protegida por PIN.</p>
       
       <div id="lock-state" style="margin-bottom: 20px; display: none;">
         <span class="status-badge" id="lock-status-badge">Bloqueado</span>
       </div>
 
       <div class="input-group">
-        <input type="password" id="input-pin-overlay" placeholder="Digite seu PIN" autocomplete="off" />
-        <button id="btn-pin-overlay" class="btn-primary">OK</button>
+        <input type="password" id="input-pin-overlay" data-i18n-placeholder="placeholderPin" placeholder="Digite seu PIN" autocomplete="off" />
+        <button id="btn-pin-overlay" class="btn-primary" data-i18n="btnUnlock">OK</button>
       </div>
-      <button id="btn-remove-pin-overlay" class="btn" style="margin-top:12px; border-color:var(--danger); color:var(--danger); width:100%;">Remover PIN</button>
+      <button id="btn-remove-pin-overlay" class="btn" style="margin-top:12px; border-color:var(--danger); color:var(--danger); width:100%;" data-i18n="btnRemovePin">Remover PIN</button>
     </div>
   </div>
 
@@ -37,7 +37,7 @@
         <img src="icons/icon128.png" alt="AgioBlur Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit;" />
       </div>
       <div class="banner-text">
-        <h1>AgioBlur</h1>
+        <h1 data-i18n="extName">AgioBlur</h1>
         <p>WhatsApp Privacy Shield</p>
       </div>
     </div>
@@ -48,14 +48,14 @@
     <!-- Módulos de Privacidade -->
     <div class="section">
       <div class="section-header">
-        <span class="section-title">Proteção de Conteúdo</span>
+        <span class="section-title" data-i18n="titleContentProtection">Proteção de Conteúdo</span>
       </div>
       
       <div class="card">
         <div class="cat-row">
           <div class="cat-info">
             <span class="cat-emoji">🖼️</span>
-            <span class="cat-label">Fotos de Perfil</span>
+            <span class="cat-label" data-i18n="labelPhotos">Fotos de Perfil</span>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-photos">
@@ -66,7 +66,7 @@
         <div class="cat-row">
           <div class="cat-info">
             <span class="cat-emoji">👤</span>
-            <span class="cat-label">Nomes e Números</span>
+            <span class="cat-label" data-i18n="labelNames">Nomes e Números</span>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-names">
@@ -77,7 +77,7 @@
         <div class="cat-row">
           <div class="cat-info">
             <span class="cat-emoji">💬</span>
-            <span class="cat-label">Mensagens de Texto</span>
+            <span class="cat-label" data-i18n="labelMessages">Mensagens de Texto</span>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-messages">
@@ -88,7 +88,7 @@
         <div class="cat-row">
           <div class="cat-info">
             <span class="cat-emoji">📸</span>
-            <span class="cat-label">Mídias Recebidas</span>
+            <span class="cat-label" data-i18n="labelMedia">Mídias Recebidas</span>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-media">
@@ -99,7 +99,7 @@
         <div class="cat-row">
           <div class="cat-info">
             <span class="cat-emoji">⌨️</span>
-            <span class="cat-label">O que estou digitando</span>
+            <span class="cat-label" data-i18n="labelCompose">O que estou digitando</span>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-compose">
@@ -117,7 +117,7 @@
     <!-- Filtros LGPD / PII -->
     <div class="section">
       <div class="section-header">
-        <span class="section-title">Filtros Inteligentes (LGPD)</span>
+        <span class="section-title" data-i18n="titleLgpdFilters">Filtros Inteligentes (LGPD)</span>
       </div>
       
       <div class="card">
@@ -128,7 +128,7 @@
         <div class="cat-row">
           <div class="cat-info">
             <span class="cat-emoji">🪪</span>
-            <span class="cat-label">CPF e CNPJ</span>
+            <span class="cat-label" data-i18n="labelCpf">CPF e CNPJ</span>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-pii-cpf">
@@ -139,7 +139,7 @@
         <div class="cat-row">
           <div class="cat-info">
             <span class="cat-emoji">💳</span>
-            <span class="cat-label">Cartão de Crédito</span>
+            <span class="cat-label" data-i18n="labelCard">Cartão de Crédito</span>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-pii-card">
@@ -150,7 +150,7 @@
         <div class="cat-row">
           <div class="cat-info">
             <span class="cat-emoji">✉️</span>
-            <span class="cat-label">E-mails</span>
+            <span class="cat-label" data-i18n="labelEmail">E-mails</span>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-pii-email">
@@ -161,7 +161,7 @@
         <div class="cat-row">
           <div class="cat-info">
             <span class="cat-emoji">📞</span>
-            <span class="cat-label">Telefones</span>
+            <span class="cat-label" data-i18n="labelPhone">Telefones</span>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-pii-phone">
@@ -172,7 +172,7 @@
         <div class="cat-row">
           <div class="cat-info">
             <span class="cat-emoji">🪙</span>
-            <span class="cat-label">Chaves Pix</span>
+            <span class="cat-label" data-i18n="labelPix">Chaves Pix</span>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-pii-pix">
@@ -185,14 +185,14 @@
     <!-- Filtros Avançados -->
     <div class="section">
       <div class="section-header">
-        <span class="section-title">Modos Especiais</span>
+        <span class="section-title" data-i18n="titleCustomization">Modos Especiais</span>
       </div>
       
       <div class="card">
         <div class="cat-row">
           <div class="cat-info">
             <span class="cat-emoji">⬛</span>
-            <span class="cat-label">Censura Sólida</span>
+            <span class="cat-label" data-i18n="labelSolidMode">Censura Sólida</span>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-solid">
@@ -203,7 +203,7 @@
         <div class="cat-row">
           <div class="cat-info">
             <span class="cat-emoji">🎭</span>
-            <span class="cat-label">Modo Fake Data</span>
+            <span class="cat-label" data-i18n="labelFakeData">Modo Fake Data</span>
           </div>
           <label class="toggle">
             <input type="checkbox" id="toggle-fake-data">
@@ -213,7 +213,7 @@
         
         <div class="range-container">
           <div class="range-header">
-            <span>Intensidade do Desfoque</span>
+            <span data-i18n="labelIntensity">Intensidade do Desfoque</span>
             <span class="range-val" id="blur-val">8px</span>
           </div>
           <input type="range" id="slider-blur" min="2" max="20" value="8">
@@ -224,25 +224,25 @@
     <!-- PIN e Segurança -->
     <div class="section">
       <div class="section-header">
-        <span class="section-title">Segurança</span>
+        <span class="section-title" data-i18n="titleSecurity">Segurança</span>
       </div>
       
       <div class="card" id="pin-settings">
         <!-- Container principal de PIN (exibido quando não há PIN salvo) -->
         <div id="pin-setup-container">
-          <p>Defina um PIN para impedir que desativem a proteção ou leiam com o hover.</p>
+          <p data-i18n="descSecurity">Defina um PIN para impedir que desativem a proteção ou leiam com o hover.</p>
           <div class="input-group">
-            <input type="password" id="input-pin" placeholder="Criar novo PIN..." autocomplete="off">
-            <button id="btn-save-pin" class="btn-primary">Salvar PIN</button>
+            <input type="password" id="input-pin" data-i18n-placeholder="placeholderPin" placeholder="Criar novo PIN..." autocomplete="off">
+            <button id="btn-save-pin" class="btn-primary" data-i18n="btnSavePin">Salvar PIN</button>
           </div>
         </div>
 
         <!-- Container de controle ativo (exibido quando há PIN salvo) -->
         <div id="pin-active-container" style="display: none;">
-          <p style="color:var(--accent); font-weight:500;">Sessão desbloqueada temporariamente.</p>
+          <p style="color:var(--accent); font-weight:500;" data-i18n="textPinActive">Sessão desbloqueada temporariamente.</p>
           <div class="quick-row">
-            <button id="btn-relock" class="btn" style="border-color:var(--accent); color:var(--accent);">Bloquear Agora</button>
-            <button id="btn-remove-pin" class="btn" style="border-color:var(--danger); color:var(--danger);">Remover PIN</button>
+            <button id="btn-relock" class="btn" style="border-color:var(--accent); color:var(--accent);" data-i18n="btnRelock">Bloquear Agora</button>
+            <button id="btn-remove-pin" class="btn" style="border-color:var(--danger); color:var(--danger);" data-i18n="btnRemovePin">Remover PIN</button>
           </div>
         </div>
       </div>
