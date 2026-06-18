@@ -83,6 +83,8 @@ Este projeto utiliza **GitHub Actions** para automação de processos, asseguran
 
 ---
 
-## 📜 Licença
+## Licença
 
-Este projeto é *Open Source* e está distribuído formalmente sob os termos da **Licença MIT** ([Veja o arquivo LICENSE completo](LICENSE)). Isso significa que você pode baixar, modificar, vender e distribuir o código da forma que quiser, livremente.
+Este projeto está sob a licença **PolyForm Noncommercial 1.0.0**. O código fonte está disponível para fins de estudo, testes e contribuições. O uso comercial, redistribuição paga ou cópias com fins lucrativos são estritamente proibidos.
+
+Essa configuração garante a segurança jurídica necessária para prosseguir com o desenvolvimento dos módulos Premium (como o Modo Fake Data e Bloqueio por PIN) sem o risco de clonagem comercial desautorizada.
