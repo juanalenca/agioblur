@@ -15,10 +15,11 @@ O foco central desta ferramenta é garantir a privacidade física contra *should
 ## 🚀 Funcionalidades
 
 - **Controle Granular por Categoria:** Escolha o que você deseja censurar (Fotos, Nomes, Mensagens, Mídias, Campo de Texto).
+- **Filtros Inteligentes (PII / LGPD):** Ocultação cirúrgica e automática de CPFs, E-mails, Cartões de Crédito, Telefones e Chaves Pix misturados no meio dos textos.
+- **Suporte Global (i18n):** Tradução nativa adaptável para 5 idiomas (Português, Inglês, Espanhol, Hindi e Indonésio).
 - **Tarja Preta (Solid Mode):** Substitua o efeito de *blur* clássico por uma tarja preta sólida para ocultação absoluta.
-- **Modo Fake Data:** Mascare nomes de contatos e textos de mensagens substituindo-os por nomes aleatórios e Lorem Ipsum dinamicamente.
-- **Segurança por PIN:** Defina uma senha para impedir que terceiros desativem a extensão ou usem o *hover* do mouse para ler as mensagens.
-- **Desbloqueio Temporário:** Insira o PIN para desbloquear a visualização por 5 minutos sem comprometer as configurações globais.
+- **Modo Fake Data:** Mascare nomes de contatos e textos de mensagens substituindo-os por nomes aleatórios de acordo com a cultura local (ex: João, John, Juan, Budi, राहुल).
+- **Segurança Criptografada:** Defina uma senha (criptografada em SHA-256) para impedir que terceiros desativem a extensão ou usem o *hover* do mouse para ler as mensagens.
 
 ---
 
@@ -55,8 +56,11 @@ O WhatsApp Web renderiza dezenas de mensagens por segundo ao rolar o histórico 
 
 ### 4. Controle de Privacidade com PIN e Hover Lock
 
-Para a funcionalidade de Bloqueio por Senha, foi necessário impedir que um espião apagasse as regras CSS no DevTools. A solução consistiu em amarrar a classe pai `.wpb-locked` diretamente no `<body>`. 
-Quando o PIN está ativo, o *hover* do CSS (`:hover`) é desligado via especificidade no `styles.css`. Caso o usuário desbloqueie, um temporizador encapsulado (via `chrome.runtime.onMessage`) libera a sessão por exatos 5 minutos.
+Para a funcionalidade de Bloqueio por Senha, foi necessário impedir que um espião apagasse as regras CSS no DevTools. A solução consistiu em amarrar a classe pai `.wpb-locked` diretamente no `<body>`. Quando o PIN está ativo, o *hover* do CSS é desligado. O PIN em si nunca fica salvo em texto puro; nós utilizamos a API **SubtleCrypto** (Web Crypto API) nativa do navegador para "hashear" a senha em **SHA-256**.
+
+### 5. Blindagem Absoluta (Strict CSP)
+
+Para garantir que a extensão pudesse passar no crivo mais alto de segurança da Chrome Web Store, o projeto foi arquitetado sem dependências ou importações externas. No `manifest.json`, aplicamos uma **Política de Segurança de Conteúdo (CSP) Hiper-Restritiva** (`script-src 'self'; object-src 'none'; base-uri 'none';`), mitigando em 100% ataques de injeção de scripts (XSS).
 
 ---
 
@@ -81,4 +85,4 @@ Este projeto utiliza **GitHub Actions** para automação de processos, asseguran
 
 ## 📜 Licença
 
-Distribuído sob a licença MIT.
+Este projeto é *Open Source* e está distribuído formalmente sob os termos da **Licença MIT** ([Veja o arquivo LICENSE completo](LICENSE)). Isso significa que você pode baixar, modificar, vender e distribuir o código da forma que quiser, livremente.
