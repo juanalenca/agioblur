@@ -51,8 +51,8 @@ body {
 }
 
 .banner-icon {
-  width: 72px;
-  height: 72px;
+  width: 88px;
+  height: 88px;
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
@@ -60,7 +60,7 @@ body {
 }
 
 .banner-text h1 {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
   letter-spacing: -0.5px;
 }
