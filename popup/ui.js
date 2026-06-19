@@ -91,6 +91,11 @@ const POPUP_UI = (function() {
       const msg = chrome.i18n.getMessage(el.getAttribute('data-i18n-placeholder'));
       if (msg) el.placeholder = msg;
     });
+
+    const lang = chrome.i18n.getUILanguage();
+    if (lang && lang.startsWith('ar')) {
+      document.body.classList.add('popup-arabic');
+    }
   }
 
   return {

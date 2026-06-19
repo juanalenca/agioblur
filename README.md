@@ -16,7 +16,7 @@ O foco central desta ferramenta é garantir a privacidade física contra *should
 
 - **Controle Granular por Categoria:** Escolha o que você deseja censurar (Fotos, Nomes, Mensagens, Mídias, Campo de Texto).
 - **Filtros Inteligentes (PII / LGPD):** Ocultação cirúrgica e automática de CPFs, E-mails, Cartões de Crédito, Telefones e Chaves Pix misturados no meio dos textos.
-- **Suporte Global (i18n):** Tradução nativa adaptável para 5 idiomas (Português, Inglês, Espanhol, Hindi e Indonésio).
+- **Suporte Global (i18n):** Tradução nativa adaptável para 10 idiomas (Português, Inglês, Espanhol, Hindi, Indonésio, Alemão, Árabe, Francês, Italiano e Turco).
 - **Tarja Preta (Solid Mode):** Substitua o efeito de *blur* clássico por uma tarja preta sólida para ocultação absoluta.
 - **Modo Fake Data:** Mascare nomes de contatos e textos de mensagens substituindo-os por nomes aleatórios de acordo com a cultura local (ex: João, John, Juan, Budi, राहुल).
 - **Segurança Criptografada:** Defina uma senha (criptografada em SHA-256) para impedir que terceiros desativem a extensão ou usem o *hover* do mouse para ler as mensagens.

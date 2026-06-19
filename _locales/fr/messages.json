@@ -1,0 +1,47 @@
+{
+  "extName": { "message": "AgioBlur | Confidentialité WhatsApp Web" },
+  "extDescription": { "message": "Floute les informations confidentielles sur WhatsApp Web. Protection d'écran et filtres de données." },
+  
+  "titleContentProtection": { "message": "Protection du contenu" },
+  "labelPhotos": { "message": "Photos de profil" },
+  "labelNames": { "message": "Noms / Numéros" },
+  "labelMessages": { "message": "Aperçu des messages" },
+  "labelMedia": { "message": "Miniatures des médias" },
+  "labelCompose": { "message": "Zone de saisie" },
+  "btnAllOn": { "message": "Tout activer" },
+  "btnAllOff": { "message": "Tout désactiver" },
+  
+  "titleLgpdFilters": { "message": "Filtres intelligents (PII/RGPD)" },
+  "descLgpdFilters": { "message": "Floute les données confidentielles. Survolez pour révéler." },
+  "labelCpf": { "message": "Pièces d'identité" },
+  "labelEmail": { "message": "E-mails" },
+  "labelCard": { "message": "Cartes de crédit" },
+  "labelPhone": { "message": "Numéros de téléphone" },
+  "labelPix": { "message": "Données bancaires" },
+  
+  "titleCustomization": { "message": "Personnalisation" },
+  "labelIntensity": { "message": "Intensité" },
+  "labelSolidMode": { "message": "Masquage opaque" },
+  "descSolidMode": { "message": "Utilise une barre noire unie au lieu d'un flou léger." },
+  "labelFakeData": { "message": "Données factices" },
+  "descFakeData": { "message": "Remplace le vrai texte par des fausses données générées." },
+  
+  "titleSecurity": { "message": "Sécurité" },
+  "descSecurity": { "message": "Un code PIN verrouille les paramètres et empêche le survol pour révéler." },
+  "placeholderPin": { "message": "Entrez le code PIN..." },
+  "btnSavePin": { "message": "Enregistrer le PIN" },
+  
+  "textPinActive": { "message": "Session protégée par code PIN." },
+  "btnRemovePin": { "message": "Supprimer le PIN" },
+  "btnRelock": { "message": "Verrouiller" },
+  
+  "overlayTitle": { "message": "Extension verrouillée" },
+  "overlayDesc": { "message": "Votre session de sécurité a expiré. Entrez votre code PIN pour y accéder." },
+  "btnUnlock": { "message": "Déverrouiller" },
+  
+  "alertPinLength": { "message": "Le code PIN doit comporter au moins 3 caractères." },
+  "alertPinIncorrect": { "message": "Code PIN incorrect !" },
+  "alertPinRemoveLock": { "message": "Pour supprimer un code PIN, entrez-le correctement et cliquez sur Supprimer." },
+  
+  "fakeNamesList": { "message": "Client,Fournisseur,Contact VIP,Jean,Marie,Pierre,Anne,Charles" }
+}

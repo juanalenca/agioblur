@@ -1,0 +1,47 @@
+{
+  "extName": { "message": "AgioBlur | خصوصية واتساب ويب" },
+  "extDescription": { "message": "يطمس المعلومات السرية على واتساب ويب. حماية الشاشة وفلاتر البيانات." },
+  
+  "titleContentProtection": { "message": "حماية المحتوى" },
+  "labelPhotos": { "message": "صور الملف الشخصي" },
+  "labelNames": { "message": "الأسماء / الأرقام" },
+  "labelMessages": { "message": "معاينة الرسائل" },
+  "labelMedia": { "message": "الصور المصغرة للوسائط" },
+  "labelCompose": { "message": "حقل الكتابة" },
+  "btnAllOn": { "message": "تفعيل الكل" },
+  "btnAllOff": { "message": "تعطيل الكل" },
+  
+  "titleLgpdFilters": { "message": "فلاتر ذكية (PII/LGPD)" },
+  "descLgpdFilters": { "message": "تطمس البيانات السرية في النصوص. مرر المؤشر للكشف عنها." },
+  "labelCpf": { "message": "الهويات الوطنية" },
+  "labelEmail": { "message": "رسائل البريد الإلكتروني" },
+  "labelCard": { "message": "البطاقات الائتمانية" },
+  "labelPhone": { "message": "أرقام الهواتف" },
+  "labelPix": { "message": "البيانات المصرفية" },
+  
+  "titleCustomization": { "message": "تخصيص" },
+  "labelIntensity": { "message": "شدة التمويه" },
+  "labelSolidMode": { "message": "تعتيم مصمت" },
+  "descSolidMode": { "message": "يستخدم شريطًا أسودًا صلبًا بدلاً من التمويه الناعم." },
+  "labelFakeData": { "message": "بيانات وهمية" },
+  "descFakeData": { "message": "يستبدل النص الحقيقي ببيانات وهمية تم إنشاؤها." },
+  
+  "titleSecurity": { "message": "الأمان" },
+  "descSecurity": { "message": "يقوم بقفل الإعدادات ويمنع رؤية المحتوى عند تمرير الفأرة." },
+  "placeholderPin": { "message": "أدخل رمز PIN..." },
+  "btnSavePin": { "message": "حفظ رمز PIN" },
+  
+  "textPinActive": { "message": "الجلسة محمية برمز PIN." },
+  "btnRemovePin": { "message": "إزالة رمز PIN" },
+  "btnRelock": { "message": "قفل الآن" },
+  
+  "overlayTitle": { "message": "الإضافة مقفلة" },
+  "overlayDesc": { "message": "انتهت صلاحية جلسة الأمان. يرجى إدخال رمز PIN للوصول إلى الإعدادات." },
+  "btnUnlock": { "message": "إلغاء القفل" },
+  
+  "alertPinLength": { "message": "يجب أن يتكون رمز PIN من 3 أحرف على الأقل." },
+  "alertPinIncorrect": { "message": "رمز PIN غير صحيح!" },
+  "alertPinRemoveLock": { "message": "لإزالة رمز مقفل، أدخل رمز PIN الصحيح وانقر على إزالة رمز PIN." },
+  
+  "fakeNamesList": { "message": "عميل,مورد,جهة اتصال هامة,أحمد,مريم,عمر,فاطمة,خالد" }
+}

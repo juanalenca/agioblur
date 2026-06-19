@@ -388,3 +388,15 @@ input[type="password"]:focus {
   background: rgba(16, 185, 129, 0.1);
   color: var(--accent);
 }
+
+/* Aplicar no nó raiz do popup se o idioma for 'ar' */
+.popup-arabic {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Isolar termos em inglês dentro de frases em árabe para evitar o bug de BiDi */
+.popup-arabic span.latin-term {
+    direction: ltr;
+    display: inline-block;
+}

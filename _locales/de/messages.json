@@ -1,0 +1,47 @@
+{
+  "extName": { "message": "AgioBlur | WhatsApp Web Datenschutz" },
+  "extDescription": { "message": "Verwischt vertrauliche Infos auf WhatsApp Web. Bildschirmschutz und Datenfilter gegen Schultersurfer." },
+  
+  "titleContentProtection": { "message": "Inhaltsschutz" },
+  "labelPhotos": { "message": "Profilbilder" },
+  "labelNames": { "message": "Namen / Nummern" },
+  "labelMessages": { "message": "Nachrichten in der Liste" },
+  "labelMedia": { "message": "Medien-Vorschaubilder" },
+  "labelCompose": { "message": "Eingabefeld" },
+  "btnAllOn": { "message": "Alle aktivieren" },
+  "btnAllOff": { "message": "Alle deaktivieren" },
+  
+  "titleLgpdFilters": { "message": "Intelligente Filter (PII/DSGVO)" },
+  "descLgpdFilters": { "message": "Zensiert vertrauliche Daten in Texten. Zum Anzeigen darüberfahren." },
+  "labelCpf": { "message": "Nationale IDs" },
+  "labelEmail": { "message": "E-Mails" },
+  "labelCard": { "message": "Kreditkarten" },
+  "labelPhone": { "message": "Telefonnummern" },
+  "labelPix": { "message": "Bankdaten" },
+  
+  "titleCustomization": { "message": "Anpassung" },
+  "labelIntensity": { "message": "Intensität" },
+  "labelSolidMode": { "message": "Balken-Modus" },
+  "descSolidMode": { "message": "Verwendet einen massiven schwarzen Balken statt einer weichen Unschärfe." },
+  "labelFakeData": { "message": "Dummy-Daten" },
+  "descFakeData": { "message": "Ersetzt echten Text durch generierte gefälschte Daten." },
+  
+  "titleSecurity": { "message": "Sicherheit" },
+  "descSecurity": { "message": "Eine PIN sperrt Einstellungen und verhindert das Anzeigen beim Darüberfahren." },
+  "placeholderPin": { "message": "PIN eingeben..." },
+  "btnSavePin": { "message": "PIN speichern" },
+  
+  "textPinActive": { "message": "Sitzung durch PIN geschützt." },
+  "btnRemovePin": { "message": "PIN entfernen" },
+  "btnRelock": { "message": "Jetzt sperren" },
+  
+  "overlayTitle": { "message": "Erweiterung gesperrt" },
+  "overlayDesc": { "message": "Ihre Sicherheitssitzung ist abgelaufen. Geben Sie Ihre PIN ein, um auf die Einstellungen zuzugreifen." },
+  "btnUnlock": { "message": "Entsperren" },
+  
+  "alertPinLength": { "message": "Die PIN muss aus mindestens 3 Zeichen bestehen." },
+  "alertPinIncorrect": { "message": "Falsche PIN!" },
+  "alertPinRemoveLock": { "message": "Um eine gesperrte PIN zu entfernen, geben Sie die richtige PIN ein und klicken Sie auf PIN entfernen." },
+  
+  "fakeNamesList": { "message": "Kunde,Lieferant,VIP Kontakt,Johannes,Maria,Peter,Anna,Karl" }
+}

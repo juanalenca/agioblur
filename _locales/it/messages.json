@@ -1,0 +1,47 @@
+{
+  "extName": { "message": "AgioBlur | Privacy di WhatsApp Web" },
+  "extDescription": { "message": "Sfoca le informazioni riservate su WhatsApp Web. Protezione dello schermo e filtri dati." },
+  
+  "titleContentProtection": { "message": "Protezione dei contenuti" },
+  "labelPhotos": { "message": "Foto profilo" },
+  "labelNames": { "message": "Nomi / Numeri" },
+  "labelMessages": { "message": "Anteprima messaggi" },
+  "labelMedia": { "message": "Miniature multimediali" },
+  "labelCompose": { "message": "Campo di digitazione" },
+  "btnAllOn": { "message": "Abilita tutto" },
+  "btnAllOff": { "message": "Disabilita tutto" },
+  
+  "titleLgpdFilters": { "message": "Filtri intelligenti (PII/GDPR)" },
+  "descLgpdFilters": { "message": "Sfoca i dati riservati nei testi. Passa sopra col mouse per rivelare." },
+  "labelCpf": { "message": "ID Nazionali" },
+  "labelEmail": { "message": "E-mail" },
+  "labelCard": { "message": "Carte di credito" },
+  "labelPhone": { "message": "Numeri di telefono" },
+  "labelPix": { "message": "Dati bancari" },
+  
+  "titleCustomization": { "message": "Personalizzazione" },
+  "labelIntensity": { "message": "Intensità" },
+  "labelSolidMode": { "message": "Oscuramento opaco" },
+  "descSolidMode": { "message": "Usa una barra nera solida invece di una sfocatura leggera." },
+  "labelFakeData": { "message": "Dati fittizi" },
+  "descFakeData": { "message": "Sostituisce il testo reale con dati falsi generati." },
+  
+  "titleSecurity": { "message": "Sicurezza" },
+  "descSecurity": { "message": "Un PIN blocca le impostazioni e impedisce il passaggio del mouse per rivelare." },
+  "placeholderPin": { "message": "Inserisci il PIN..." },
+  "btnSavePin": { "message": "Salva PIN" },
+  
+  "textPinActive": { "message": "Sessione protetta da PIN." },
+  "btnRemovePin": { "message": "Rimuovi PIN" },
+  "btnRelock": { "message": "Blocca ora" },
+  
+  "overlayTitle": { "message": "Estensione bloccata" },
+  "overlayDesc": { "message": "La tua sessione di sicurezza è scaduta. Inserisci il tuo PIN per accedere." },
+  "btnUnlock": { "message": "Sblocca" },
+  
+  "alertPinLength": { "message": "Il PIN deve contenere almeno 3 caratteri." },
+  "alertPinIncorrect": { "message": "PIN errato!" },
+  "alertPinRemoveLock": { "message": "Per rimuovere un PIN bloccato, inserisci il PIN corretto e fai clic su Rimuovi PIN." },
+  
+  "fakeNamesList": { "message": "Cliente,Fornitore,Contatto VIP,Giovanni,Maria,Pietro,Anna,Carlo" }
+}
