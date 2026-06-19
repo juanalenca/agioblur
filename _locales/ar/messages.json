@@ -43,5 +43,7 @@
   "alertPinIncorrect": { "message": "رمز PIN غير صحيح!" },
   "alertPinRemoveLock": { "message": "لإزالة رمز مقفل، أدخل رمز PIN الصحيح وانقر على إزالة رمز PIN." },
   
-  "fakeNamesList": { "message": "عميل,مورد,جهة اتصال هامة,أحمد,مريم,عمر,فاطمة,خالد" }
+  "fakeNamesList": { "message": "عميل,مورد,جهة اتصال هامة,أحمد,مريم,عمر,فاطمة,خالد" },
+  "btnFactoryReset": { "message": "نسيت رقم التعريف الشخصي (إعادة ضبط الإضافة)" },
+  "btnConfirmReset": { "message": "هل أنت متأكد؟ انقر مرة أخرى" }
 }

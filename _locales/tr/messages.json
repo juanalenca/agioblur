@@ -43,5 +43,7 @@
   "alertPinIncorrect": { "message": "Yanlış PIN!" },
   "alertPinRemoveLock": { "message": "Kilitli bir PIN'i kaldırmak için doğru PIN'i girin ve PIN'i Kaldır'a tıklayın." },
   
-  "fakeNamesList": { "message": "Müşteri,Tedarikçi,VIP Kişi,Ahmet,Ayşe,Mehmet,Fatma,Ali" }
+  "fakeNamesList": { "message": "Müşteri,Tedarikçi,VIP Kişi,Ahmet,Ayşe,Mehmet,Fatma,Ali" },
+  "btnFactoryReset": { "message": "PIN'imi unuttum (Eklentiyi Sıfırla)" },
+  "btnConfirmReset": { "message": "Emin misiniz? Tekrar tıklayın" }
 }

@@ -43,5 +43,7 @@
   "alertPinIncorrect": { "message": "PIN salah!" },
   "alertPinRemoveLock": { "message": "Untuk menghapus PIN yang terkunci, masukkan PIN yang benar di bidang dan klik Hapus PIN." },
   
-  "fakeNamesList": { "message": "Klien,Pemasok,Kontak VIP,Budi,Siti,Agus,Dewi,Hendra" }
+  "fakeNamesList": { "message": "Klien,Pemasok,Kontak VIP,Budi,Siti,Agus,Dewi,Hendra" },
+  "btnFactoryReset": { "message": "Lupa PIN saya (Setel Ulang Ekstensi)" },
+  "btnConfirmReset": { "message": "Apakah Anda yakin? Klik lagi" }
 }

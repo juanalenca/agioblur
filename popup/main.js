@@ -160,6 +160,37 @@ async function handleRelock() {
   });
 }
 
+let resetConfirmTimeout;
+async function handleFactoryReset(e) {
+  const btn = e.target;
+  
+  if (!btn.classList.contains('confirming')) {
+    btn.dataset.originalText = btn.textContent;
+    btn.textContent = chrome.i18n.getMessage('btnConfirmReset');
+    btn.classList.add('confirming');
+    
+    resetConfirmTimeout = setTimeout(() => {
+      btn.textContent = btn.dataset.originalText;
+      btn.classList.remove('confirming');
+    }, 3000);
+  } else {
+    clearTimeout(resetConfirmTimeout);
+    btn.textContent = btn.dataset.originalText;
+    btn.classList.remove('confirming');
+    
+    chrome.storage.local.remove([POPUP_CONSTANTS.STORAGE_KEY, POPUP_CONSTANTS.SETTINGS_KEY], () => {
+      POPUP_STORAGE.loadAndSync();
+      chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
+        tabs.forEach((tab) => {
+          chrome.tabs.sendMessage(tab.id, { action: 'relock' }, () => {
+            if (chrome.runtime.lastError) { /* ignore */ }
+          });
+        });
+      });
+    });
+  }
+}
+
 function attachListeners() {
   for (const key of Object.keys(POPUP_CONSTANTS.TOGGLE_IDS)) {
     POPUP_UI.getToggle(key).addEventListener('change', onToggleChange);
@@ -184,6 +215,7 @@ function attachListeners() {
     if (e.key === 'Enter') handleUnlock();
   });
   POPUP_UI.elements.btnRemovePinOverlay.addEventListener('click', handleResetPinFromOverlay);
+  POPUP_UI.elements.btnFactoryReset.addEventListener('click', handleFactoryReset);
 
   // Active UI actions
   POPUP_UI.elements.btnRemovePin.addEventListener('click', handleResetPin);

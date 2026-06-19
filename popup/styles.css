@@ -400,3 +400,26 @@ input[type="password"]:focus {
     direction: ltr;
     display: inline-block;
 }
+
+/* ── Botões de Link ── */
+.btn-link-danger {
+  margin-top: 8px;
+  border-color: transparent;
+  color: var(--text-secondary);
+  width: 100%;
+  text-decoration: underline;
+  font-size: 12px;
+  background: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  text-align: inherit; /* Garante alinhamento correto tanto em LTR quanto RTL */
+}
+
+.btn-link-danger:hover {
+  color: var(--danger);
+}
+
+.btn-link-danger.confirming {
+  color: var(--danger);
+  font-weight: bold;
+}

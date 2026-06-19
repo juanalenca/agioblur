@@ -30,6 +30,7 @@ const POPUP_UI = (function() {
     inputPinOverlay: document.getElementById('input-pin-overlay'),
     btnPinOverlay: document.getElementById('btn-pin-overlay'),
     btnRemovePinOverlay: document.getElementById('btn-remove-pin-overlay'),
+    btnFactoryReset: document.getElementById('btn-factory-reset'),
     lockStatusBadge: document.getElementById('lock-status-badge')
   };
 

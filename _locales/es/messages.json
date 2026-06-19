@@ -43,5 +43,7 @@
   "alertPinIncorrect": { "message": "¡PIN incorrecto!" },
   "alertPinRemoveLock": { "message": "Para eliminar el PIN bloqueado, ingresa el PIN correcto en el campo y haz clic en Eliminar PIN." },
   
-  "fakeNamesList": { "message": "Cliente,Proveedor,Contacto VIP,Juan,María,Pedro,Ana,Carlos" }
+  "fakeNamesList": { "message": "Cliente,Proveedor,Contacto VIP,Juan,María,Pedro,Ana,Carlos" },
+  "btnFactoryReset": { "message": "Olvidé mi PIN (Restablecer Extensión)" },
+  "btnConfirmReset": { "message": "¿Estás seguro? Haz clic de nuevo" }
 }

@@ -43,5 +43,7 @@
   "alertPinIncorrect": { "message": "Incorrect PIN!" },
   "alertPinRemoveLock": { "message": "To remove a locked PIN, enter the correct PIN in the field and click Remove PIN." },
   
-  "fakeNamesList": { "message": "Client,Supplier,VIP Contact,John,Mary,Peter,Anna,Charles" }
+  "fakeNamesList": { "message": "Client,Supplier,VIP Contact,John,Mary,Peter,Anna,Charles" },
+  "btnFactoryReset": { "message": "Forgot my PIN (Factory Reset)" },
+  "btnConfirmReset": { "message": "Are you sure? Click again" }
 }

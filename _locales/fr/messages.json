@@ -43,5 +43,7 @@
   "alertPinIncorrect": { "message": "Code PIN incorrect !" },
   "alertPinRemoveLock": { "message": "Pour supprimer un code PIN, entrez-le correctement et cliquez sur Supprimer." },
   
-  "fakeNamesList": { "message": "Client,Fournisseur,Contact VIP,Jean,Marie,Pierre,Anne,Charles" }
+  "fakeNamesList": { "message": "Client,Fournisseur,Contact VIP,Jean,Marie,Pierre,Anne,Charles" },
+  "btnFactoryReset": { "message": "J'ai oublié mon code PIN (Réinitialiser l'extension)" },
+  "btnConfirmReset": { "message": "Êtes-vous sûr ? Cliquez à nouveau" }
 }
