@@ -178,15 +178,13 @@ async function handleFactoryReset(e) {
     btn.textContent = btn.dataset.originalText;
     btn.classList.remove('confirming');
     
-    chrome.storage.local.remove([POPUP_CONSTANTS.STORAGE_KEY, POPUP_CONSTANTS.SETTINGS_KEY], () => {
+    const defaultData = {
+      [POPUP_CONSTANTS.STORAGE_KEY]: POPUP_CONSTANTS.DEFAULTS_CATEGORIES,
+      [POPUP_CONSTANTS.SETTINGS_KEY]: POPUP_CONSTANTS.DEFAULTS_SETTINGS
+    };
+    
+    chrome.storage.local.set(defaultData, () => {
       POPUP_STORAGE.loadAndSync();
-      chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
-        tabs.forEach((tab) => {
-          chrome.tabs.sendMessage(tab.id, { action: 'updateOptions' }, () => {
-            if (chrome.runtime.lastError) { /* ignore */ }
-          });
-        });
-      });
     });
   }
 }
