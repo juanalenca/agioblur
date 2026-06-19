@@ -77,6 +77,20 @@ window.WPB_PII = (function() {
 
   function ensureListeners() {
     if (hoverListenerAdded) return;
+
+    // Cláusula de guarda para evitar execução antes da criação do body
+    if (!document.body) {
+      document.addEventListener('DOMContentLoaded', () => {
+        if (!hoverListenerAdded && document.body) {
+          document.body.addEventListener('mouseover', handleMouseOver);
+          document.body.addEventListener('mouseout', handleMouseOut);
+          hoverListenerAdded = true;
+        }
+      });
+      return;
+    }
+
+    // Execução normal caso o body já exista
     document.body.addEventListener('mouseover', handleMouseOver);
     document.body.addEventListener('mouseout', handleMouseOut);
     hoverListenerAdded = true;
