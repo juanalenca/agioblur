@@ -185,6 +185,13 @@ async function handleFactoryReset(e) {
     
     chrome.storage.local.set(defaultData, () => {
       POPUP_STORAGE.loadAndSync();
+      chrome.tabs.query({ url: 'https://web.whatsapp.com/*' }, (tabs) => {
+        tabs.forEach((tab) => {
+          chrome.tabs.sendMessage(tab.id, { action: 'updateOptions' }, () => {
+            if (chrome.runtime.lastError) { /* ignore */ }
+          });
+        });
+      });
     });
   }
 }

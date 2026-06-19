@@ -143,6 +143,38 @@ function listenForRuntimeMessages() {
       
     } else if (message.action === 'status') {
       sendResponse({ isUnlocked: WPB_STATE.getIsUnlocked() });
+    } else if (message.action === 'updateOptions') {
+      chrome.storage.local.get([WPB_CONSTANTS.STORAGE_KEY, WPB_CONSTANTS.SETTINGS_KEY], (result) => {
+        const savedCats = result[WPB_CONSTANTS.STORAGE_KEY];
+        const defaults = {};
+        for (const [key, config] of Object.entries(WPB_CONSTANTS.CATEGORIES)) {
+          defaults[key] = config.defaultEnabled;
+        }
+        for (const [key, config] of Object.entries(WPB_CONSTANTS.PII_CATEGORIES)) {
+          defaults[key] = config.defaultEnabled;
+        }
+        WPB_STATE.setCategoryState(savedCats ? { ...defaults, ...savedCats } : defaults);
+
+        const savedSettings = result[WPB_CONSTANTS.SETTINGS_KEY];
+        if (savedSettings) {
+          const current = WPB_STATE.getSettings();
+          WPB_STATE.setSettings({ ...current, ...savedSettings });
+        }
+
+        const currentSettings = WPB_STATE.getSettings();
+        if (!currentSettings.savedPin) {
+          document.body.classList.remove('wpb-locked');
+          WPB_STATE.setIsUnlocked(false);
+        }
+
+        applySettingsToRoot(currentSettings);
+        WPB_DOM.applyFullState();
+        if (typeof WPB_PII !== 'undefined') {
+          WPB_PII.restore(document.body);
+          WPB_PII.scan(document.body);
+        }
+      });
+      sendResponse({ success: true });
     }
   });
 }
