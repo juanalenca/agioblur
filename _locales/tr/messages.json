@@ -1,49 +1,119 @@
 {
-  "extName": { "message": "AgioBlur | WhatsApp Web Gizliliği" },
-  "extDescription": { "message": "WhatsApp Web'de gizli bilgileri bulanıklaştırır. Ekran koruması ve veri filtreleri." },
-  
-  "titleContentProtection": { "message": "İçerik Koruması" },
-  "labelPhotos": { "message": "Profil fotoğrafları" },
-  "labelNames": { "message": "İsimler / Numaralar" },
-  "labelMessages": { "message": "Mesaj listesi" },
-  "labelMedia": { "message": "Medya küçük resimleri" },
-  "labelCompose": { "message": "Metin Giriş Alanı" },
-  "btnAllOn": { "message": "Tümünü Etkinleştir" },
-  "btnAllOff": { "message": "Tümünü Devre Dışı Bırak" },
-  
-  "titleLgpdFilters": { "message": "Akıllı Filtreler (PII/KVKK)" },
-  "descLgpdFilters": { "message": "Metinlerdeki gizli verileri bulanıklaştırır. Göstermek için üzerine gelin." },
-  "labelCpf": { "message": "Ulusal Kimlikler" },
-  "labelEmail": { "message": "E-postalar" },
-  "labelCard": { "message": "Kredi Kartları" },
-  "labelPhone": { "message": "Telefon Numaraları" },
-  "labelPix": { "message": "Banka Bilgileri" },
-  
-  "titleCustomization": { "message": "Özelleştirme" },
-  "labelIntensity": { "message": "Yoğunluk" },
-  "labelSolidMode": { "message": "Opak Maskeleme" },
-  "descSolidMode": { "message": "Hafif bulanıklık yerine katı siyah bir çubuk kullanır." },
-  "labelFakeData": { "message": "Kurgusal Veri" },
-  "descFakeData": { "message": "Gerçek metni oluşturulan sahte verilerle değiştirir." },
-  
-  "titleSecurity": { "message": "Güvenlik" },
-  "descSecurity": { "message": "PIN, ayarları kilitler ve fareyle üzerine gelindiğinde içeriğin gösterilmesini engeller." },
-  "placeholderPin": { "message": "PIN Girin..." },
-  "btnSavePin": { "message": "PIN'i Kaydet" },
-  
-  "textPinActive": { "message": "Oturum PIN ile korunuyor." },
-  "btnRemovePin": { "message": "PIN'i Kaldır" },
-  "btnRelock": { "message": "Şimdi Kilitle" },
-  
-  "overlayTitle": { "message": "Eklenti Kilitli" },
-  "overlayDesc": { "message": "Güvenlik oturumunuzun süresi doldu. Erişmek için PIN'inizi girin." },
-  "btnUnlock": { "message": "Kilidi Aç" },
-  
-  "alertPinLength": { "message": "PIN en az 3 karakter olmalıdır." },
-  "alertPinIncorrect": { "message": "Yanlış PIN!" },
-  "alertPinRemoveLock": { "message": "Kilitli bir PIN'i kaldırmak için doğru PIN'i girin ve PIN'i Kaldır'a tıklayın." },
-  
-  "fakeNamesList": { "message": "Müşteri,Tedarikçi,VIP Kişi,Ahmet,Ayşe,Mehmet,Fatma,Ali" },
-  "btnFactoryReset": { "message": "PIN'imi unuttum (Eklentiyi Sıfırla)" },
-  "btnConfirmReset": { "message": "Emin misiniz? Tekrar tıklayın" }
-}
+  "extName": {
+    "message": "AgioBlur | WhatsApp Web Gizliliği"
+  },
+  "extDescription": {
+    "message": "WhatsApp Web'de gizli bilgileri bulanıklaştırır. Ekran koruması ve veri filtreleri."
+  },
+  "titleContentProtection": {
+    "message": "İçerik Koruması"
+  },
+  "labelPhotos": {
+    "message": "Profil fotoğrafları"
+  },
+  "labelNames": {
+    "message": "İsimler / Numaralar"
+  },
+  "labelMessages": {
+    "message": "Mesaj listesi"
+  },
+  "labelMedia": {
+    "message": "Medya küçük resimleri"
+  },
+  "labelCompose": {
+    "message": "Metin Giriş Alanı"
+  },
+  "btnAllOn": {
+    "message": "Tümünü Etkinleştir"
+  },
+  "btnAllOff": {
+    "message": "Tümünü Devre Dışı Bırak"
+  },
+  "titleLgpdFilters": {
+    "message": "Akıllı Filtreler (PII/KVKK)"
+  },
+  "descLgpdFilters": {
+    "message": "Metinlerdeki gizli verileri bulanıklaştırır. Göstermek için üzerine gelin."
+  },
+  "labelCpf": {
+    "message": "Ulusal Kimlikler"
+  },
+  "labelEmail": {
+    "message": "E-postalar"
+  },
+  "labelCard": {
+    "message": "Kredi Kartları"
+  },
+  "labelPhone": {
+    "message": "Telefon Numaraları"
+  },
+  "labelPix": {
+    "message": "Banka Bilgileri"
+  },
+  "titleCustomization": {
+    "message": "Özelleştirme"
+  },
+  "labelIntensity": {
+    "message": "Yoğunluk"
+  },
+  "labelSolidMode": {
+    "message": "Opak Maskeleme"
+  },
+  "descSolidMode": {
+    "message": "Hafif bulanıklık yerine katı siyah bir çubuk kullanır."
+  },
+  "labelFakeData": {
+    "message": "Kurgusal Veri"
+  },
+  "descFakeData": {
+    "message": "Gerçek metni oluşturulan sahte verilerle değiştirir."
+  },
+  "titleSecurity": {
+    "message": "Güvenlik"
+  },
+  "descSecurity": {
+    "message": "PIN, ayarları kilitler ve fareyle üzerine gelindiğinde içeriğin gösterilmesini engeller."
+  },
+  "placeholderPin": {
+    "message": "PIN Girin..."
+  },
+  "btnSavePin": {
+    "message": "PIN'i Kaydet"
+  },
+  "textPinActive": {
+    "message": "Oturum PIN ile korunuyor."
+  },
+  "btnRemovePin": {
+    "message": "PIN'i Kaldır"
+  },
+  "btnRelock": {
+    "message": "Şimdi Kilitle"
+  },
+  "overlayTitle": {
+    "message": "Eklenti Kilitli"
+  },
+  "overlayDesc": {
+    "message": "Güvenlik oturumunuzun süresi doldu. Erişmek için PIN'inizi girin."
+  },
+  "btnUnlock": {
+    "message": "Kilidi Aç"
+  },
+  "alertPinLength": {
+    "message": "PIN en az 3 karakter olmalıdır."
+  },
+  "alertPinIncorrect": {
+    "message": "Yanlış PIN!"
+  },
+  "alertPinRemoveLock": {
+    "message": "Kilitli bir PIN'i kaldırmak için doğru PIN'i girin ve PIN'i Kaldır'a tıklayın."
+  },
+  "fakeNamesList": {
+    "message": "Müşteri,Tedarikçi,VIP Kişi,Ahmet,Ayşe,Mehmet,Fatma,Ali"
+  },
+  "btnFactoryReset": {
+    "message": "PIN'imi Unuttum (Eklentiyi Sıfırla)"
+  },
+  "btnConfirmReset": {
+    "message": "Varsayılanlar ve PIN sıfırlansın mı? Tekrar tıkla"
+  }
+}\n

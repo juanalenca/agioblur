@@ -1,49 +1,119 @@
 {
-  "extName": { "message": "AgioBlur | Privacidad para WhatsApp Web" },
-  "extDescription": { "message": "Desenfoca información confidencial en WhatsApp Web. Protección de pantalla y filtros contra curiosos." },
-  
-  "titleContentProtection": { "message": "Protección de Contenido" },
-  "labelPhotos": { "message": "Fotos de perfil" },
-  "labelNames": { "message": "Nombres / Números" },
-  "labelMessages": { "message": "Mensajes de la lista" },
-  "labelMedia": { "message": "Miniaturas de multimedia" },
-  "labelCompose": { "message": "Área de mensaje" },
-  "btnAllOn": { "message": "Activar todo" },
-  "btnAllOff": { "message": "Desactivar todo" },
-  
-  "titleLgpdFilters": { "message": "Filtros Inteligentes (PII)" },
-  "descLgpdFilters": { "message": "Desenfoca datos confidenciales en el texto. Pase el ratón para revelar." },
-  "labelCpf": { "message": "Documentos (IDs)" },
-  "labelEmail": { "message": "Correos electrónicos" },
-  "labelCard": { "message": "Tarjetas de Crédito" },
-  "labelPhone": { "message": "Teléfonos" },
-  "labelPix": { "message": "Claves Bancarias" },
-  
-  "titleCustomization": { "message": "Personalización" },
-  "labelIntensity": { "message": "Intensidad" },
-  "labelSolidMode": { "message": "Censura Sólida" },
-  "descSolidMode": { "message": "Usa una barra negra sólida en lugar de desenfoque." },
-  "labelFakeData": { "message": "Datos Falsos" },
-  "descFakeData": { "message": "Reemplaza el texto real con datos falsos generados." },
-  
-  "titleSecurity": { "message": "Seguridad" },
-  "descSecurity": { "message": "Un PIN bloquea la configuración y evita que se revele al pasar el ratón." },
-  "placeholderPin": { "message": "Ingresa el PIN..." },
-  "btnSavePin": { "message": "Guardar PIN" },
-  
-  "textPinActive": { "message": "Sesión protegida por PIN." },
-  "btnRemovePin": { "message": "Eliminar PIN" },
-  "btnRelock": { "message": "Bloquear Ahora" },
-  
-  "overlayTitle": { "message": "Extensión Bloqueada" },
-  "overlayDesc": { "message": "Tu sesión expiró. Ingresa tu PIN para acceder a la configuración y habilitar la lectura." },
-  "btnUnlock": { "message": "Desbloquear" },
-  
-  "alertPinLength": { "message": "El PIN debe tener al menos 3 caracteres." },
-  "alertPinIncorrect": { "message": "¡PIN incorrecto!" },
-  "alertPinRemoveLock": { "message": "Para eliminar el PIN bloqueado, ingresa el PIN correcto en el campo y haz clic en Eliminar PIN." },
-  
-  "fakeNamesList": { "message": "Cliente,Proveedor,Contacto VIP,Juan,María,Pedro,Ana,Carlos" },
-  "btnFactoryReset": { "message": "Olvidé mi PIN (Restablecer Extensión)" },
-  "btnConfirmReset": { "message": "¿Estás seguro? Haz clic de nuevo" }
-}
+  "extName": {
+    "message": "AgioBlur | Privacidad para WhatsApp Web"
+  },
+  "extDescription": {
+    "message": "Desenfoca información confidencial en WhatsApp Web. Protección de pantalla y filtros contra curiosos."
+  },
+  "titleContentProtection": {
+    "message": "Protección de Contenido"
+  },
+  "labelPhotos": {
+    "message": "Fotos de perfil"
+  },
+  "labelNames": {
+    "message": "Nombres / Números"
+  },
+  "labelMessages": {
+    "message": "Mensajes de la lista"
+  },
+  "labelMedia": {
+    "message": "Miniaturas de multimedia"
+  },
+  "labelCompose": {
+    "message": "Área de mensaje"
+  },
+  "btnAllOn": {
+    "message": "Activar todo"
+  },
+  "btnAllOff": {
+    "message": "Desactivar todo"
+  },
+  "titleLgpdFilters": {
+    "message": "Filtros Inteligentes (PII)"
+  },
+  "descLgpdFilters": {
+    "message": "Desenfoca datos confidenciales en el texto. Pase el ratón para revelar."
+  },
+  "labelCpf": {
+    "message": "Documentos (IDs)"
+  },
+  "labelEmail": {
+    "message": "Correos electrónicos"
+  },
+  "labelCard": {
+    "message": "Tarjetas de Crédito"
+  },
+  "labelPhone": {
+    "message": "Teléfonos"
+  },
+  "labelPix": {
+    "message": "Claves Bancarias"
+  },
+  "titleCustomization": {
+    "message": "Personalización"
+  },
+  "labelIntensity": {
+    "message": "Intensidad"
+  },
+  "labelSolidMode": {
+    "message": "Censura Sólida"
+  },
+  "descSolidMode": {
+    "message": "Usa una barra negra sólida en lugar de desenfoque."
+  },
+  "labelFakeData": {
+    "message": "Datos Falsos"
+  },
+  "descFakeData": {
+    "message": "Reemplaza el texto real con datos falsos generados."
+  },
+  "titleSecurity": {
+    "message": "Seguridad"
+  },
+  "descSecurity": {
+    "message": "Un PIN bloquea la configuración y evita que se revele al pasar el ratón."
+  },
+  "placeholderPin": {
+    "message": "Ingresa el PIN..."
+  },
+  "btnSavePin": {
+    "message": "Guardar PIN"
+  },
+  "textPinActive": {
+    "message": "Sesión protegida por PIN."
+  },
+  "btnRemovePin": {
+    "message": "Eliminar PIN"
+  },
+  "btnRelock": {
+    "message": "Bloquear Ahora"
+  },
+  "overlayTitle": {
+    "message": "Extensión Bloqueada"
+  },
+  "overlayDesc": {
+    "message": "Tu sesión expiró. Ingresa tu PIN para acceder a la configuración y habilitar la lectura."
+  },
+  "btnUnlock": {
+    "message": "Desbloquear"
+  },
+  "alertPinLength": {
+    "message": "El PIN debe tener al menos 3 caracteres."
+  },
+  "alertPinIncorrect": {
+    "message": "¡PIN incorrecto!"
+  },
+  "alertPinRemoveLock": {
+    "message": "Para eliminar el PIN bloqueado, ingresa el PIN correcto en el campo y haz clic en Eliminar PIN."
+  },
+  "fakeNamesList": {
+    "message": "Cliente,Proveedor,Contacto VIP,Juan,María,Pedro,Ana,Carlos"
+  },
+  "btnFactoryReset": {
+    "message": "Olvidé mi PIN (Restablecer Extensión)"
+  },
+  "btnConfirmReset": {
+    "message": "¿Restablecer valores e PIN? Clic de nuevo"
+  }
+}\n
