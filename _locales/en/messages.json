@@ -112,5 +112,17 @@
   },
   "alertPinRemoveLock": {
     "message": "To remove a locked PIN, enter the correct PIN in the field and click Remove PIN."
+  },
+  "fakeMessageEmpty": {
+    "message": "Message..."
+  },
+  "fakeMessageShort": {
+    "message": "Got it!"
+  },
+  "fakeMessageMedium": {
+    "message": "Ok, sounds good."
+  },
+  "fakeMessageLong": {
+    "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
   }
 }

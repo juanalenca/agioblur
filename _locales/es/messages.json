@@ -115,5 +115,17 @@
   },
   "btnConfirmReset": {
     "message": "¿Restablecer valores e PIN? Clic de nuevo"
+  },
+  "fakeMessageEmpty": {
+    "message": "Mensaje..."
+  },
+  "fakeMessageShort": {
+    "message": "¡Todo bien!"
+  },
+  "fakeMessageMedium": {
+    "message": "Ok, trato hecho."
+  },
+  "fakeMessageLong": {
+    "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
   }
 }

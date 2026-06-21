@@ -36,11 +36,15 @@ const WPB_DOM = (function() {
    * @returns {string} Mensagem falsa gerada.
    */
   function getFakeMessage(text) {
-    if (!text) return 'Mensagem...';
-    const words = text.split(' ').length;
-    if (words <= 2) return 'Tudo certo!';
-    if (words <= 5) return 'Ok, combinado.';
-    return 'Lorem ipsum dolor sit amet consectetur adipisicing elit.';
+    if (!text) return chrome.i18n.getMessage('fakeMessageEmpty') || 'Message...';
+
+    // Usa comprimento de caracteres como métrica primária,
+    // não contagem de palavras (falha para URLs e strings sem espaço).
+    const len = text.trim().length;
+
+    if (len <= 15)  return chrome.i18n.getMessage('fakeMessageShort')  || 'Got it!';
+    if (len <= 60)  return chrome.i18n.getMessage('fakeMessageMedium') || 'Ok, sounds good.';
+    return           chrome.i18n.getMessage('fakeMessageLong')         || 'Lorem ipsum dolor sit amet consectetur adipisicing elit.';
   }
 
   function isLegitPhoto(el) {
@@ -102,6 +106,10 @@ const WPB_DOM = (function() {
     compose: isLegitCompose
   };
 
+  // ─── Substituição DOM para Fake Data ──────────────────────────────────
+
+  // ─── Substituição para Fake Data (Apenas atributos CSS) ─────────────
+
   /**
    * Aplica blur e/ou Fake Data no elemento
    * @param {Element} el 
@@ -114,15 +122,20 @@ const WPB_DOM = (function() {
     }
     const settings = WPB_STATE.getSettings();
     if (settings.fakeData && (categoryKey === 'names' || categoryKey === 'messages')) {
-      el.classList.add('wpb-fake-data');
-      if (categoryKey === 'names' && !el.hasAttribute('data-fake-name')) {
-        el.setAttribute('data-fake-name', getFakeName(el.textContent));
-      }
-      if (categoryKey === 'messages' && !el.hasAttribute('data-fake-text')) {
-        el.setAttribute('data-fake-text', getFakeMessage(el.textContent));
+      if (!el.hasAttribute('data-wpb-managed')) {
+        el.classList.add('wpb-fake-data');
+        el.setAttribute('data-wpb-managed', 'true');
+        if (categoryKey === 'names') {
+          el.setAttribute('data-fake-name', getFakeName(el.textContent));
+        } else {
+          el.setAttribute('data-fake-text', getFakeMessage(el.textContent));
+        }
       }
     } else if (!settings.fakeData) {
       el.classList.remove('wpb-fake-data');
+      el.removeAttribute('data-wpb-managed');
+      el.removeAttribute('data-fake-name');
+      el.removeAttribute('data-fake-text');
     }
   }
 
@@ -134,6 +147,9 @@ const WPB_DOM = (function() {
   function removeBlur(el, cssClass) {
     el.classList.remove(cssClass);
     el.classList.remove('wpb-fake-data');
+    el.removeAttribute('data-wpb-managed');
+    el.removeAttribute('data-fake-name');
+    el.removeAttribute('data-fake-text');
   }
 
   /**
@@ -150,6 +166,10 @@ const WPB_DOM = (function() {
         try {
           const matches = root.querySelectorAll(selector);
           for (const el of matches) {
+            // Se for filho de um elemento já gerenciado, ignora (evita aninhamento infinito)
+            const managedParent = el.closest('[data-wpb-managed]');
+            if (managedParent && managedParent !== el) continue;
+
             if (filter(el)) applyBlur(el, key, config.cssClass);
           }
         } catch {
@@ -161,6 +181,9 @@ const WPB_DOM = (function() {
         for (const selector of config.selectors) {
           try {
             if (root.matches(selector) && filter(root)) {
+              const managedParent = root.closest('[data-wpb-managed]');
+              if (managedParent && managedParent !== root) continue;
+              
               applyBlur(root, key, config.cssClass);
             }
           } catch {
@@ -189,6 +212,12 @@ const WPB_DOM = (function() {
   }
 
   /**
+   * Reverte TODOS os nós gerenciados pelo Fake Data de uma vez.
+   * Chamado quando fakeData é desligado, porque os seletores
+   * originais não conseguem mais encontrar os elementos
+   * enterrados dentro de [data-wpb-slot="real"].
+   */
+  /**
    * Aplica estado completo
    */
   function applyFullState() {
@@ -210,6 +239,8 @@ const WPB_DOM = (function() {
     for (const mutation of mutations) {
       for (const node of mutation.addedNodes) {
         if (node.nodeType !== Node.ELEMENT_NODE) continue;
+        // Ignora nós inseridos pela própria extensão
+        if (node.closest('[data-wpb-managed]')) continue;
         scanAndApply(node);
       }
     }

@@ -115,5 +115,17 @@
   },
   "btnConfirmReset": {
     "message": "Apakah Anda yakin? Klik lagi"
+  },
+  "fakeMessageEmpty": {
+    "message": "Pesan..."
+  },
+  "fakeMessageShort": {
+    "message": "Bagus!"
+  },
+  "fakeMessageMedium": {
+    "message": "Oke, setuju."
+  },
+  "fakeMessageLong": {
+    "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
   }
 }

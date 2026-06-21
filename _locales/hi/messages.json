@@ -115,5 +115,17 @@
   },
   "btnConfirmReset": {
     "message": "क्या आप वाकई ऐसा करना चाहते हैं? फिर से क्लिक करें"
+  },
+  "fakeMessageEmpty": {
+    "message": "संदेश..."
+  },
+  "fakeMessageShort": {
+    "message": "सब ठीक है!"
+  },
+  "fakeMessageMedium": {
+    "message": "ठीक है, पक्का।"
+  },
+  "fakeMessageLong": {
+    "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
   }
 }

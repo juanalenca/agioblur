@@ -97,6 +97,9 @@ window.WPB_PII = (function() {
   }
 
   function scanNodeForPII(root) {
+    // Guard: ignora nós gerenciados pelo Fake Data para evitar conflito
+    if (root.closest && root.closest('[data-wpb-managed]')) return;
+
     const regex = getActiveRegex();
     if (!regex) return; // Nenhuma categoria PII ativa
 

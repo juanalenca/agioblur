@@ -27,7 +27,10 @@ function applySettingsToRoot(settings) {
   const current = WPB_STATE.getSettings();
   if (settings.fakeData !== current.fakeData) {
     current.fakeData = settings.fakeData;
-    WPB_STATE.setSettings(current);
+    WPB_STATE.setSettings(current);           // estado primeiro
+    if (!settings.fakeData) {
+      WPB_DOM.revertAllFakeContent();         // reversão depois
+    }
     WPB_DOM.applyFullState();
   }
 }
@@ -155,6 +158,9 @@ function listenForRuntimeMessages() {
         }
         WPB_STATE.setCategoryState(savedCats ? { ...defaults, ...savedCats } : defaults);
 
+        // Captura fakeData ANTES de aplicar as novas settings
+        const previousFakeData = WPB_STATE.getSettings().fakeData;
+
         const savedSettings = result[WPB_CONSTANTS.SETTINGS_KEY];
         if (savedSettings) {
           const current = WPB_STATE.getSettings();
@@ -162,6 +168,13 @@ function listenForRuntimeMessages() {
         }
 
         const currentSettings = WPB_STATE.getSettings();
+
+        // Reverte manualmente se fakeData foi desligado — applySettingsToRoot
+        // não detecta mais a mudança porque o estado já foi atualizado acima.
+        if (previousFakeData && !currentSettings.fakeData) {
+          WPB_DOM.revertAllFakeContent();
+        }
+
         if (!currentSettings.savedPin) {
           document.body.classList.remove('wpb-locked');
           WPB_STATE.setIsUnlocked(false);

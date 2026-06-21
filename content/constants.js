@@ -45,6 +45,7 @@ const WPB_CONSTANTS = {
         '#pane-side [role="listitem"] span[dir="ltr"]',
         '#pane-side [role="row"] span[dir="ltr"]',
         '#pane-side span[dir="ltr"]',
+        '#pane-side span[dir="auto"]', // Garante suporte à lista de conversas
         '[data-testid="conversation-panel-body"] .selectable-text',
         '[data-testid="msg-container"] .selectable-text',
         '[role="row"] .selectable-text',
@@ -54,6 +55,22 @@ const WPB_CONSTANTS = {
         '.message-out .selectable-text',
         '.message-in .copyable-text span',
         '.message-out .copyable-text span',
+        // Botões de anexo em mensagens (Documentos, Áudio, etc)
+        '[data-testid="msg-container"] [role="button"]:has(svg) span',
+        '.message-in [role="button"]:has(svg) span',
+        '.message-out [role="button"]:has(svg) span',
+        // Texto embutido nos ícones de anexo (o WhatsApp usa um div com font-size: 8px para escrever "PDF", "DOC", etc.)
+        '[data-testid="msg-container"] div[style*="font-size: 8px"]',
+        '.message-in div[style*="font-size: 8px"]',
+        '.message-out div[style*="font-size: 8px"]',
+        // Captura o preview visual de arquivos (Modal) e Fallbacks Globais
+        'div:has(> span[title*=".pdf"]) span',
+        'div:has(> span[title*=".doc"]) span',
+        'div:has(> span[title*=".xls"]) span',
+        'div:has(> span[title*=".ppt"]) span',
+        'div:has(> span[title*=".zip"]) span',
+        'div:has(> span[title*=".txt"]) span',
+        '[role="dialog"] span[title]',
       ],
     },
     media: {
@@ -64,6 +81,14 @@ const WPB_CONSTANTS = {
         '[data-testid="image-thumb"] img',
         '[data-testid="msg-container"] img[src*="blob:"]',
         '[data-testid="msg-container"] video',
+        // O WhatsApp usa divs com background-image (blob:) para renderizar prévias de PDF/documentos
+        '[data-testid="msg-container"] div[style*="blob:"]',
+        '.message-in div[style*="blob:"]',
+        '.message-out div[style*="blob:"]',
+        // Imagens de prévia anexadas a documentos/links (ignora emojis)
+        '[data-testid="msg-container"]:has([role="button"]) img:not(.emoji)',
+        '.message-in:has([role="button"]) img:not(.emoji)',
+        '.message-out:has([role="button"]) img:not(.emoji)',
         '.message-in img[src*="blob:"]',
         '.message-out img[src*="blob:"]',
         '.message-in video',

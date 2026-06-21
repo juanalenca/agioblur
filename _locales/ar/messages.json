@@ -115,5 +115,17 @@
   },
   "btnConfirmReset": {
     "message": "استعادة الإعدادات الافتراضية وحذف PIN؟ انقر مجددًا"
+  },
+  "fakeMessageEmpty": {
+    "message": "رسالة..."
+  },
+  "fakeMessageShort": {
+    "message": "جيد جدًا!"
+  },
+  "fakeMessageMedium": {
+    "message": "حسنًا، متفق عليه."
+  },
+  "fakeMessageLong": {
+    "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
   }
 }

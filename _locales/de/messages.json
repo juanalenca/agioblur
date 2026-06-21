@@ -115,5 +115,17 @@
   },
   "btnConfirmReset": {
     "message": "Werkseinstellungen & PIN löschen? Erneut klicken"
+  },
+  "fakeMessageEmpty": {
+    "message": "Nachricht..."
+  },
+  "fakeMessageShort": {
+    "message": "Alles klar!"
+  },
+  "fakeMessageMedium": {
+    "message": "Ok, abgemacht."
+  },
+  "fakeMessageLong": {
+    "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
   }
 }

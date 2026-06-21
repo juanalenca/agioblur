@@ -226,86 +226,75 @@
 :root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover span.emoji { opacity: 0 !important; }
 
 /* ==========================================================================
-   Modo Fake Data
+   Modo Fake Data — visibility: hidden/visible
    ========================================================================== */
 
-.wpb-fake-data.wpb-blur-name,
-.wpb-fake-data.wpb-blur-msg {
-  filter: none !important;
-  background-color: transparent !important;
-  color: transparent !important;
-  -webkit-text-fill-color: transparent !important;
-  text-shadow: none !important;
+.wpb-fake-data {
+  visibility: hidden !important;
   position: relative;
-}
-.wpb-fake-data.wpb-blur-name *,
-.wpb-fake-data.wpb-blur-name a,
-.wpb-fake-data.wpb-blur-msg *,
-.wpb-fake-data.wpb-blur-msg a {
-  color: transparent !important;
-  -webkit-text-fill-color: transparent !important;
-  text-shadow: none !important;
-}
-.wpb-fake-data.wpb-blur-name img,
-.wpb-fake-data.wpb-blur-msg img,
-.wpb-fake-data.wpb-blur-name span.emoji,
-.wpb-fake-data.wpb-blur-msg span.emoji {
-  opacity: 0 !important;
+  filter: none !important;
 }
 
-:root.wpb-solid-mode .wpb-fake-data.wpb-blur-name,
-:root.wpb-solid-mode .wpb-fake-data.wpb-blur-msg {
-  background-color: transparent !important;
-}
-
-.wpb-fake-data.wpb-blur-name::after {
-  content: attr(data-fake-name);
+.wpb-fake-data::before {
+  content: "";
   position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #e9edef !important;
-  -webkit-text-fill-color: #e9edef !important;
-  font-size: 14.2px !important;
-  line-height: 1.3 !important;
-  pointer-events: none;
-  white-space: nowrap;
+  top: -5px; bottom: -5px; left: -5px; right: -5px;
+  visibility: visible;
+  z-index: 1;
 }
 
-.wpb-fake-data.wpb-blur-msg::after {
+.wpb-fake-data::after {
   content: attr(data-fake-text);
+  visibility: visible;
   position: absolute;
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  color: #8696a0 !important;
-  -webkit-text-fill-color: #8696a0 !important;
-  font-size: 13px !important;
-  line-height: 1.3 !important;
-  pointer-events: none;
+  color: #8696a0;
+  font-size: 13px;
+  line-height: 1.3;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+  z-index: 2;
 }
 
-/* Hover revela o texto real por padrão */
+.wpb-fake-data.wpb-blur-name::after {
+  content: attr(data-fake-name);
+  color: #e9edef;
+  font-size: 14.2px;
+}
+
+/* Força a ocultação de emojis e links que possam vazar a visibilidade nativa do WhatsApp */
+.wpb-fake-data img,
+.wpb-fake-data span.emoji,
+.wpb-fake-data a {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Hover revela o conteúdo real, emojis e links */
+.wpb-fake-data:hover {
+  visibility: visible !important;
+}
+.wpb-fake-data:hover img,
+.wpb-fake-data:hover span.emoji,
+.wpb-fake-data:hover a {
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+.wpb-fake-data:hover::before,
 .wpb-fake-data:hover::after {
   display: none !important;
 }
-.wpb-fake-data:hover,
-.wpb-fake-data:hover *,
-.wpb-fake-data:hover a {
-  color: inherit !important;
-  -webkit-text-fill-color: inherit !important;
+
+/* Locked: mantém fake no hover */
+.wpb-locked .wpb-fake-data:hover {
+  visibility: hidden !important;
 }
-/* Locked: mantém o fake data mesmo no hover */
 .wpb-locked .wpb-fake-data:hover::after {
   display: block !important;
-}
-.wpb-locked .wpb-fake-data:hover,
-.wpb-locked .wpb-fake-data:hover *,
-.wpb-locked .wpb-fake-data:hover a {
-  color: transparent !important;
-  -webkit-text-fill-color: transparent !important;
 }

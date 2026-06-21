@@ -115,5 +115,17 @@
   },
   "btnConfirmReset": {
     "message": "Restaurar padrões e apagar PIN? Clique de novo"
+  },
+  "fakeMessageEmpty": {
+    "message": "Mensagem..."
+  },
+  "fakeMessageShort": {
+    "message": "Tudo certo!"
+  },
+  "fakeMessageMedium": {
+    "message": "Ok, combinado."
+  },
+  "fakeMessageLong": {
+    "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
   }
 }
