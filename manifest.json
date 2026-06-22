@@ -10,7 +10,9 @@
   "permissions": ["storage", "activeTab", "alarms"],
   "host_permissions": [
     "https://web.whatsapp.com/*",
-    "https://api.agioblur.com/*"
+    "https://api.agioblur.com/*",
+    "http://127.0.0.1:8787/*",
+    "http://localhost:8787/*"
   ],
   "background": {
     "service_worker": "background.js"

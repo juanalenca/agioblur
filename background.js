@@ -5,6 +5,12 @@
 'use strict';
 
 const AGIOBLUR_LICENSE_API_BASE = 'https://api.agioblur.com';
+const LICENSE_API_BASE_STORAGE_KEY = 'license_api_base_url';
+const LICENSE_API_ALLOWED_ORIGINS = new Set([
+  'https://api.agioblur.com',
+  'http://127.0.0.1:8787',
+  'http://localhost:8787'
+]);
 const LICENSE_KEY_ID = 'agioblur-dev-2026-01';
 const LICENSE_PUBLIC_KEY_JWK = {
   key_ops: ['verify'],
@@ -26,6 +32,44 @@ const LICENSE_STORAGE_KEYS = [
 ];
 
 const OFFLINE_TOLERANCE_MS = 72 * 60 * 60 * 1000;
+
+async function getLicenseApiBase() {
+  const storage = await chrome.storage.local.get(LICENSE_API_BASE_STORAGE_KEY);
+  const configuredBase = storage[LICENSE_API_BASE_STORAGE_KEY];
+  if (!configuredBase) return AGIOBLUR_LICENSE_API_BASE;
+
+  try {
+    const url = new URL(configuredBase);
+    const origin = url.origin;
+    return LICENSE_API_ALLOWED_ORIGINS.has(origin) ? origin : AGIOBLUR_LICENSE_API_BASE;
+  } catch {
+    return AGIOBLUR_LICENSE_API_BASE;
+  }
+}
+
+async function setLicenseApiBase(apiBaseUrl) {
+  if (!apiBaseUrl) {
+    await chrome.storage.local.remove(LICENSE_API_BASE_STORAGE_KEY);
+    return { ok: true, apiBaseUrl: AGIOBLUR_LICENSE_API_BASE };
+  }
+
+  try {
+    const origin = new URL(apiBaseUrl).origin;
+    if (!LICENSE_API_ALLOWED_ORIGINS.has(origin)) {
+      return { ok: false, error: 'LICENSE_API_BASE_NOT_ALLOWED', apiBaseUrl: await getLicenseApiBase() };
+    }
+
+    await chrome.storage.local.set({ [LICENSE_API_BASE_STORAGE_KEY]: origin });
+    return { ok: true, apiBaseUrl: origin };
+  } catch {
+    return { ok: false, error: 'LICENSE_API_BASE_INVALID', apiBaseUrl: await getLicenseApiBase() };
+  }
+}
+
+async function licenseApiFetch(path, options) {
+  const apiBase = await getLicenseApiBase();
+  return fetch(`${apiBase}${path}`, options);
+}
 
 async function ensureDeviceUuid() {
   const storage = await chrome.storage.local.get('device_uuid');
@@ -122,7 +166,7 @@ async function validateLicenseNow() {
   }
 
   try {
-    const response = await fetch(`${AGIOBLUR_LICENSE_API_BASE}/licenses/validate`, {
+    const response = await licenseApiFetch('/licenses/validate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -184,7 +228,7 @@ async function requestDeviceReset(licenseKey) {
   }
 
   try {
-    const response = await fetch(`${AGIOBLUR_LICENSE_API_BASE}/licenses/reset-devices`, {
+    const response = await licenseApiFetch('/licenses/reset-devices', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -312,6 +356,16 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
   if (message.action === 'license:requestDeviceReset') {
     requestDeviceReset(message.licenseKey).then(sendResponse);
+    return true;
+  }
+
+  if (message.action === 'license:getApiBase') {
+    getLicenseApiBase().then((apiBaseUrl) => sendResponse({ ok: true, apiBaseUrl }));
+    return true;
+  }
+
+  if (message.action === 'license:setApiBase') {
+    setLicenseApiBase(message.apiBaseUrl).then(sendResponse);
     return true;
   }
 
