@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow">
+  <title>AgioBlur</title>
+  <script>
+    const supported = ['pt-BR', 'en', 'es', 'de', 'fr', 'it', 'id', 'tr', 'hi', 'ar'];
+    const aliases = { pt: 'pt-BR', 'pt-br': 'pt-BR' };
+    const preferred = (navigator.languages || [navigator.language || 'en'])
+      .map(lang => aliases[String(lang).toLowerCase()] || String(lang).split('-')[0])
+      .find(lang => supported.includes(lang)) || 'en';
+    location.replace(`./${preferred}/`);
+  </script>
+</head>
+<body>
+  <a href="./en/">Continue to AgioBlur</a>
+</body>
+</html>
