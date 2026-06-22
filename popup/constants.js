@@ -42,7 +42,7 @@ const POPUP_CONSTANTS = {
 
   FEATURE_TIERS: {
     photos: 'FREE',
-    names: 'FREE',
+    names: 'PRO',
     compose: 'FREE',
     solidMode: 'FREE',
     messages: 'FREE',
