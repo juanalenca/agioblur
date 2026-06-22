@@ -1,0 +1,826 @@
+## Plano de Execução Técnica — AgioBlur Freemium
+
+Documento de trabalho para transformar a extensão AgioBlur em um produto Freemium com landing page, checkout, licenças, validação Premium e fluxo de desenvolvimento documentado.
+
+Última revisão: 2026-06-22
+
+---
+
+## 1. Premissas revisadas
+
+- A extensão atual já funciona e não deve ser reescrita.
+- O projeto usa Manifest V3, scripts globais sem bundler e objetos `WPB_*` / `POPUP_*`.
+- A pasta da landing page será `landing-page-extensao/`, não `landing/`.
+- O repositório já existe no GitHub e todo trabalho deve sair de branches de feature.
+- Nenhum segredo deve ser commitado no repositório.
+- O modelo Freemium deve ser aplicado de forma consistente no popup, content script, background script e landing page.
+- A validação local de Premium é uma camada de controle de produto, não DRM absoluto. Um usuário avançado sempre pode adulterar uma extensão local; o objetivo é bloquear uso normal sem licença e reduzir abuso.
+
+---
+
+## 2. Fontes externas verificadas
+
+- Lemon Squeezy: webhooks usam assinatura `X-Signature` com HMAC-SHA256 calculado sobre o corpo bruto.
+  Referência: https://docs.lemonsqueezy.com/help/webhooks/signing-requests
+- Cakto: a documentação atual de webhooks descreve payload com campo `secret`, `event` e `data`; a validação é feita comparando o `secret` recebido com o segredo configurado.
+  Referência: https://cakto-dece4a15.mintlify.app/webhooks/visao-geral
+- Resend Free: 100 e-mails/dia e 3.000 e-mails/mês no plano gratuito.
+  Referência: https://resend.com/docs/knowledge-base/account-quotas-and-limits
+- Cloudflare Workers Free: 100.000 requests/dia, com limite de subrequests por invocação.
+  Referência: https://developers.cloudflare.com/workers/platform/limits/
+- Vercel Hobby: uso pessoal/não comercial. Para landing page comercial, considerar Vercel Pro ou outro host compatível.
+  Referência: https://vercel.com/docs/plans/hobby
+- Supabase Free: adequado para validação inicial, mas com limites de banco, compute e disponibilidade; produção deve monitorar uso e backups.
+  Referência: https://supabase.com/docs/guides/platform/billing-on-supabase
+
+---
+
+## 3. Correções principais em relação ao plano anterior
+
+1. Não usar HMAC secreto dentro da extensão.
+   - A extensão não pode conhecer `HMAC_SECRET`, porque qualquer pessoa poderia extraí-lo.
+   - O Worker deve assinar um recibo Premium com chave privada.
+   - A extensão deve verificar esse recibo com uma chave pública embutida.
+
+2. Validar Cakto conforme documentação atual.
+   - Cakto não deve ser tratado como Lemon Squeezy.
+   - Lemon Squeezy usa `X-Signature`.
+   - Cakto usa `secret` no payload atual documentado.
+
+3. Criar `background.js`.
+   - O projeto atual não possui service worker no `manifest.json`.
+   - Será necessário adicionar `background.service_worker`, permissão `alarms` e host permission para a API.
+
+4. Adaptar nomes ao código real.
+   - Popup usa IDs `toggle-*`, não `switch-*`.
+   - Linhas do popup usam `.cat-row`, não `.container-item`.
+   - O projeto não usa `export`; constantes devem seguir o padrão global existente.
+   - PII não é um bloco único `piiFilters`; são chaves `piiCpf`, `piiEmail`, `piiCard`, `piiPhone`, `piiPix`.
+
+5. Resolver limite de dispositivos de forma transacional.
+   - Não usar `count` + `insert` soltos no Worker.
+   - Usar função RPC/Postgres com lock na licença para impedir corrida.
+
+6. Webhooks precisam ser idempotentes.
+   - Gateways podem reenviar eventos.
+   - O banco deve guardar `gateway_event_id` e/ou `gateway_order_id`.
+   - O mesmo evento não pode gerar licença duplicada.
+
+7. Ajustar plano de hospedagem.
+   - Se a landing for comercial, o Vercel Hobby não é a opção correta.
+   - Opções aceitáveis: Vercel Pro, Cloudflare Pages ou outro host com uso comercial permitido.
+
+---
+
+## 4. Modelo de produto Freemium
+
+### 4.1 Recursos Free
+
+Chaves existentes no projeto:
+
+```javascript
+const FREE_FEATURES = [
+  'photos',
+  'names',
+  'compose',
+  'solidMode'
+];
+```
+
+Comportamento:
+
+- Usuário Free pode desfocar fotos de perfil, nomes, campo de digitação e usar censura sólida.
+- Usuário Free não precisa criar conta nem ativar licença.
+- A extensão deve continuar útil no modo gratuito.
+
+### 4.2 Recursos Pro
+
+Chaves existentes no projeto:
+
+```javascript
+const PRO_FEATURES = [
+  'messages',
+  'media',
+  'fakeData',
+  'blurIntensity',
+  'savedPin',
+  'piiCpf',
+  'piiEmail',
+  'piiCard',
+  'piiPhone',
+  'piiPix'
+];
+```
+
+Comportamento:
+
+- Usuário Pro pode usar mensagens, mídias, Fake Data, intensidade customizada, PIN e filtros LGPD/PII.
+- Se a licença expirar, for revogada ou não existir, recursos Pro devem ser removidos do DOM e bloqueados no popup.
+- Se a API ficar indisponível, a extensão pode aceitar um recibo Premium ainda válido e uma tolerância offline limitada.
+
+### 4.3 Migração para usuários existentes
+
+Na primeira versão Freemium:
+
+- Manter as configurações Free existentes.
+- Para usuários sem licença, desligar recursos Pro ao iniciar a extensão.
+- Exibir estado bloqueado no popup com CTA para upgrade.
+- Documentar nas release notes que recursos avançados foram movidos para Pro.
+- Evitar apagar preferências Pro; apenas não aplicá-las enquanto a licença não estiver ativa.
+
+---
+
+## 5. Arquitetura de licenças
+
+### 5.1 Decisão de assinatura
+
+Usar recibo assinado por chave assimétrica.
+
+Recomendação:
+
+- Algoritmo: ECDSA P-256 / SHA-256 usando Web Crypto.
+- Worker guarda a chave privada em secret/env.
+- Extensão embute apenas a chave pública.
+- Resposta da validação retorna `receipt_payload` e `receipt_signature`.
+
+Formato lógico do recibo:
+
+```json
+{
+  "version": 1,
+  "kid": "agioblur-prod-2026-01",
+  "license_id": "uuid",
+  "license_key_hash": "sha256",
+  "device_uuid": "uuid",
+  "plan": "PRO",
+  "features": ["messages", "media", "fakeData", "blurIntensity", "savedPin", "piiCpf", "piiEmail", "piiCard", "piiPhone", "piiPix"],
+  "max_devices": 3,
+  "issued_at": 1782090000000,
+  "expires_at": 1782176400000
+}
+```
+
+Observações:
+
+- Não colocar e-mail no recibo salvo localmente.
+- Não confiar em `premium_status` salvo localmente sem assinatura.
+- A extensão só considera Premium ativo se a assinatura do recibo for válida.
+- O recibo deve expirar em até 24h.
+- Tolerância offline máxima: 72h após a primeira falha de rede, desde que exista recibo válido anterior.
+
+### 5.2 Geração de license key
+
+Não usar `Math.random()` para gerar chaves.
+
+Usar `crypto.getRandomValues` no Worker:
+
+```javascript
+function generateLicenseKey() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+
+  const segment = (offset) => Array.from(
+    bytes.slice(offset, offset + 4),
+    (byte) => chars[byte % chars.length]
+  ).join('');
+
+  return [
+    segment(0),
+    segment(4),
+    segment(8),
+    segment(12)
+  ].join('-');
+}
+```
+
+---
+
+## 6. Banco de dados Supabase
+
+Executar migrations SQL versionadas em `infra/supabase/migrations/`.
+
+### 6.1 Tabelas
+
+```sql
+CREATE TYPE license_status AS ENUM (
+  'ACTIVE',
+  'REVOKED',
+  'REFUNDED',
+  'CHARGEBACK',
+  'EXPIRED'
+);
+
+CREATE TYPE license_plan AS ENUM (
+  'PRO'
+);
+
+CREATE TABLE licenses (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  license_key TEXT UNIQUE NOT NULL,
+  license_key_hash TEXT UNIQUE NOT NULL,
+  email TEXT NOT NULL,
+  plan license_plan NOT NULL DEFAULT 'PRO',
+  status license_status NOT NULL DEFAULT 'ACTIVE',
+  max_devices INTEGER NOT NULL DEFAULT 3 CHECK (max_devices > 0),
+  gateway TEXT NOT NULL CHECK (gateway IN ('cakto', 'lemonsqueezy')),
+  gateway_order_id TEXT,
+  gateway_customer_id TEXT,
+  gateway_product_id TEXT,
+  gateway_variant_id TEXT,
+  purchased_at TIMESTAMPTZ DEFAULT now(),
+  revoked_at TIMESTAMPTZ,
+  revoke_reason TEXT,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE UNIQUE INDEX licenses_gateway_order_idx
+  ON licenses(gateway, gateway_order_id)
+  WHERE gateway_order_id IS NOT NULL;
+
+CREATE INDEX licenses_email_idx ON licenses(email);
+CREATE INDEX licenses_status_idx ON licenses(status);
+
+CREATE TABLE license_devices (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  license_id UUID NOT NULL REFERENCES licenses(id) ON DELETE CASCADE,
+  device_uuid TEXT NOT NULL,
+  user_agent TEXT,
+  first_seen_at TIMESTAMPTZ DEFAULT now(),
+  last_seen_at TIMESTAMPTZ DEFAULT now(),
+  revoked_at TIMESTAMPTZ,
+  UNIQUE(license_id, device_uuid)
+);
+
+CREATE INDEX license_devices_device_uuid_idx ON license_devices(device_uuid);
+CREATE INDEX license_devices_license_active_idx
+  ON license_devices(license_id)
+  WHERE revoked_at IS NULL;
+
+CREATE TABLE device_reset_tokens (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  license_id UUID NOT NULL REFERENCES licenses(id) ON DELETE CASCADE,
+  token_hash TEXT UNIQUE NOT NULL,
+  new_device_uuid TEXT NOT NULL,
+  expires_at TIMESTAMPTZ NOT NULL,
+  used_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE INDEX device_reset_tokens_license_idx ON device_reset_tokens(license_id);
+
+CREATE TABLE webhook_events (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  gateway TEXT NOT NULL CHECK (gateway IN ('cakto', 'lemonsqueezy')),
+  gateway_event_id TEXT,
+  gateway_order_id TEXT,
+  event_type TEXT NOT NULL,
+  payload JSONB NOT NULL,
+  payload_sha256 TEXT NOT NULL,
+  processed_at TIMESTAMPTZ,
+  processing_error TEXT,
+  created_at TIMESTAMPTZ DEFAULT now(),
+  UNIQUE(gateway, gateway_event_id),
+  UNIQUE(gateway, payload_sha256)
+);
+```
+
+### 6.2 Função transacional de validação
+
+Criar uma função RPC para validar licença e registrar dispositivo com lock.
+
+Contrato lógico:
+
+```sql
+validate_license_device(
+  p_license_key TEXT,
+  p_device_uuid TEXT,
+  p_user_agent TEXT
+)
+RETURNS JSONB
+```
+
+Regras:
+
+1. Buscar licença `FOR UPDATE`.
+2. Se não existir, retornar `LICENSE_NOT_FOUND`.
+3. Se status diferente de `ACTIVE`, retornar `LICENSE_REVOKED`.
+4. Se dispositivo já existir e não estiver revogado, atualizar `last_seen_at`.
+5. Se dispositivo não existir, contar dispositivos ativos.
+6. Se count >= `max_devices`, retornar `DEVICE_LIMIT_EXCEEDED`.
+7. Se count < `max_devices`, inserir dispositivo.
+8. Retornar dados mínimos para o Worker assinar o recibo.
+
+---
+
+## 7. Cloudflare Worker
+
+Criar pasta `infra/worker/`.
+
+### 7.1 Variáveis de ambiente
+
+Secrets reais via Cloudflare, nunca commitados:
+
+```text
+SUPABASE_URL
+SUPABASE_SERVICE_ROLE_KEY
+LICENSE_PRIVATE_KEY_JWK
+LICENSE_PUBLIC_KEY_KID
+CAKTO_WEBHOOK_SECRET
+LEMONSQUEEZY_WEBHOOK_SECRET
+RESEND_API_KEY
+APP_API_BASE_URL
+```
+
+Arquivo seguro para documentação:
+
+```text
+infra/worker/.dev.vars.example
+```
+
+### 7.2 Rotas
+
+```text
+GET  /health
+POST /licenses/validate
+POST /licenses/reset-devices
+GET  /licenses/reset-devices/confirm?token=
+POST /webhooks/cakto
+POST /webhooks/lemonsqueezy
+```
+
+### 7.3 `POST /licenses/validate`
+
+Payload:
+
+```json
+{
+  "license_key": "XXXX-XXXX-XXXX-XXXX",
+  "device_uuid": "uuid-v4",
+  "extension_version": "2.2.0"
+}
+```
+
+Resposta de sucesso:
+
+```json
+{
+  "receipt_payload": "{...json canonicalizado...}",
+  "receipt_signature": "base64url",
+  "expires_at": 1782176400000
+}
+```
+
+Erros:
+
+```json
+{ "error": "LICENSE_NOT_FOUND" }
+{ "error": "LICENSE_REVOKED" }
+{ "error": "DEVICE_LIMIT_EXCEEDED" }
+{ "error": "INVALID_PAYLOAD" }
+```
+
+### 7.4 `POST /licenses/reset-devices`
+
+Payload:
+
+```json
+{
+  "license_key": "XXXX-XXXX-XXXX-XXXX",
+  "new_device_uuid": "uuid-v4"
+}
+```
+
+Regras:
+
+- Nunca revelar se um e-mail específico existe.
+- Para licença válida, gerar token aleatório, salvar apenas hash do token e enviar e-mail.
+- Expiração: 15 minutos.
+- Link:
+
+```text
+https://api.agioblur.com/licenses/reset-devices/confirm?token=TOKEN
+```
+
+### 7.5 `GET /licenses/reset-devices/confirm`
+
+Regras:
+
+- Recebe `token`.
+- Calcula hash.
+- Busca token não usado e não expirado.
+- Em transação:
+  - revoga ou remove dispositivos ativos da licença;
+  - insere `new_device_uuid`;
+  - marca `used_at`.
+- Retorna HTML simples de sucesso ou erro.
+
+### 7.6 Webhook Lemon Squeezy
+
+Regras:
+
+- Ler corpo bruto antes de fazer parse.
+- Validar `X-Signature` com `LEMONSQUEEZY_WEBHOOK_SECRET`.
+- Usar comparação timing-safe.
+- Extrair `event_name`, `order_id`, `customer_id`, `email`, `product_id` e `variant_id`.
+- Registrar evento em `webhook_events` antes de processar.
+- Se evento já existir, retornar 200 sem gerar nova licença.
+- Para compra confirmada, criar licença e enviar e-mail.
+- Para refund/chargeback/cancelamento aplicável, revogar licença.
+
+### 7.7 Webhook Cakto
+
+Regras:
+
+- Fazer parse JSON.
+- Validar `payload.secret === CAKTO_WEBHOOK_SECRET`.
+- Usar `payload.event` para roteamento.
+- Eventos esperados:
+  - `purchase_approved`: criar licença.
+  - eventos de reembolso/cancelamento/chargeback: revogar licença, depois de confirmar nomes exatos no painel/docs durante implementação.
+- Registrar evento em `webhook_events`.
+- Ser idempotente por `data.id`/ordem e hash do payload.
+
+### 7.8 E-mail transacional
+
+Usar Resend para:
+
+- envio da licença após compra;
+- link de reset de dispositivos;
+- opcionalmente aviso de revogação.
+
+Limites de plano gratuito:
+
+- 100 e-mails/dia;
+- 3.000 e-mails/mês.
+
+Quando houver mais volume, migrar para plano pago antes de campanhas maiores.
+
+---
+
+## 8. Extensão
+
+### 8.1 Manifest
+
+Adicionar:
+
+```json
+{
+  "permissions": ["storage", "activeTab", "alarms"],
+  "host_permissions": [
+    "https://web.whatsapp.com/*",
+    "https://api.agioblur.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
+```
+
+Observação:
+
+- Manter CSP restritiva.
+- Se `background.js` precisar de helpers, usar `importScripts` ou arquivo único, seguindo o padrão sem bundler do projeto.
+
+### 8.2 Background script
+
+Criar `background.js`.
+
+Responsabilidades:
+
+- Criar `device_uuid` no primeiro uso, não apenas em `onInstalled`, para cobrir upgrades e instalações antigas.
+- Chamar API de validação.
+- Salvar recibo assinado no `chrome.storage.local`.
+- Verificar recibo com chave pública antes de responder ao content/popup.
+- Agendar validação via `chrome.alarms`.
+- Expor mensagens:
+
+```javascript
+{ action: 'license:getStatus' }
+{ action: 'license:activate', licenseKey }
+{ action: 'license:requestDeviceReset', licenseKey }
+{ action: 'license:validateNow' }
+```
+
+Estado salvo:
+
+```javascript
+{
+  device_uuid,
+  license_key,
+  license_receipt_payload,
+  license_receipt_signature,
+  license_last_validated_at,
+  license_last_failed_at,
+  license_last_error
+}
+```
+
+### 8.3 Content script
+
+Não transformar `scanAndApply` em função assíncrona chamada a cada varredura.
+
+Motivo:
+
+- `scanAndApply` roda muitas vezes por `MutationObserver`, polling e rescan periódico.
+- Chamar `chrome.runtime.sendMessage` em cada varredura prejudicaria performance.
+
+Implementação correta:
+
+- Adicionar estado Premium síncrono em `WPB_STATE`.
+- Carregar status Premium uma vez na inicialização.
+- Atualizar status Premium via mensagem/storage quando o background validar ou revogar.
+- Criar helper síncrono:
+
+```javascript
+function isFeatureAllowed(featureKey) {
+  const tier = WPB_CONSTANTS.FEATURE_TIERS[featureKey];
+  return tier !== 'PRO' || WPB_STATE.getIsPremium();
+}
+```
+
+Adaptar:
+
+- `content/constants.js`: adicionar `FEATURE_TIERS` usando chaves reais.
+- `content/state.js`: adicionar `isPremium`.
+- `content/dom.js`: bloquear categorias Pro em `scanAndApply` e `applyFullState`.
+- `content/pii.js`: bloquear PII quando Premium estiver inativo.
+- `content/main.js`: ouvir alterações de licença e limpar recursos Pro quando necessário.
+
+### 8.4 Popup
+
+Adaptar ao HTML real:
+
+- IDs: `toggle-photos`, `toggle-names`, `toggle-messages`, etc.
+- Containers: `.cat-row`.
+- Constantes: `POPUP_CONSTANTS`, sem `export`.
+
+Adicionar:
+
+- seção "Plano";
+- status Free/Pro;
+- campo "Ativar licença";
+- botão de reset de dispositivos quando `DEVICE_LIMIT_EXCEEDED`;
+- CTA para upgrade;
+- badge Pro nas linhas bloqueadas;
+- modal simples de upgrade.
+
+Regras:
+
+- Recursos Pro bloqueados devem ficar visualmente desativados.
+- Clique em recurso Pro bloqueado abre modal de upgrade.
+- Não salvar `true` para recurso Pro quando Premium estiver inativo.
+- Se usuário ativar licença, desbloquear UI sem precisar recarregar o popup.
+
+---
+
+## 9. Landing page
+
+### 9.1 Estrutura real
+
+Usar esta estrutura dentro de `landing-page-extensao/`:
+
+```text
+landing-page-extensao/
+├── index.html
+├── assets/
+│   ├── css/styles.css
+│   ├── js/main.js
+│   └── images/
+├── pt-BR/index.html
+├── en/index.html
+├── es/index.html
+├── de/index.html
+├── fr/index.html
+├── it/index.html
+├── id/index.html
+├── tr/index.html
+├── hi/index.html
+└── ar/index.html
+```
+
+### 9.2 Conteúdo mínimo
+
+Cada idioma deve conter:
+
+- hero com nome AgioBlur e proposta clara;
+- prova visual real da extensão;
+- comparação Free vs Pro;
+- lista de recursos;
+- seção de privacidade;
+- FAQ;
+- CTA de instalação;
+- CTA de upgrade Pro;
+- links para política de privacidade, suporte e termos.
+
+### 9.3 Roteamento de idioma
+
+`landing-page-extensao/index.html`:
+
+- Detectar `navigator.language`.
+- Redirecionar para pasta compatível.
+- Fallback: `en/`.
+
+### 9.4 Checkout
+
+- `pt-BR/index.html`: checkout Cakto.
+- Demais idiomas: checkout Lemon Squeezy.
+- Não usar detecção de IP.
+- URLs reais de checkout devem ficar em `assets/js/main.js` ou HTML, mas nunca como segredo.
+
+### 9.5 Hospedagem
+
+Premissa original: Vercel.
+
+Correção:
+
+- Se a página vender o Pro, usar Vercel Pro ou outro host com uso comercial permitido.
+- Configurar root do projeto no Vercel como `landing-page-extensao/`.
+- Alternativa recomendável: Cloudflare Pages, já que a API fica em Cloudflare Workers.
+
+---
+
+## 10. Testes e validação
+
+### 10.1 Banco
+
+- Rodar migrations em projeto Supabase de desenvolvimento.
+- Testar função RPC com:
+  - licença inexistente;
+  - licença revogada;
+  - primeiro dispositivo;
+  - terceiro dispositivo;
+  - quarto dispositivo;
+  - duas validações concorrentes.
+
+### 10.2 Worker
+
+Testar com `wrangler dev`:
+
+- `GET /health`;
+- `POST /licenses/validate`;
+- webhooks com assinatura inválida;
+- webhook duplicado;
+- reset de dispositivos;
+- token expirado;
+- token já usado.
+
+### 10.3 Extensão
+
+Testar com "Carregar sem compactação":
+
+- usuário Free aplica apenas recursos Free;
+- popup bloqueia Pro;
+- content script limpa Pro mesmo se storage for manipulado;
+- ativação de licença desbloqueia Pro;
+- recibo expirado bloqueia Pro;
+- recibo adulterado bloqueia Pro;
+- offline recente mantém Pro dentro da tolerância;
+- offline além da tolerância bloqueia Pro.
+
+### 10.4 Landing
+
+- Testar desktop e mobile.
+- Testar redirecionamento por idioma.
+- Testar CTAs de instalação por navegador.
+- Testar links de checkout.
+- Verificar Lighthouse básico.
+- Verificar acessibilidade de contraste e foco.
+
+### 10.5 Qualidade do repositório
+
+Antes de cada commit/PR:
+
+```powershell
+npm run lint
+& 'C:\Program Files\Git\cmd\git.exe' diff --check
+```
+
+---
+
+## 11. Git flow
+
+Branch base:
+
+```text
+main
+```
+
+Branches planejadas:
+
+```text
+feature/freemium-architecture
+feature/license-worker
+feature/extension-premium-gates
+feature/landing-page-freemium
+```
+
+Regras:
+
+- Uma branch por etapa.
+- Commits pequenos e descritivos.
+- Nenhum segredo em commit.
+- Toda mudança técnica relevante deve atualizar documentação.
+- Abrir PR para `main` ao final de cada etapa.
+- Tags de release apenas depois de teste manual da extensão empacotada.
+
+Sugestão de commits:
+
+```text
+docs: refine freemium implementation plan
+feat(worker): add license validation API
+feat(extension): add premium license gate
+feat(landing): add freemium landing page
+```
+
+---
+
+## 12. Ordem de execução
+
+### Fase A — Arquitetura e documentação
+
+- Corrigir este documento.
+- Criar branch `feature/freemium-architecture`.
+- Commitar somente documentação.
+
+Critério de aceite:
+
+- Plano executável, alinhado ao código real e ao Git flow.
+
+### Fase B — Banco e Worker
+
+- Criar migrations Supabase.
+- Criar Worker.
+- Implementar assinatura de recibos.
+- Implementar webhooks idempotentes.
+- Implementar envio de e-mails.
+- Testar endpoints isoladamente.
+
+Critério de aceite:
+
+- Licença pode ser criada por webhook simulado.
+- Licença pode ser validada.
+- Recibo assinado pode ser verificado.
+- Limite de dispositivos funciona sem corrida.
+
+### Fase C — Extensão
+
+- Criar `background.js`.
+- Ajustar `manifest.json`.
+- Adicionar verificação de recibo.
+- Bloquear recursos Pro no content script.
+- Bloquear recursos Pro no popup.
+- Adicionar ativação de licença.
+- Testar extensão instalada manualmente.
+
+Critério de aceite:
+
+- Usuário Free não consegue aplicar Pro.
+- Usuário Pro consegue aplicar Pro.
+- Revogação remove acesso Pro.
+- Manipulação simples do storage não libera Pro.
+
+### Fase D — Landing page
+
+- Criar landing estática em `landing-page-extensao/`.
+- Implementar idiomas.
+- Implementar roteador.
+- Implementar CTAs de download e checkout.
+- Testar responsividade.
+
+Critério de aceite:
+
+- Landing abre localmente.
+- Idiomas redirecionam corretamente.
+- CTAs apontam para URLs corretas.
+- Página está pronta para deploy.
+
+### Fase E — Release
+
+- Atualizar README e changelog.
+- Gerar pacote da extensão.
+- Testar em Chrome/Edge.
+- Criar tag de release.
+- Fazer deploy da landing.
+- Configurar webhooks reais nos gateways.
+- Fazer compra teste ponta a ponta.
+
+Critério de aceite:
+
+- Fluxo completo compra -> licença por e-mail -> ativação -> Pro ativo funciona.
+
+---
+
+## 13. Pontos que ainda exigem decisão antes de implementação
+
+1. Preço e periodicidade do Pro.
+2. Se será licença vitalícia, anual ou assinatura.
+3. URLs reais dos checkouts Cakto e Lemon Squeezy.
+4. Domínio final da API (`api.agioblur.com` ou outro).
+5. Domínio final da landing.
+6. Host comercial final: Vercel Pro, Cloudflare Pages ou outro.
+7. Política de privacidade e termos comerciais.
+8. E-mail remetente verificado no Resend.
+9. Se PIN será Pro desde a primeira release Freemium ou ficará temporariamente Free.
+10. Como comunicar a migração aos usuários atuais.
