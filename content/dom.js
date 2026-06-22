@@ -105,6 +105,10 @@ const WPB_DOM = (function() {
     compose: isLegitCompose
   };
 
+  function isFeatureAllowed(featureKey) {
+    return WPB_CONSTANTS.FEATURE_TIERS[featureKey] !== 'PRO' || WPB_STATE.getIsPremium();
+  }
+
   // ─── Substituição DOM para Fake Data ──────────────────────────────────
 
   // ─── Substituição para Fake Data (Apenas atributos CSS) ─────────────
@@ -116,11 +120,13 @@ const WPB_DOM = (function() {
    * @param {string} cssClass 
    */
   function applyBlur(el, categoryKey, cssClass) {
+    if (!isFeatureAllowed(categoryKey)) return;
+
     if (!el.classList.contains(cssClass)) {
       el.classList.add(cssClass);
     }
     const settings = WPB_STATE.getSettings();
-    if (settings.fakeData && (categoryKey === 'names' || categoryKey === 'messages')) {
+    if (settings.fakeData && isFeatureAllowed('fakeData') && (categoryKey === 'names' || categoryKey === 'messages')) {
       if (!el.hasAttribute('data-wpb-managed')) {
         el.classList.add('wpb-fake-data');
         el.setAttribute('data-wpb-managed', 'true');
@@ -151,6 +157,16 @@ const WPB_DOM = (function() {
     el.removeAttribute('data-fake-text');
   }
 
+  function revertAllFakeContent() {
+    const els = document.querySelectorAll('[data-wpb-managed], .wpb-fake-data');
+    for (const el of els) {
+      el.classList.remove('wpb-fake-data');
+      el.removeAttribute('data-wpb-managed');
+      el.removeAttribute('data-fake-name');
+      el.removeAttribute('data-fake-text');
+    }
+  }
+
   /**
    * Faz varredura e aplica filtros
    * @param {Document|Element} root 
@@ -158,6 +174,7 @@ const WPB_DOM = (function() {
   function scanAndApply(root) {
     const state = WPB_STATE.getCategoryState();
     for (const [key, config] of Object.entries(WPB_CONSTANTS.CATEGORIES)) {
+      if (!isFeatureAllowed(key)) continue;
       if (!state[key]) continue;
       const filter = FILTERS[key];
 
@@ -222,11 +239,25 @@ const WPB_DOM = (function() {
   function applyFullState() {
     const state = WPB_STATE.getCategoryState();
     for (const key of Object.keys(WPB_CONSTANTS.CATEGORIES)) {
-      if (state[key]) {
+      if (!isFeatureAllowed(key)) {
+        clearCategory(key);
+      } else if (state[key]) {
         scanAndApply(document);
       } else {
         clearCategory(key);
       }
+    }
+  }
+
+  function clearPremiumFeatures() {
+    for (const [key, tier] of Object.entries(WPB_CONSTANTS.FEATURE_TIERS)) {
+      if (tier === 'PRO' && WPB_CONSTANTS.CATEGORIES[key]) {
+        clearCategory(key);
+      }
+    }
+
+    if (typeof WPB_PII !== 'undefined' && document.body) {
+      WPB_PII.restore(document.body);
     }
   }
 
@@ -319,8 +350,10 @@ const WPB_DOM = (function() {
   return {
     applyBlur,
     removeBlur,
+    revertAllFakeContent,
     scanAndApply,
     clearCategory,
+    clearPremiumFeatures,
     applyFullState,
     startPolling,
     setupRootObserver,

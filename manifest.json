@@ -7,8 +7,14 @@
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'none'; base-uri 'none';"
   },
-  "permissions": ["storage", "activeTab"],
-  "host_permissions": ["https://web.whatsapp.com/*"],
+  "permissions": ["storage", "activeTab", "alarms"],
+  "host_permissions": [
+    "https://web.whatsapp.com/*",
+    "https://api.agioblur.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_scripts": [
     {
       "matches": ["https://web.whatsapp.com/*"],

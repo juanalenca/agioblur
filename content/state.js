@@ -18,6 +18,7 @@ const WPB_STATE = (function() {
   };
   
   let isUnlocked = false;
+  let isPremium = false;
   let unlockTimeout = null;
 
   return {
@@ -38,6 +39,12 @@ const WPB_STATE = (function() {
 
     /** @param {boolean} val Valor do bloqueio. */
     setIsUnlocked(val) { isUnlocked = val; },
+
+    /** @returns {boolean} Se a licença Premium está ativa. */
+    getIsPremium() { return isPremium; },
+
+    /** @param {boolean} val Valor do estado Premium. */
+    setIsPremium(val) { isPremium = !!val; },
 
     /** @returns {number|null} ID do timeout de desbloqueio. */
     getUnlockTimeout() { return unlockTimeout; },

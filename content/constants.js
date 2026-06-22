@@ -8,6 +8,22 @@
 const WPB_CONSTANTS = {
   STORAGE_KEY: 'wpbCategories',
   SETTINGS_KEY: 'wpbSettings',
+  FEATURE_TIERS: {
+    photos: 'FREE',
+    names: 'FREE',
+    compose: 'FREE',
+    solidMode: 'FREE',
+    messages: 'PRO',
+    media: 'PRO',
+    fakeData: 'PRO',
+    blurIntensity: 'PRO',
+    savedPin: 'PRO',
+    piiCpf: 'PRO',
+    piiEmail: 'PRO',
+    piiCard: 'PRO',
+    piiPhone: 'PRO',
+    piiPix: 'PRO'
+  },
 
   CATEGORIES: {
     photos: {

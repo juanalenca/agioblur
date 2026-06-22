@@ -288,9 +288,30 @@ input[type="password"] {
   transition: var(--transition);
 }
 
-input[type="password"]:focus {
+input[type="text"] {
+  flex: 1;
+  background: var(--bg-base);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+  transition: var(--transition);
+  min-width: 0;
+}
+
+input[type="password"]:focus,
+input[type="text"]:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+input:disabled,
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
 
 .btn-primary {
@@ -387,6 +408,95 @@ input[type="password"]:focus {
 .status-badge.unlocked {
   background: rgba(16, 185, 129, 0.1);
   color: var(--accent);
+}
+
+/* ── Plano / Freemium ── */
+.license-card {
+  padding: 16px;
+}
+
+.license-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.license-summary strong {
+  display: block;
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.license-eyebrow {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 11px;
+  margin-bottom: 3px;
+}
+
+.license-plan-badge,
+.pro-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.05);
+  color: var(--text-secondary);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 5px 8px;
+}
+
+.license-plan-badge.premium,
+.pro-badge {
+  color: var(--accent);
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.license-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.license-message {
+  min-height: 16px;
+  margin-top: 10px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.license-message.success {
+  color: var(--accent);
+}
+
+.license-message.warning {
+  color: #fbbf24;
+}
+
+.license-message.danger {
+  color: var(--danger);
+}
+
+.btn-reset-devices {
+  display: none;
+  width: 100%;
+  margin-top: 8px;
+  border-color: rgba(251, 191, 36, 0.45);
+  color: #fbbf24;
+}
+
+.premium-locked {
+  opacity: 0.62;
+}
+
+.premium-locked:hover {
+  background: var(--bg-surface);
 }
 
 /* Aplicar no nó raiz do popup se o idioma for 'ar' */

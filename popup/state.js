@@ -9,11 +9,15 @@
 const POPUP_STATE = (function() {
   let currentSettings = { ...POPUP_CONSTANTS.DEFAULTS_SETTINGS };
   let isSessionUnlocked = false;
+  let licenseStatus = { isPremium: false, plan: 'FREE', features: [] };
 
   return {
     getSettings() { return currentSettings; },
     setSettings(s) { currentSettings = s; },
     getIsUnlocked() { return isSessionUnlocked; },
-    setIsUnlocked(v) { isSessionUnlocked = v; }
+    setIsUnlocked(v) { isSessionUnlocked = v; },
+    getLicenseStatus() { return licenseStatus; },
+    setLicenseStatus(status) { licenseStatus = status || { isPremium: false, plan: 'FREE', features: [] }; },
+    getIsPremium() { return !!licenseStatus.isPremium; }
   };
 })();

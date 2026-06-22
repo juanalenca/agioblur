@@ -1,6 +1,6 @@
 SUPABASE_URL=https://PROJECT_REF.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=replace-with-service-role-key
-LICENSE_PRIVATE_KEY_JWK={"kty":"EC","crv":"P-256","x":"...","y":"...","d":"...","ext":true,"key_ops":["sign"]}
+LICENSE_PRIVATE_KEY_JWK={"key_ops":["sign"],"ext":true,"kty":"EC","x":"HhoTYSi8YxvmOI8R3u0qqm6tnciYpzn6_mUSgeCBdvI","y":"2QxPF8ST5PLxCsaH_fHqP4idrGjxia-g_RSjeGkLrNc","crv":"P-256","d":"OYRmuc3yM94BKsOCGsLniqSoQmWhY20EvETFS90-t7s"}
 LICENSE_PUBLIC_KEY_KID=agioblur-dev-2026-01
 CAKTO_WEBHOOK_SECRET=replace-with-cakto-secret
 LEMONSQUEEZY_WEBHOOK_SECRET=replace-with-lemonsqueezy-secret

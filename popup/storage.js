@@ -7,6 +7,18 @@
 
 // eslint-disable-next-line no-unused-vars
 const POPUP_STORAGE = (function() {
+  async function refreshLicenseStatus() {
+    try {
+      const status = await chrome.runtime.sendMessage({ action: 'license:getStatus' });
+      POPUP_STATE.setLicenseStatus(status);
+      return status;
+    } catch {
+      const status = { isPremium: false, plan: 'FREE', features: [], error: 'BACKGROUND_UNAVAILABLE' };
+      POPUP_STATE.setLicenseStatus(status);
+      return status;
+    }
+  }
+
   async function saveState(state) {
     return new Promise((resolve) => {
       chrome.storage.local.set({ [POPUP_CONSTANTS.STORAGE_KEY]: state }, resolve);
@@ -22,7 +34,9 @@ const POPUP_STORAGE = (function() {
 
   async function loadAndSync() {
     return new Promise((resolve) => {
-      chrome.storage.local.get([POPUP_CONSTANTS.STORAGE_KEY, POPUP_CONSTANTS.SETTINGS_KEY], (result) => {
+      chrome.storage.local.get([POPUP_CONSTANTS.STORAGE_KEY, POPUP_CONSTANTS.SETTINGS_KEY], async (result) => {
+        await refreshLicenseStatus();
+
         const savedCats = result[POPUP_CONSTANTS.STORAGE_KEY];
         const state = savedCats ? { ...POPUP_CONSTANTS.DEFAULTS_CATEGORIES, ...savedCats } : { ...POPUP_CONSTANTS.DEFAULTS_CATEGORIES };
         
@@ -39,6 +53,7 @@ const POPUP_STORAGE = (function() {
         POPUP_UI.elements.blurLabel.textContent = currentSettings.blurIntensity + 'px';
         POPUP_UI.elements.toggleSolid.checked = currentSettings.solidMode;
         POPUP_UI.elements.toggleFakeData.checked = currentSettings.fakeData;
+        POPUP_UI.renderPremiumState();
 
         POPUP_STATE.setIsUnlocked(false);
         POPUP_UI.applyLockState();
@@ -59,5 +74,5 @@ const POPUP_STORAGE = (function() {
     });
   }
 
-  return { saveState, saveSettings, loadAndSync };
+  return { saveState, saveSettings, refreshLicenseStatus, loadAndSync };
 })();

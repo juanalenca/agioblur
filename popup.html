@@ -45,6 +45,35 @@
   </div>
 
   <div class="popup-body">
+    <!-- Plano / Licença -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-title">Plano</span>
+      </div>
+
+      <div class="card license-card">
+        <div class="license-summary">
+          <div>
+            <span class="license-eyebrow">AgioBlur</span>
+            <strong id="license-status-text">Plano gratuito ativo.</strong>
+          </div>
+          <span id="license-plan-badge" class="license-plan-badge">FREE</span>
+        </div>
+
+        <div class="license-actions">
+          <input type="text" id="input-license-key" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off">
+          <button id="btn-activate-license" class="btn-primary">Ativar</button>
+        </div>
+
+        <div class="quick-row">
+          <button id="btn-upgrade" class="btn">Upgrade Pro</button>
+          <button id="btn-validate-license" class="btn">Atualizar</button>
+        </div>
+
+        <button id="btn-reset-devices" class="btn btn-reset-devices">Resetar dispositivos</button>
+        <p id="license-message" class="license-message"></p>
+      </div>
+    </div>
     
     <!-- Módulos de Privacidade -->
     <div class="section">
@@ -190,7 +219,7 @@
       </div>
       
       <div class="card">
-        <div class="cat-row">
+        <div class="cat-row" data-feature-row="solidMode">
           <div class="cat-info">
             <span class="cat-emoji">⬛</span>
             <span class="cat-label" data-i18n="labelSolidMode">Censura Sólida</span>
@@ -201,7 +230,7 @@
           </label>
         </div>
 
-        <div class="cat-row">
+        <div class="cat-row" data-feature-row="fakeData">
           <div class="cat-info">
             <span class="cat-emoji">🎭</span>
             <span class="cat-label" data-i18n="labelFakeData">Modo Fake Data</span>
@@ -212,7 +241,7 @@
           </label>
         </div>
         
-        <div class="range-container">
+        <div class="range-container" data-feature-row="blurIntensity">
           <div class="range-header">
             <span data-i18n="labelIntensity">Intensidade do Desfoque</span>
             <span class="range-val" id="blur-val">8px</span>

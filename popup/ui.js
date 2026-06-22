@@ -24,6 +24,14 @@ const POPUP_UI = (function() {
     pinActiveContainer: document.getElementById('pin-active-container'),
     btnRelock: document.getElementById('btn-relock'),
     btnRemovePin: document.getElementById('btn-remove-pin'),
+    licensePlanBadge: document.getElementById('license-plan-badge'),
+    licenseStatusText: document.getElementById('license-status-text'),
+    licenseInput: document.getElementById('input-license-key'),
+    btnActivateLicense: document.getElementById('btn-activate-license'),
+    btnValidateLicense: document.getElementById('btn-validate-license'),
+    btnUpgrade: document.getElementById('btn-upgrade'),
+    btnResetDevices: document.getElementById('btn-reset-devices'),
+    licenseMessage: document.getElementById('license-message'),
     
     // Overlay (bloqueado)
     overlay: document.getElementById('overlay'),
@@ -46,13 +54,76 @@ const POPUP_UI = (function() {
     return state;
   }
 
+  function isFeatureAllowed(featureKey) {
+    return POPUP_CONSTANTS.FEATURE_TIERS[featureKey] !== 'PRO' || POPUP_STATE.getIsPremium();
+  }
+
+  function renderPremiumState() {
+    const status = POPUP_STATE.getLicenseStatus();
+    const isPremium = !!status.isPremium;
+
+    elements.licensePlanBadge.textContent = isPremium ? 'PRO' : 'FREE';
+    elements.licensePlanBadge.classList.toggle('premium', isPremium);
+    elements.licenseStatusText.textContent = isPremium
+      ? 'Licença ativa. Recursos Pro liberados.'
+      : 'Plano gratuito ativo. Recursos Pro bloqueados.';
+    elements.btnResetDevices.style.display = status.error === 'DEVICE_LIMIT_EXCEEDED' ? 'block' : 'none';
+
+    for (const [feature, tier] of Object.entries(POPUP_CONSTANTS.FEATURE_TIERS)) {
+      const toggle = getToggle(feature);
+      const row = toggle?.closest('.cat-row') || document.querySelector(`[data-feature-row="${feature}"]`);
+      if (!row || tier !== 'PRO') continue;
+
+      row.classList.toggle('premium-locked', !isPremium);
+      if (toggle) {
+        toggle.disabled = !isPremium;
+        if (!isPremium) toggle.checked = false;
+      }
+
+      if (!row.querySelector('.pro-badge')) {
+        const badge = document.createElement('span');
+        badge.className = 'pro-badge';
+        badge.textContent = 'PRO';
+        row.querySelector('.cat-info')?.appendChild(badge);
+      }
+    }
+
+    const proControls = [
+      elements.sliderBlur,
+      elements.toggleFakeData,
+      elements.inputPin,
+      elements.btnSavePin
+    ];
+    for (const control of proControls) {
+      if (control) control.disabled = !isPremium;
+    }
+
+    if (!isPremium) {
+      elements.toggleFakeData.checked = false;
+      elements.sliderBlur.value = POPUP_CONSTANTS.DEFAULTS_SETTINGS.blurIntensity;
+      elements.blurLabel.textContent = POPUP_CONSTANTS.DEFAULTS_SETTINGS.blurIntensity + 'px';
+    }
+
+    const pinSettings = document.getElementById('pin-settings');
+    const blurRow = document.querySelector('[data-feature-row="blurIntensity"]');
+    const fakeDataRow = document.querySelector('[data-feature-row="fakeData"]');
+    if (pinSettings) pinSettings.classList.toggle('premium-locked', !isPremium);
+    if (blurRow) blurRow.classList.toggle('premium-locked', !isPremium);
+    if (fakeDataRow) fakeDataRow.classList.toggle('premium-locked', !isPremium);
+  }
+
+  function showLicenseMessage(message, type = 'neutral') {
+    elements.licenseMessage.textContent = message;
+    elements.licenseMessage.className = `license-message ${type}`;
+  }
+
 
 
   function applyLockState() {
     const currentSettings = POPUP_STATE.getSettings();
     const isSessionUnlocked = POPUP_STATE.getIsUnlocked();
 
-    const hasPin = !!currentSettings.savedPin;
+    const hasPin = POPUP_STATE.getIsPremium() && !!currentSettings.savedPin;
     const locked = hasPin && !isSessionUnlocked;
 
     // Se estiver bloqueado, mostra o overlay gigante na frente de tudo
@@ -103,6 +174,9 @@ const POPUP_UI = (function() {
     elements,
     getToggle,
     readUIState,
+    isFeatureAllowed,
+    renderPremiumState,
+    showLicenseMessage,
     applyLockState,
     localizeUI
   };

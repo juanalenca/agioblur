@@ -38,5 +38,24 @@ const POPUP_CONSTANTS = {
     solidMode: false,
     fakeData: false,
     savedPin: '',
-  }
+  },
+
+  FEATURE_TIERS: {
+    photos: 'FREE',
+    names: 'FREE',
+    compose: 'FREE',
+    solidMode: 'FREE',
+    messages: 'PRO',
+    media: 'PRO',
+    fakeData: 'PRO',
+    blurIntensity: 'PRO',
+    savedPin: 'PRO',
+    piiCpf: 'PRO',
+    piiEmail: 'PRO',
+    piiCard: 'PRO',
+    piiPhone: 'PRO',
+    piiPix: 'PRO'
+  },
+
+  UPGRADE_URL: 'https://agioblur.com/pt-BR/'
 };

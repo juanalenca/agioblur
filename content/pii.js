@@ -11,6 +11,8 @@ window.WPB_PII = (function() {
   let hoverListenerAdded = false;
 
   function getActiveRegex() {
+    if (!WPB_STATE.getIsPremium()) return null;
+
     const state = WPB_STATE.getCategoryState();
     const activePatterns = [];
 
@@ -32,7 +34,7 @@ window.WPB_PII = (function() {
   }
 
   function handleMouseOver(e) {
-    if (WPB_STATE.getSettings().savedPin && !WPB_STATE.getIsUnlocked()) {
+    if (WPB_STATE.getIsPremium() && WPB_STATE.getSettings().savedPin && !WPB_STATE.getIsUnlocked()) {
       return; // PIN bloqueado, não revela no hover
     }
 

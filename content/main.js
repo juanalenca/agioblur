@@ -5,34 +5,60 @@
 /* global WPB_CONSTANTS, WPB_STATE, WPB_DOM, WPB_PII */
 'use strict';
 
+let appliedFakeData = false;
+
 /**
  * Aplica as configurações globais de estilo (blur, modo dark) na raiz
  * @param {Object} settings 
  */
 function applySettingsToRoot(settings) {
   const root = document.documentElement;
+  const premium = WPB_STATE.getIsPremium();
+  const effectiveBlur = premium ? settings.blurIntensity : 8;
+  const effectiveFakeData = premium && settings.fakeData;
+  const effectiveSolidMode = settings.solidMode;
   
   // Intensidade
-  root.style.setProperty('--wpb-blur', settings.blurIntensity + 'px');
-  root.style.setProperty('--wpb-blur-heavy', (settings.blurIntensity + 4) + 'px');
+  root.style.setProperty('--wpb-blur', effectiveBlur + 'px');
+  root.style.setProperty('--wpb-blur-heavy', (effectiveBlur + 4) + 'px');
 
   // Tarja Preta
-  if (settings.solidMode) {
+  if (effectiveSolidMode) {
     root.classList.add('wpb-solid-mode');
   } else {
     root.classList.remove('wpb-solid-mode');
   }
 
   // Ao mudar Fake Data, disparamos um re-scan total
-  const current = WPB_STATE.getSettings();
-  if (settings.fakeData !== current.fakeData) {
-    current.fakeData = settings.fakeData;
-    WPB_STATE.setSettings(current);           // estado primeiro
-    if (!settings.fakeData) {
+  if (effectiveFakeData !== appliedFakeData) {
+    appliedFakeData = effectiveFakeData;
+    if (!effectiveFakeData) {
       WPB_DOM.revertAllFakeContent();         // reversão depois
     }
     WPB_DOM.applyFullState();
   }
+}
+
+async function refreshPremiumStatus() {
+  try {
+    const status = await chrome.runtime.sendMessage({ action: 'license:getStatus' });
+    WPB_STATE.setIsPremium(!!status?.isPremium);
+  } catch {
+    WPB_STATE.setIsPremium(false);
+  }
+}
+
+function applyPremiumStatus(isPremium) {
+  WPB_STATE.setIsPremium(!!isPremium);
+
+  if (!isPremium) {
+    WPB_DOM.revertAllFakeContent();
+    WPB_DOM.clearPremiumFeatures();
+    if (document.body) document.body.classList.remove('wpb-locked');
+  }
+
+  applySettingsToRoot(WPB_STATE.getSettings());
+  WPB_DOM.applyFullState();
 }
 
 /**
@@ -52,9 +78,9 @@ function listenForStorageChanges() {
       WPB_STATE.setSettings(mergedSettings);
 
       const isUnlocked = WPB_STATE.getIsUnlocked();
-      if (mergedSettings.savedPin && !isUnlocked) {
+      if (WPB_STATE.getIsPremium() && mergedSettings.savedPin && !isUnlocked) {
         document.body.classList.add('wpb-locked');
-      } else if (!mergedSettings.savedPin) {
+      } else if (!mergedSettings.savedPin || !WPB_STATE.getIsPremium()) {
         document.body.classList.remove('wpb-locked');
       }
     }
@@ -74,7 +100,7 @@ function listenForStorageChanges() {
 
       const currentSettings = WPB_STATE.getSettings();
       const isUnlocked = WPB_STATE.getIsUnlocked();
-      const pinActive = !!currentSettings.savedPin && !isUnlocked;
+      const pinActive = WPB_STATE.getIsPremium() && !!currentSettings.savedPin && !isUnlocked;
 
       for (const key of Object.keys(WPB_CONSTANTS.CATEGORIES)) {
         const wasActive = oldState[key];
@@ -100,10 +126,16 @@ function listenForStorageChanges() {
         else if (!wasActive && isActive) WPB_DOM.scanAndApply(document);
       }
 
-      if (piiChanged && typeof WPB_PII !== 'undefined') {
+      if (piiChanged && typeof WPB_PII !== 'undefined' && WPB_STATE.getIsPremium()) {
         WPB_PII.restore(document.body);
         WPB_PII.scan(document.body);
+      } else if (piiChanged && typeof WPB_PII !== 'undefined') {
+        WPB_PII.restore(document.body);
       }
+    }
+
+    if (changes.license_is_premium) {
+      applyPremiumStatus(!!changes.license_is_premium.newValue);
     }
   });
 }
@@ -123,7 +155,7 @@ function listenForRuntimeMessages() {
       unlockTimeout = setTimeout(() => {
         WPB_STATE.setIsUnlocked(false);
         const currentSettings = WPB_STATE.getSettings();
-        if (currentSettings.savedPin) {
+        if (currentSettings.savedPin && WPB_STATE.getIsPremium()) {
           document.body.classList.add('wpb-locked');
         }
       }, message.duration || 300000);
@@ -139,13 +171,16 @@ function listenForRuntimeMessages() {
       WPB_STATE.setUnlockTimeout(null);
       
       const currentSettings = WPB_STATE.getSettings();
-      if (currentSettings.savedPin) {
+      if (currentSettings.savedPin && WPB_STATE.getIsPremium()) {
         document.body.classList.add('wpb-locked');
       }
       sendResponse({ success: true });
       
     } else if (message.action === 'status') {
       sendResponse({ isUnlocked: WPB_STATE.getIsUnlocked() });
+    } else if (message.action === 'license:statusChanged') {
+      applyPremiumStatus(!!message.status?.isPremium);
+      sendResponse({ success: true });
     } else if (message.action === 'updateOptions') {
       chrome.storage.local.get([WPB_CONSTANTS.STORAGE_KEY, WPB_CONSTANTS.SETTINGS_KEY], (result) => {
         const savedCats = result[WPB_CONSTANTS.STORAGE_KEY];
@@ -171,20 +206,22 @@ function listenForRuntimeMessages() {
 
         // Reverte manualmente se fakeData foi desligado — applySettingsToRoot
         // não detecta mais a mudança porque o estado já foi atualizado acima.
-        if (previousFakeData && !currentSettings.fakeData) {
+        if (previousFakeData && (!currentSettings.fakeData || !WPB_STATE.getIsPremium())) {
           WPB_DOM.revertAllFakeContent();
         }
 
-        if (!currentSettings.savedPin) {
+        if (!currentSettings.savedPin || !WPB_STATE.getIsPremium()) {
           document.body.classList.remove('wpb-locked');
           WPB_STATE.setIsUnlocked(false);
         }
 
         applySettingsToRoot(currentSettings);
         WPB_DOM.applyFullState();
-        if (typeof WPB_PII !== 'undefined') {
+        if (typeof WPB_PII !== 'undefined' && WPB_STATE.getIsPremium()) {
           WPB_PII.restore(document.body);
           WPB_PII.scan(document.body);
+        } else if (typeof WPB_PII !== 'undefined') {
+          WPB_PII.restore(document.body);
         }
       });
       sendResponse({ success: true });
@@ -196,11 +233,15 @@ function listenForRuntimeMessages() {
  * Função de inicialização
  */
 async function initialize() {
+  await refreshPremiumStatus();
   const result = await chrome.storage.local.get([WPB_CONSTANTS.STORAGE_KEY, WPB_CONSTANTS.SETTINGS_KEY]);
   
   const savedCats = result[WPB_CONSTANTS.STORAGE_KEY];
   const defaults = {};
   for (const [key, config] of Object.entries(WPB_CONSTANTS.CATEGORIES)) {
+    defaults[key] = config.defaultEnabled;
+  }
+  for (const [key, config] of Object.entries(WPB_CONSTANTS.PII_CATEGORIES)) {
     defaults[key] = config.defaultEnabled;
   }
   WPB_STATE.setCategoryState(savedCats ? { ...defaults, ...savedCats } : defaults);
@@ -212,7 +253,7 @@ async function initialize() {
   }
 
   const currentSettings = WPB_STATE.getSettings();
-  if (currentSettings.savedPin) {
+  if (currentSettings.savedPin && WPB_STATE.getIsPremium()) {
     const waitForBody = () => {
       if (document.body) {
         document.body.classList.add('wpb-locked');
