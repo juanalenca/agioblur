@@ -45,7 +45,7 @@ const POPUP_CONSTANTS = {
     names: 'FREE',
     compose: 'FREE',
     solidMode: 'FREE',
-    messages: 'PRO',
+    messages: 'FREE',
     media: 'PRO',
     fakeData: 'PRO',
     blurIntensity: 'PRO',

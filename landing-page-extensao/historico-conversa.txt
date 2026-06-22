@@ -1,0 +1,1545 @@
+# Analisar orientação da landing
+
+> Dentro da pasta desse projeto "navegador-extensao", temos a pasta "landing-page-extensao", onde iremos fazer a landing page desse extensão. Dentro dessa pasta também o arquivo txt "orientacao", que é a orientação primária para contruirmos a landing page e adaptar essa extensão pra o modelo Freemium. Leia, analise essa orientação e me diga o que acha, se existe algum erro, e quando corrigimos isso, faremos isso do começo ao fim. Não esqueça que essa pasta "navegador-extensao" já é um repositório do github, então, tudo precisa ser bem documentado, comitado, organizado e seguindo o git flow.
+
+<details><summary>8 previous messages</summary>
+
+> Vou primeiro ler a estrutura do projeto e o arquivo `orientacao` para entender o plano antes de sugerir qualquer mudança. Também vou checar o estado do Git para respeitar o fluxo do repositório.
+>
+> Encontrei a pasta e o arquivo de orientação. Um detalhe importante já apareceu: o comando `git` não está disponível nesse terminal, então vou verificar se existe uma instalação alternativa do Git antes de falar sobre commits/fluxo.
+>
+> O conteúdo abriu, mas com sinais claros de problema de codificação (`ExecuÃ§Ã£o`, `Ãºnico`, etc.). Antes de julgar o texto em si, vou confirmar se isso é só leitura do PowerShell ou se o arquivo está salvo com encoding errado.
+>
+> A leitura correta em UTF-8 está perfeita; o “erro” de acentuação foi só a leitura inicial do PowerShell. Achei também o Git em `C:\Program Files\Git\cmd\git.exe`, então dá para trabalhar com commits mesmo que ele não esteja no PATH. Vou comparar a orientação com a estrutura real da extensão agora.
+>
+> A orientação parte da existência de um `background.js`, mas o `manifest.json` atual não registra nenhum service worker e só tem permissões `storage` e `activeTab`. Esse é um ponto estrutural importante: a fase de licença exige criar background e ajustar permissões/host access, não só “editar o arquivo existente”.
+>
+> A implementação atual usa objetos globais (`WPB_*` e `POPUP_*`) e scripts CommonJS/sem bundler, então a orientação com `export const FEATURE_TIERS` não encaixa diretamente no padrão do projeto. Isso é corrigível, mas precisa ser adaptado ao estilo existente para não quebrar a extensão.
+>
+> Outra coisa que bate com a orientação: o README já fala em módulos Premium, mas a licença do repositório é PolyForm Noncommercial. Se o plano é monetização real, precisamos tratar isso conscientemente na documentação para não deixar a comunicação jurídica contraditória.
+>
+> <details><summary>Searched the web</summary>
+>
+> <details><summary>Searched the web</summary>
+>
+> - Searched the web for `site:docs.lemonsqueezy.com webhooks X-Signature HMAC SHA256 Lemon Squeezy webhook signature`
+> - Searched the web for `Cakto docs webhook assinatura X-Cakto-Signature`
+> - Searched the web for `https://cakto-dece4a15.mintlify.app/webhooks/visao-geral`
+> - Searched the web for `Resend pricing free 3000 emails per month official`
+> - Searched the web for `https://vercel.com/docs/plans/hobby`
+> - Searched the web for `site:supabase.com/docs free plan 500MB database 50,000 monthly active users Supabase`
+>
+> </details>
+>
+> </details>
+</details>
+
+Li e analisei [orientacao.txt](<./landing-page-extensao/orientacao.txt>) e comparei com a estrutura real da extensão. Minha leitura: o plano é bom como direção geral, mas ainda não está pronto para virar implementação sem ajustes. Tem alguns pontos que quebrariam segurança, arquitetura ou Git flow.
+
+**Principais problemas**
+
+1. **Validação Premium pode ser burlada**
+   O plano gera `payload` + `token`, mas o `isPremiumActive()` só lê `license_payload` e não valida assinatura. Como não dá para colocar `HMAC_SECRET` dentro da extensão, a solução correta é usar assinatura assimétrica: servidor assina, extensão verifica com chave pública.
+
+2. **Cakto não parece usar HMAC como descrito**
+   A orientação diz para validar assinatura HMAC da Cakto, mas a documentação atual de webhooks da Cakto mostra um campo `secret` no próprio payload e manda validar esse campo antes de processar o evento. Já o Lemon Squeezy confirma `X-Signature` com HMAC-SHA256. Fontes: [Cakto Webhooks](https://cakto-dece4a15.mintlify.app/webhooks/visao-geral), [Lemon Squeezy Signing Requests](https://docs.lemonsqueezy.com/help/webhooks/signing-requests).
+
+3. **O projeto atual não tem `background.js`**
+   O `manifest.json` não registra service worker e não tem permissão `alarms`. A fase 2 exige criar isso, além de adicionar permissões/host access para a API.
+
+4. **A orientação usa nomes que não existem no código**
+   Ela fala em `switch-*`, `.container-item`, `piiFilters` e `export const`. O projeto usa `toggle-*`, `.cat-row`, PII separado em `piiCpf/piiEmail/...`, e scripts globais sem `export`.
+
+5. **Risco de corrida no limite de dispositivos**
+   `count` + `insert` pode permitir mais de 3 dispositivos se duas validações chegarem juntas. Isso deveria ser uma função transacional no Supabase/Postgres.
+
+6. **Webhooks precisam de idempotência**
+   A tabela `licenses` não salva `gateway_order_id`, `gateway_event_id`, `product_id`, `variant_id` ou payload bruto. Webhooks podem repetir; sem idempotência, dá para gerar licença duplicada.
+
+7. **Landing page: estrutura precisa alinhar com a pasta real**
+   A orientação propõe `landing/`, mas a pasta real é `landing-page-extensao`. Eu manteria a landing dentro dessa pasta e configuraria o Vercel com esse root.
+
+8. **Vercel gratuito pode ser conflito para monetização**
+   A landing comercial em plano Hobby pode bater com as regras de uso: a doc atual diz que Hobby é para uso pessoal/não comercial, enquanto Pro começa em US$20/mês. Fonte: [Vercel Hobby Plan](https://vercel.com/docs/plans/hobby).
+
+9. **Modelo Freemium precisa decisão de produto**
+   Hoje `messages` e `media` vêm habilitados por padrão. A orientação transforma esses recursos em PRO. Isso é possível, mas é mudança real para usuários existentes, então precisa ser documentada e migrada com cuidado.
+
+**O que eu faria antes de implementar**
+
+Eu corrigiria primeiro o `orientacao.txt` para virar um plano técnico executável: esquema de banco com idempotência, estratégia de assinatura assimétrica, webhooks por gateway conforme documentação atual, adaptação real aos arquivos existentes, plano de migração Free/PRO, e Git flow.
+
+Depois seguiria com branches por etapa, por exemplo:
+
+- `feature/freemium-architecture`
+- `feature/license-worker`
+- `feature/extension-premium-gates`
+- `feature/landing-page-freemium`
+
+Também vi que o Git existe na máquina, mas não está no PATH; consigo usar `C:\Program Files\Git\cmd\git.exe`. O repositório está em `main` e `landing-page-extensao/` ainda está não rastreada. Nenhuma alteração foi feita agora.
+
+> "
+> Eu corrigiria primeiro o orientacao.txt para virar um plano técnico executável: esquema de banco com idempotência, estratégia de assinatura assimétrica, webhooks por gateway conforme documentação atual, adaptação real aos arquivos existentes, plano de migração Free/PRO, e Git flow.
+> Depois seguiria com branches por etapa, por exemplo:
+> feature/freemium-architecture
+> feature/license-worker
+> feature/extension-premium-gates
+> feature/landing-page-freemium
+> Também vi que o Git existe na máquina, mas não está no PATH; consigo usar C:\Program Files\Git\cmd\git.exe. O repositório está em main e landing-page-extensao/ ainda está não rastreada. Nenhuma alteração foi feita agora."
+> -Concordo, faça isso
+
+<details><summary>7 previous messages</summary>
+
+> Perfeito. Vou tratar isso como a primeira etapa do Git flow: criar a branch de arquitetura, transformar o `orientacao.txt` em um plano técnico implementável e fechar com commit documentado.
+>
+> Vou criar a branch `feature/freemium-architecture` agora. Como a pasta da landing ainda está não rastreada, vou manter esse escopo só no documento de orientação para o primeiro commit ficar limpo.
+>
+> Vou substituir a orientação por uma versão revisada, mantendo a intenção original, mas ajustando os pontos que quebrariam na prática: assinatura verificável na extensão, idempotência de webhook, schema mais completo e adaptação aos arquivos reais do projeto.
+>
+> <details><summary>Created a file</summary>
+>
+> - Wrote `./landing-page-extensao/orientacao.txt` (+826 -0)
+>
+> </details>
+>
+> A orientação foi reescrita. Agora vou revisar o diff, validar espaços problemáticos com `git diff --check` e então faço o commit dessa etapa.
+>
+> Como a pasta ainda era totalmente nova para o Git, o diff normal não mostrou conteúdo até adicionar ao índice. Vou stagear apenas `orientacao.txt`, conferir o diff staged e rodar o lint para respeitar a regra que acabamos de documentar.
+>
+> O `diff --check` passou limpo. O `npm run lint` falhou por problemas já existentes fora do documento (`eslint.config.mjs` e `update_locales.js`), então não vou misturar correção de lint nessa branch de arquitetura; vou registrar isso no fechamento.
+</details>
+
+Feito. Criei a branch `feature/freemium-architecture`, reescrevi [orientacao.txt](<./landing-page-extensao/orientacao.txt>) como plano técnico executável e comitei:
+
+`633c623 docs: refine freemium implementation plan`
+
+O novo documento agora cobre: modelo Free/Pro alinhado às chaves reais do projeto, assinatura assimétrica para licença Premium, schema Supabase com idempotência, webhooks Cakto/Lemon Squeezy conforme documentação atual, Worker, ajustes no Manifest/background/content/popup, landing dentro de `landing-page-extensao/`, testes, critérios de aceite e Git flow por branches.
+
+Validação:
+- `git diff --check`: passou.
+- `npm run lint`: falhou por problemas já existentes fora dessa mudança:
+  - `eslint.config.mjs`: parsing de `import/export`.
+  - `update_locales.js`: `require` e `__dirname` não definidos.
+  - warnings de eslint-disable não usado em arquivos `content/*`.
+
+A branch está limpa após o commit. O próximo passo natural é a `feature/license-worker`, começando pelas migrations Supabase e pelo Worker de validação/licenças.
+
+> "
+> A branch está limpa após o commit. O próximo passo natural é a feature/license-worker, começando pelas migrations Supabase e pelo Worker de validação/licenças.
+> "
+> -faça
+
+<details><summary>26 previous messages</summary>
+
+> Vou continuar no Git flow criando `feature/license-worker` a partir da branch de arquitetura recém-comitada, porque ela ainda não foi mesclada em `main`. Primeiro vou ler as instruções de Supabase/Postgres aplicáveis e depois implemento migrations + Worker com escopo organizado.
+>
+> Vou usar a skill `supabase-postgres-best-practices` para a parte de schema/RPC, especialmente índices, locks e segurança. Agora vou abrir só as referências relevantes para não carregar material demais.
+>
+> Tenho o suficiente para construir a base. Vou criar a branch do Worker, olhar a configuração atual do ESLint/GitHub Actions para não introduzir algo que quebre ainda mais, e então adiciono os arquivos de infra.
+>
+> Branch criada. Vou implementar em três blocos: `infra/supabase` para o schema/RPC, `infra/worker` para API e webhooks, e scripts npm mínimos para rodar o Worker sem misturar com a extensão.
+>
+> Vou incluir também uma RPC para confirmação do reset de dispositivos. Isso evita fazer “delete/insert/marca token usado” em três chamadas HTTP separadas e perder atomicidade no Worker.
+>
+> <details><summary>Created a file</summary>
+>
+> - Wrote `./infra/supabase/migrations/202606220001_create_license_system.sql` (+286 -0)
+>
+> </details>
+>
+> A migration base já está criada com tabelas, índices parciais, RLS sem políticas públicas e RPCs transacionais. Vou fazer um pequeno ajuste de permissões para deixar claro que o Worker opera via `service_role`, depois parto para o Worker.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./infra/supabase/migrations/202606220001_create_license_system.sql` (+7 -0)
+>
+> </details>
+>
+> Vou criar o Worker sem dependências externas para manter a superfície pequena: módulos ES do próprio Cloudflare, `fetch`, Web Crypto, Supabase REST/RPC e Resend via HTTP. Também vou ajustar o release zip para não empacotar `infra/` junto da extensão.
+>
+> <details><summary>Created a file</summary>
+>
+> - Wrote `./infra/worker/src/index.js` (+699 -0)
+>
+> </details>
+>
+> O Worker inicial está no lugar. Vou acrescentar a configuração (`wrangler.toml`, env example, README) e corrigir a criação de licença para lidar explicitamente com conflito/idempotência, sem depender de comportamento implícito do Supabase.
+>
+> <details><summary>Created 5 files, edited a file</summary>
+>
+> - Wrote `./infra/worker/src/index.js` (+22 -16)
+> - Wrote `./infra/supabase/README.md` (+22 -0)
+> - Wrote `./infra/worker/.dev.vars.example` (+9 -0)
+> - Wrote `./infra/worker/README.md` (+45 -0)
+> - Wrote `./infra/worker/package.json` (+13 -0)
+> - Wrote `./infra/worker/wrangler.toml` (+11 -0)
+>
+> </details>
+>
+> Agora vou ajustar a raiz para reconhecer os novos comandos e proteger arquivos locais de segredo. Também vou excluir `infra/` e a landing do zip de release da extensão para não enviar arquivos de servidor junto para a Chrome Web Store.
+>
+> Vou fazer edições pequenas em arquivos existentes com patch: `.gitignore`, `package.json`, workflow de release e ESLint. O ajuste de ESLint é necessário porque a configuração atual já impede `npm run lint` de rodar até no próprio `eslint.config.mjs`.
+>
+> <details><summary>Edited 4 files</summary>
+>
+> - Wrote `./.github/workflows/release.yml` (+1 -1)
+> - Wrote `./.gitignore` (+2 -0)
+> - Wrote `./eslint.config.mjs` (+34 -1)
+> - Wrote `./package.json` (+3 -1)
+>
+> </details>
+>
+> A estrutura de scripts e empacotamento está ajustada. Vou rodar validações agora: lint, diff check e uma verificação rápida de sintaxe do Worker com Node.
+>
+> A sintaxe do Worker passou, mas o ESLint não conhece alguns globais do runtime Cloudflare (`Response`, `fetch`, `crypto`, etc.). Vou declarar esses globais explicitamente no override do Worker.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./eslint.config.mjs` (+7 -0)
+>
+> </details>
+>
+> Vou rodar novamente as validações. Se agora sobrar só aviso antigo dos `eslint-disable`, eu removo esses comentários inúteis para deixar o CI verde de verdade.
+>
+> O lint agora passa, mas ainda mostra quatro avisos antigos de comentários `eslint-disable` que não fazem mais nada. Vou remover esses comentários mortos para deixar a saída limpa.
+>
+> Um dos arquivos tinha espaçamento diferente no cabeçalho, então vou localizar exatamente essas linhas e remover com um patch mais pontual.
+>
+> O `pii.js` já atribui em `window.WPB_PII`, então o disable realmente é dispensável. Vou remover só essas quatro linhas.
+>
+> <details><summary>Edited 4 files</summary>
+>
+> - Wrote `./content/constants.js` (+0 -1)
+> - Wrote `./content/dom.js` (+0 -1)
+> - Wrote `./content/pii.js` (+0 -1)
+> - Wrote `./content/state.js` (+0 -1)
+>
+> </details>
+>
+> Vou rodar a bateria final de validação agora: lint limpo, diff check, sintaxe do Worker e status do Git antes do commit.
+>
+> Validação limpa. Vou revisar o diff resumido e alguns trechos críticos do Worker/migration antes de commitar.
+>
+> O diff resumido não mostra arquivos novos enquanto não estão no índice. Antes do commit, vou instalar as dependências do Worker para gerar `infra/worker/package-lock.json` e deixar o projeto reprodutível.
+</details>
+
+O lockfile do Worker foi gerado sem vulnerabilidades. Vou rodar as validações mais uma vez porque o lockfile e `node_modules` local mudaram o estado do workspace.
+
+> Continue
+
+<details><summary>3 previous messages</summary>
+
+> Continuando. As validações já estão verdes; vou stagear tudo, conferir o diff staged incluindo os arquivos novos de `infra/`, e fazer o commit da `feature/license-worker`.
+>
+> Apareceu um arquivo novo fora do nosso escopo: `landing-page-extensao/historico-conversa.txt`. Vou deixá-lo intocado e fora do commit. Vou conferir o status real pós-stage e o diff staged.
+>
+> O staged está limpo e o arquivo de histórico ficou fora. Vou criar o commit da base do Worker agora.
+</details>
+
+Feito. Criei a branch `feature/license-worker` e comitei:
+
+`95bbd0a feat(worker): add license validation API foundation`
+
+O que entrou:
+- Migration Supabase em [202606220001_create_license_system.sql](<./infra/supabase/migrations/202606220001_create_license_system.sql>) com tabelas, índices, RLS, RPC transacional de validação e RPC de reset.
+- Worker em [index.js](<./infra/worker/src/index.js>) com `/health`, validação de licença, reset de dispositivos, confirmação por HTML, webhooks Cakto/Lemon Squeezy, assinatura ECDSA de recibo e envio via Resend.
+- Configuração do Worker: `wrangler.toml`, `.dev.vars.example`, `package.json`, `package-lock.json` e READMEs.
+- Scripts raiz `worker:dev` e `worker:deploy`.
+- Ajuste no release zip para não empacotar `infra/` nem `landing-page-extensao/` na extensão.
+- Correção do ESLint para suportar config ESM, script Node e Worker, além de remover warnings mortos.
+
+Validações:
+- `npm run lint`: passou limpo.
+- `git diff --check`: passou.
+- `node --check .\infra\worker\src\index.js`: passou.
+- `npm --prefix infra/worker install`: passou, 0 vulnerabilidades.
+
+Observação: ficou fora do commit um arquivo não rastreado que eu não criei/editei: [historico-conversa.txt](<./landing-page-extensao/historico-conversa.txt>). Branch atual: `feature/license-worker`.
+
+> Qual o proximo passo agora?
+
+O próximo passo é a `feature/extension-premium-gates`.
+
+Agora que já temos a base planejada do Worker/Supabase, precisamos adaptar a extensão para conversar com essa API e realmente aplicar o modelo Free/Pro:
+
+1. Criar `background.js`
+   - gerar `device_uuid`;
+   - ativar licença;
+   - validar licença periodicamente;
+   - verificar recibo assinado com chave pública;
+   - responder `license:getStatus`, `license:activate`, etc.
+
+2. Ajustar `manifest.json`
+   - adicionar `background.service_worker`;
+   - adicionar permissão `alarms`;
+   - adicionar host permission para `https://api.agioblur.com/*`.
+
+3. Bloquear recursos Pro no content script
+   - `messages`, `media`, `fakeData`, `blurIntensity`, `savedPin` e PII;
+   - limpar do DOM se Premium ficar inativo;
+   - não chamar API dentro de `scanAndApply`, para não degradar performance.
+
+4. Ajustar popup
+   - mostrar plano Free/Pro;
+   - adicionar tela/campo de ativação de licença;
+   - travar toggles Pro;
+   - mostrar CTA de upgrade;
+   - lidar com limite de dispositivos.
+
+5. Testar localmente
+   - Free só aplica recursos Free;
+   - Pro libera tudo;
+   - recibo adulterado não libera;
+   - licença revogada remove Pro;
+   - `npm run lint`.
+
+Antes de começar essa etapa, eu faria uma branch nova a partir da atual:
+
+`feature/extension-premium-gates`
+
+E deixaria o arquivo não rastreado `landing-page-extensao/historico-conversa.txt` fora do commit, a menos que você queira versioná-lo.
+
+> Certo, concordo que antes de começar a eta, tem que ser feito ma branch nova a partir da atual:
+> "feature/extension-premium-gates". E você está correto ao deixar o aquivo historico-conversa.txt fora do commite
+
+<details><summary>33 previous messages</summary>
+
+> Perfeito. Vou criar `feature/extension-premium-gates` a partir da branch atual e manter `historico-conversa.txt` fora do commit. Depois vou adaptar background, manifest, content script e popup com o menor corte funcional possível para essa etapa.
+>
+> Branch criada. Agora vou ler os módulos do popup e do content que controlam estado/UI para encaixar o gating Premium sem mudar a arquitetura global do projeto.
+>
+> Vou gerar um par ECDSA de desenvolvimento para deixar a integração testável localmente. A chave privada vai entrar só como exemplo em `.dev.vars.example`; a extensão embute a chave pública correspondente e isso não serve para produção.
+>
+> MCP tool call
+>
+> node_repl.js
+>
+> ```json
+> {
+>   "title": "Generate dev license keypair",
+>   "code": "const keyPair = await crypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign', 'verify']);\nconst priv = await crypto.subtle.exportKey('jwk', keyPair.privateKey);\nconst pub = await crypto.subtle.exportKey('jwk', keyPair.publicKey);\nnodeRepl.write(JSON.stringify({ privateKey: priv, publicKey: pub }, null, 2));"
+> }
+> ```
+>
+> ```text
+> {
+>   "privateKey": {
+>     "key_ops": [
+>       "sign"
+>     ],
+>     "ext": true,
+>     "kty": "EC",
+>     "x": "HhoTYSi8YxvmOI8R3u0qqm6tnciYpzn6_mUSgeCBdvI",
+>     "y": "2QxPF8ST5PLxCsaH_fHqP4idrGjxia-g_RSjeGkLrNc",
+>     "crv": "P-256",
+>     "d": "OYRmuc3yM94BKsOCGsLniqSoQmWhY20EvETFS90-t7s"
+>   },
+>   "publicKey": {
+>     "key_ops": [
+>       "verify"
+>     ],
+>     "ext": true,
+>     "kty": "EC",
+>     "x": "HhoTYSi8YxvmOI8R3u0qqm6tnciYpzn6_mUSgeCBdvI",
+>     "y": "2QxPF8ST5PLxCsaH_fHqP4idrGjxia-g_RSjeGkLrNc",
+>     "crv": "P-256"
+>   }
+> }
+> ```
+>
+> A parte mais sensível aqui é performance: o content script varre DOM com frequência, então vou manter a decisão Premium em estado síncrono local e só atualizar esse estado quando o background avisar ou quando o storage mudar.
+>
+> Vou editar os arquivos da extensão agora: criar `background.js`, registrar service worker no manifest e adicionar as chaves/telas necessárias no content e popup.
+>
+> <details><summary>Created a file, edited 2 files</summary>
+>
+> - Wrote `./background.js` (+320 -0)
+> - Wrote `./infra/worker/.dev.vars.example` (+1 -1)
+> - Wrote `./manifest.json` (+8 -2)
+>
+> </details>
+>
+> Background e manifest estão no lugar. Agora vou conectar o content script ao status Premium, garantindo que os recursos Pro sejam pulados e limpos sem chamadas assíncronas dentro da varredura de DOM.
+>
+> <details><summary>Edited 5 files</summary>
+>
+> - Wrote `./content/constants.js` (+16 -0)
+> - Wrote `./content/dom.js` (+24 -2)
+> - Wrote `./content/main.js` (+55 -12)
+> - Wrote `./content/pii.js` (+2 -0)
+> - Wrote `./content/state.js` (+7 -0)
+>
+> </details>
+>
+> O content script agora sabe bloquear Pro. Encontrei também que `WPB_DOM.revertAllFakeContent()` já era chamado, mas não existia no módulo DOM; vou aproveitar esta etapa para implementar esse helper corretamente.
+>
+> <details><summary>Edited 3 files</summary>
+>
+> - Wrote `./content/dom.js` (+11 -0)
+> - Wrote `./popup/constants.js` (+20 -1)
+> - Wrote `./popup/state.js` (+5 -1)
+>
+> </details>
+>
+> Vou montar a camada de UI Premium agora: status Free/Pro, ativação da licença, bloqueio visual dos toggles Pro e CTA de upgrade. Vou manter os textos novos estáticos em PT por enquanto; a internacionalização completa pode entrar na etapa de refinamento da extensão/landing.
+>
+> <details><summary>Edited 3 files</summary>
+>
+> - Wrote `./popup/main.js` (+72 -3)
+> - Wrote `./popup/storage.js` (+17 -2)
+> - Wrote `./popup/ui.js` (+66 -0)
+>
+> </details>
+>
+> A lógica do popup já está conectada ao background. Agora vou inserir os controles visuais no HTML e estilos para o bloqueio Pro/status de licença.
+>
+> <details><summary>Edited 2 files</summary>
+>
+> - Wrote `./popup.html` (+33 -4)
+> - Wrote `./popup/main.js` (+1 -1)
+>
+> </details>
+>
+> Vou adicionar os estilos e, em seguida, rodar o lint para capturar qualquer variável ou global faltando enquanto ainda estamos perto das mudanças.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./popup/styles.css` (+111 -1)
+>
+> </details>
+>
+> Vou fazer dois ajustes de robustez no popup: controles Pro que não são toggles (`fakeData`, `blurIntensity`, PIN) não podem estourar erro no render, e o PIN só deve bloquear a UI se o plano Pro estiver ativo.
+>
+> <details><summary>Edited 4 files</summary>
+>
+> - Wrote `./popup/main.js` (+3 -3)
+> - Wrote `./popup/ui.js` (+5 -3)
+> - Wrote `./content/main.js` (+4 -4)
+> - Wrote `./content/pii.js` (+1 -1)
+>
+> </details>
+>
+> A primeira passagem de integração está pronta. Vou rodar lint e checagem de sintaxe agora para pegar detalhes mecânicos antes de seguir para refinamentos.
+>
+> As validações básicas passaram limpas. Vou fazer uma revisão de diffs e rodar `node --check` nos scripts alterados para garantir que nenhum arquivo isolado ficou com erro de parse.
+>
+> Vou fechar alguns detalhes de comportamento antes do commit: garantir que o alarme seja registrado em qualquer carga do service worker e que a UI Free não deixe Fake Data/intensidade aparentarem estar ativos.
+>
+> <details><summary>Edited 2 files</summary>
+>
+> - Wrote `./background.js` (+3 -0)
+> - Wrote `./popup/ui.js` (+6 -0)
+>
+> </details>
+>
+> Vou ajustar um detalhe importante: o content script deve bloquear Fake Data quando Free, mas não apagar a preferência interna. Assim, se o usuário ativar Pro depois, a configuração salva pode voltar a valer.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./content/main.js` (+4 -6)
+>
+> </details>
+>
+> Esse refinamento ficou melhor: bloqueia sem destruir preferência. Vou rodar a bateria de validação novamente.
+>
+> Validação limpa. Vou checar o `manifest.json` como JSON e revisar os trechos alterados no diff antes do commit.
+>
+> O diff está coerente. Vou finalizar essa etapa com staging seletivo, deixando `landing-page-extensao/historico-conversa.txt` fora, e fazer o commit da branch.
+>
+> O staging bateu em um `index.lock` do Git porque eu rodei comandos Git em paralelo enquanto o `add` ainda tentava usar o índice. Vou checar se não há processo Git ativo e remover só esse lock órfão.
+>
+> O lock já sumiu e não há processo Git ativo. Vou repetir o staging de forma sequencial agora.
+>
+> Staging correto e o arquivo de histórico continua fora. Vou rodar a validação final uma última vez e commitar.
+>
+> Tudo verde. Vou criar o commit `feat(extension): add premium license gates`.
+>
+> Commit feito. Vou confirmar o estado final da branch e deixar anotado o que ficou fora do commit.
+</details>
+
+Feito. Criei a branch `feature/extension-premium-gates` e comitei:
+
+`0c48a2b feat(extension): add premium license gates`
+
+O que entrou:
+- Novo [background.js](<./background.js>) com `device_uuid`, ativação/validação de licença, verificação de recibo assinado, tolerância offline, reset de dispositivos e mensagens para popup/content.
+- [manifest.json](<./manifest.json>) com service worker, permissão `alarms` e host permission da API.
+- Content script agora tem estado Premium síncrono e bloqueia recursos Pro sem chamar API durante varredura DOM.
+- Popup ganhou seção de plano/licença, ativação de chave, atualização de status, reset de dispositivos, CTA de upgrade e bloqueio visual dos recursos Pro.
+- Atualizei `.dev.vars.example` do Worker com uma chave dev compatível com a chave pública embutida na extensão.
+
+Validações:
+- `npm run lint`: passou.
+- `node --check` nos scripts alterados: passou.
+- `git diff --check`: passou.
+- `manifest.json` parseado com sucesso.
+
+Mantive fora do commit, como combinado:
+- [historico-conversa.txt](<./landing-page-extensao/historico-conversa.txt>)
+
+Próximo passo natural: `feature/landing-page-freemium`, criar a landing page estática dentro de `landing-page-extensao/` com roteamento por idioma, comparação Free/Pro e CTAs de instalação/checkout.
+
+> "
+> O que entrou:
+> Novo [background.js](C://web//navegador-extensao//background.js) com device_uuid, ativação/validação de licença, verificação de recibo assinado, tolerância offline, reset de dispositivos e mensagens para popup/content.
+> [manifest.json](C://web//navegador-extensao//manifest.json) com service worker, permissão alarms e host permission da API.
+> Content script agora tem estado Premium síncrono e bloqueia recursos Pro sem chamar API durante varredura DOM.
+> Popup ganhou seção de plano/licença, ativação de chave, atualização de status, reset de dispositivos, CTA de upgrade e bloqueio visual dos recursos Pro.
+> Atualizei .dev.vars.example do Worker com uma chave dev compatível com a chave pública embutida na extensão.
+> Validações:
+> npm run lint: passou.
+> node --check nos scripts alterados: passou.
+> git diff --check: passou.
+> manifest.json parseado com sucesso.
+> "
+> -Reparei, ao abrir o link que você colocou da extensão, que o desing dela está com todas as funcionalidades na mesma página. Acho que seria mais interessante organizar uma sessão free e uma sessão pro, com abas para acesso ficar mais esplicito e organizado. Assim o usuário pode diferenciar as funções mais claramente e fica mais organizado.
+>
+> ---
+> "
+> Próximo passo natural: feature/landing-page-freemium, criar a landing page estática dentro de landing-page-extensao/ com roteamento por idioma, comparação Free/Pro e CTAs de instalação/checkout.
+> "
+> - Sim. E lembre-se que a página precisa ter um desing marcante, agradável e clean.
+
+<details><summary>8 previous messages</summary>
+
+> Concordo com o ajuste. Antes da landing, vou organizar o popup da extensão em abas `Free` e `Pro`, porque isso deixa a promessa Freemium mais clara dentro do produto. Em seguida sigo para a landing com uma branch própria e um visual mais marcante, clean e vendável.
+>
+> Vou usar a skill `build-web-apps:frontend-app-builder` para orientar a parte visual, especialmente a landing. A leitura do caminho listado falhou numa tentativa inicial por caminho expandido errado; vou abrir o arquivo correto agora.
+>
+> O caminho da skill parece diferente do índice anunciado, então vou listar a pasta de skills do plugin e localizar o `SKILL.md` correto sem travar o trabalho.
+>
+> A skill de frontend anunciada não está disponível no disco neste ambiente, então vou seguir com as instruções de design já carregadas no contexto e manter a implementação alinhada ao estilo existente. Primeiro vou fazer a organização em abas no popup e commitar isso na branch atual.
+>
+> Vou reestruturar o `popup.html` em dois painéis claros: `Free` com proteção básica e `Pro` com mensagens, mídias, PII, Fake Data, intensidade e PIN. Também vou fazer os botões “Ativar/Desativar” agirem apenas na aba aberta.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./popup.html` (+168 -166)
+>
+> </details>
+>
+> A marcação do popup agora está separada por abas. Vou conectar o comportamento dos botões de aba e atualizar os estilos para ficar com cara de controle nativo do produto, sem poluir a tela.
+>
+> <details><summary>Edited 3 files</summary>
+>
+> - Wrote `./popup/main.js` (+4 -1)
+> - Wrote `./popup/styles.css` (+54 -1)
+> - Wrote `./popup/ui.js` (+26 -0)
+>
+> </details>
+</details>
+
+> Continue
+
+<details><summary>24 previous messages</summary>
+
+> Continuando. Vou primeiro fechar o ajuste das abas Free/Pro no popup com validação e commit. Depois crio a branch da landing e implemento a página estática dentro de `landing-page-extensao/`, mantendo o arquivo `historico-conversa.txt` fora dos commits.
+>
+> O código passou no lint, mas o `diff --check` pegou espaços finais no HTML. Vou limpar esses pontos e rodar a validação novamente antes do commit.
+>
+> Espaços finais limpos. Vou validar de novo e commitar só os arquivos do popup.
+>
+> O ajuste de abas está pronto e validado. O HTML teve uma reestruturação grande porque as seções foram movidas para os painéis Free/Pro, então o diff dele ficou naturalmente maior. Vou commitar essa melhoria de organização do popup.
+>
+> O staged está correto e o histórico continua fora. Vou commitar agora.
+>
+> Popup organizado e commitado. Agora vou criar a branch `feature/landing-page-freemium` a partir desse ponto e montar a landing estática com roteador, assets compartilhados e páginas por idioma.
+>
+> Como executei branch/status em paralelo, o status leu a branch antiga antes do checkout terminar. Vou confirmar a branch atual e então criar a estrutura da landing.
+>
+> Vou construir a landing como site estático de verdade: roteador raiz por idioma, páginas locais leves que carregam um JS compartilhado com textos por locale, CSS único e uma cena hero full-bleed com mockup do produto ao fundo. Vou usar o ícone real da extensão como asset visual.
+>
+> A estrutura e o asset real da extensão já estão no lugar. Agora vou adicionar os arquivos estáticos da landing.
+>
+> <details><summary>Created 11 files</summary>
+>
+> - Wrote `./landing-page-extensao/ar/index.html` (+12 -0)
+> - Wrote `./landing-page-extensao/de/index.html` (+12 -0)
+> - Wrote `./landing-page-extensao/en/index.html` (+12 -0)
+> - Wrote `./landing-page-extensao/es/index.html` (+12 -0)
+> - Wrote `./landing-page-extensao/fr/index.html` (+12 -0)
+> - Wrote `./landing-page-extensao/hi/index.html` (+12 -0)
+> - Wrote `./landing-page-extensao/id/index.html` (+12 -0)
+> - Wrote `./landing-page-extensao/index.html` (+20 -0)
+> - Wrote `./landing-page-extensao/it/index.html` (+12 -0)
+> - Wrote `./landing-page-extensao/pt-BR/index.html` (+12 -0)
+> - Wrote `./landing-page-extensao/tr/index.html` (+12 -0)
+>
+> </details>
+>
+> Vou adicionar o CSS e o JS compartilhados. O JS vai cuidar de renderizar textos por idioma, detectar navegador para instalar e rotear checkout Cakto no `pt-BR` e Lemon Squeezy nos demais idiomas.
+>
+> <details><summary>Created 2 files</summary>
+>
+> - Wrote `./landing-page-extensao/assets/css/styles.css` (+541 -0)
+> - Wrote `./landing-page-extensao/assets/js/main.js` (+283 -0)
+>
+> </details>
+>
+> Landing criada. Vou validar HTML/JS/CSS com lint, checagem de sintaxe e depois abrir localmente via servidor estático para fazer uma QA visual rápida.
+>
+> As validações estáticas passaram. Vou subir um servidor local simples para inspecionar a landing em desktop/mobile e capturar qualquer problema de layout.
+>
+> MCP tool call
+>
+> node_repl.js
+>
+> ```json
+> {
+>   "title": "Check Playwright availability",
+>   "code": "try { const mod = await import('playwright'); nodeRepl.write('available'); } catch (error) { nodeRepl.write(error.message); }",
+>   "timeout_ms": 30000
+> }
+> ```
+>
+> ```text
+> available
+> ```
+>
+> Servidor local respondeu 200 e Playwright está disponível. Vou fazer uma checagem visual programática em desktop e mobile, incluindo screenshot e dimensões básicas para ver se há conteúdo renderizado e sem estouro horizontal.
+>
+> MCP tool call
+>
+> node_repl.js
+>
+> ```json
+> {
+>   "title": "Visual QA landing",
+>   "code": "const { chromium } = await import('playwright');\nconst browser = await chromium.launch({ headless: true });\nconst results = [];\nfor (const viewport of [{ name: 'desktop', width: 1440, height: 1000 }, { name: 'mobile', width: 390, height: 844 }]) {\n  const page = await browser.newPage({ viewport });\n  await page.goto('http://127.0.0.1:4177/en/', { waitUntil: 'networkidle' });\n  const info = await page.evaluate(() => ({\n    title: document.title,\n    h1: document.querySelector('h1')?.textContent,\n    sections: document.querySelectorAll('section').length,\n    scrollWidth: document.documentElement.scrollWidth,\n    clientWidth: document.documentElement.clientWidth,\n    heroHeight: Math.round(document.querySelector('.hero')?.getBoundingClientRect().height || 0),\n    buttons: Array.from(document.querySelectorAll('a.button')).map(a => a.textContent.trim()).slice(0, 4),\n  }));\n  const screenshot = `${nodeRepl.tmpDir}/agioblur-landing-${viewport.name}.png`;\n  await page.screenshot({ path: screenshot, fullPage: false });\n  results.push({ viewport: viewport.name, screenshot, ...info, overflowX: info.scrollWidth > info.clientWidth });\n  await page.close();\n}\nawait browser.close();\nnodeRepl.write(JSON.stringify(results, null, 2));",
+>   "timeout_ms": 60000
+> }
+> ```
+>
+> ```text
+> browserType.launch: Executable doesn't exist at C:\Users\Jhuan\AppData\Local\ms-playwright\chromium_headless_shell-1200\chrome-headless-shell-win64\chrome-headless-shell.exe
+> ╔═════════════════════════════════════════════════════════════════════════╗
+> ║ Looks like Playwright Test or Playwright was just installed or updated. ║
+> ║ Please run the following command to download new browsers:              ║
+> ║                                                                         ║
+> ║     npx playwright install                                              ║
+> ║                                                                         ║
+> ║ <3 Playwright Team                                                      ║
+> ╚═════════════════════════════════════════════════════════════════════════╝
+> ```
+>
+> Playwright está instalado, mas o binário de navegador dele não está baixado. Vou tentar a checagem usando o Chrome do sistema, para evitar baixar navegadores agora.
+>
+> Chrome está disponível no sistema. Vou rodar a QA visual com ele como executável do Playwright.
+>
+> <details><summary>Called 2 tools</summary>
+>
+> MCP tool call
+>
+> node_repl.js
+>
+> ```json
+> {
+>   "title": "Visual QA with system Chrome",
+>   "code": "const { chromium } = await import('playwright');\nconst browser = await chromium.launch({ headless: true, executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' });\nconst results = [];\nfor (const viewport of [{ name: 'desktop', width: 1440, height: 1000 }, { name: 'mobile', width: 390, height: 844 }]) {\n  const page = await browser.newPage({ viewport });\n  await page.goto('http://127.0.0.1:4177/en/', { waitUntil: 'networkidle' });\n  const info = await page.evaluate(() => ({\n    title: document.title,\n    h1: document.querySelector('h1')?.textContent,\n    sections: document.querySelectorAll('section').length,\n    scrollWidth: document.documentElement.scrollWidth,\n    clientWidth: document.documentElement.clientWidth,\n    heroHeight: Math.round(document.querySelector('.hero')?.getBoundingClientRect().height || 0),\n    firstButton: document.querySelector('a.button')?.textContent.trim(),\n  }));\n  const screenshot = `${nodeRepl.tmpDir}/agioblur-landing-${viewport.name}.png`;\n  await page.screenshot({ path: screenshot, fullPage: false });\n  results.push({ viewport: viewport.name, screenshot, ...info, overflowX: info.scrollWidth > info.clientWidth });\n  await page.close();\n}\nawait browser.close();\nnodeRepl.write(JSON.stringify(results, null, 2));",
+>   "timeout_ms": 60000
+> }
+> ```
+>
+> ```text
+> Identifier 'chromium' has already been declared
+> ```
+>
+> MCP tool call
+>
+> node_repl.js
+>
+> ```json
+> {
+>   "title": "Visual QA with system Chrome",
+>   "code": "{\n  const pw = await import('playwright');\n  const browser2 = await pw.chromium.launch({ headless: true, executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' });\n  const results = [];\n  for (const viewport of [{ name: 'desktop', width: 1440, height: 1000 }, { name: 'mobile', width: 390, height: 844 }]) {\n    const page = await browser2.newPage({ viewport });\n    await page.goto('http://127.0.0.1:4177/en/', { waitUntil: 'networkidle' });\n    const info = await page.evaluate(() => ({\n      title: document.title,\n      h1: document.querySelector('h1')?.textContent,\n      sections: document.querySelectorAll('section').length,\n      scrollWidth: document.documentElement.scrollWidth,\n      clientWidth: document.documentElement.clientWidth,\n      heroHeight: Math.round(document.querySelector('.hero')?.getBoundingClientRect().height || 0),\n      firstButton: document.querySelector('a.button')?.textContent.trim(),\n    }));\n    const screenshot = `${nodeRepl.tmpDir}/agioblur-landing-${viewport.name}.png`;\n    await page.screenshot({ path: screenshot, fullPage: false });\n    results.push({ viewport: viewport.name, screenshot, ...info, overflowX: info.scrollWidth > info.clientWidth });\n    await page.close();\n  }\n  await browser2.close();\n  nodeRepl.write(JSON.stringify(results, null, 2));\n}",
+>   "timeout_ms": 60000
+> }
+> ```
+>
+> ```text
+> [
+>   {
+>     "viewport": "desktop",
+>     "screenshot": "C:\\Users\\Jhuan\\AppData\\Local\\Temp/agioblur-landing-desktop.png",
+>     "title": "AgioBlur | WhatsApp Web Privacy",
+>     "h1": "AgioBlur",
+>     "sections": 5,
+>     "scrollWidth": 1440,
+>     "clientWidth": 1440,
+>     "heroHeight": 920,
+>     "firstButton": "Upgrade Pro",
+>     "overflowX": false
+>   },
+>   {
+>     "viewport": "mobile",
+>     "screenshot": "C:\\Users\\Jhuan\\AppData\\Local\\Temp/agioblur-landing-mobile.png",
+>     "title": "AgioBlur | WhatsApp Web Privacy",
+>     "h1": "AgioBlur",
+>     "sections": 5,
+>     "scrollWidth": 390,
+>     "clientWidth": 390,
+>     "heroHeight": 1100,
+>     "firstButton": "Upgrade Pro",
+>     "overflowX": false
+>   }
+> ]
+> ```
+>
+> </details>
+>
+> A QA programática não encontrou overflow horizontal em desktop/mobile. Vou abrir os screenshots para verificar composição visual e ajustes finos.
+>
+> Visualmente a landing ficou com um hero forte e limpo, sem overflow em desktop/mobile. Vou commitar a landing agora; os links de checkout/store estão como URLs configuráveis no JS e devem ser trocados pelos links reais quando você tiver Cakto/Lemon Squeezy/lojas publicados.
+>
+> Tudo validado e o arquivo de histórico continua fora do commit. Vou criar o commit da landing.
+>
+> Commit feito. Vou encerrar o servidor local de preview que abri para a QA, para não deixar processo rodando à toa.
+</details>
+
+Feito. Avancei em duas frentes:
+
+1. Popup reorganizado em abas `Free` e `Pro`
+Commit: `b0d0119 feat(popup): organize freemium controls into tabs`
+
+Agora o popup separa claramente os recursos gratuitos dos recursos Pro, e os botões “Ativar Tudo/Desativar Tudo” atuam só na aba visível.
+
+2. Landing page Freemium criada
+Branch atual: `feature/landing-page-freemium`
+Commit: `32b56df feat(landing): add freemium marketing page`
+
+Arquivos principais:
+- [landing index](<./landing-page-extensao/index.html>)
+- [landing JS](<./landing-page-extensao/assets/js/main.js>)
+- [landing CSS](<./landing-page-extensao/assets/css/styles.css>)
+
+A landing tem:
+- roteador por idioma;
+- páginas para `pt-BR`, `en`, `es`, `de`, `fr`, `it`, `id`, `tr`, `hi`, `ar`;
+- hero visual com cena de WhatsApp Web desfocada;
+- comparação Free vs Pro;
+- CTAs de instalação e compra;
+- detecção de navegador;
+- checkout Cakto para `pt-BR` e Lemon Squeezy para os demais.
+
+Validações:
+- `npm run lint`: passou.
+- `node --check` no JS da landing: passou.
+- `git diff --check`: passou.
+- QA visual com Chrome em desktop/mobile: sem overflow horizontal.
+- Servidor local de preview foi encerrado.
+
+Ainda fora do commit, como combinado:
+- [historico-conversa.txt](<./landing-page-extensao/historico-conversa.txt>)
+
+Observação: os links de checkout/store em `main.js` estão como URLs configuráveis provisórias. Quando você tiver os links reais da Cakto, Lemon Squeezy, Chrome Web Store, Edge Add-ons e Firefox Add-ons, a gente troca ali.
+
+> A extensão e a landing page já terminadas e funcionando?
+> Qual o próximo passo?
+
+Ainda não dá para dizer “terminadas e funcionando em produção”.
+
+O que temos agora é uma base funcional implementada e validada estaticamente:
+
+- Arquitetura Freemium documentada.
+- Worker/Supabase base implementados.
+- Extensão adaptada para licença Premium.
+- Popup organizado em abas Free/Pro.
+- Landing page estática criada e visualmente testada localmente.
+
+Mas ainda faltam integrações reais e teste ponta a ponta.
+
+**O Que Falta**
+
+1. **Configurar Supabase real**
+   Rodar as migrations, criar projeto/dev database e validar RPCs.
+
+2. **Configurar Cloudflare Worker**
+   Definir secrets reais:
+   `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `LICENSE_PRIVATE_KEY_JWK`, secrets dos gateways, Resend etc.
+
+3. **Testar Worker local**
+   Validar `/health`, `/licenses/validate`, reset de dispositivos e webhooks simulados.
+
+4. **Publicar/configurar gateways**
+   Cakto e Lemon Squeezy precisam dos webhooks reais e URLs reais de checkout.
+
+5. **Trocar URLs provisórias da landing**
+   Hoje os links de loja e checkout ainda são placeholders/configuráveis.
+
+6. **Testar extensão no navegador**
+   Carregar sem compactação, testar usuário Free, ativação Pro com licença real/simulada, bloqueio de Pro, revogação e reset.
+
+7. **Deploy da landing**
+   Escolher host final, provavelmente Cloudflare Pages ou Vercel Pro, e publicar.
+
+**Próximo Passo**
+
+Eu faria agora a etapa de integração local do backend:
+
+`feature/license-worker-integration`
+
+Nessa etapa:
+- gerar/organizar `.dev.vars` local sem commitar;
+- preparar comandos de teste;
+- rodar as migrations em um Supabase dev;
+- subir `wrangler dev`;
+- criar uma licença de teste;
+- validar se a extensão consegue ativar Pro usando o Worker local ou ambiente dev.
+
+Depois disso sim a gente testa a extensão de verdade no Chrome.
+
+> Antes, quero teestar localmente a landing page e a extensão, como posso fazer?
+
+Sim. Dá para testar os dois localmente agora.
+
+**Testar a Landing**
+No PowerShell, dentro de `C:\web\navegador-extensao`, rode:
+
+```powershell
+python -m http.server 4177 --bind 127.0.0.1 --directory .\landing-page-extensao
+```
+
+Depois abra no navegador:
+
+[http://127.0.0.1:4177/pt-BR/](http://127.0.0.1:4177/pt-BR/)
+
+Outros idiomas:
+- [http://127.0.0.1:4177/en/](http://127.0.0.1:4177/en/)
+- [http://127.0.0.1:4177/es/](http://127.0.0.1:4177/es/)
+- [http://127.0.0.1:4177/](http://127.0.0.1:4177/) redireciona por idioma do navegador.
+
+Para parar o servidor, volte ao terminal e aperte `Ctrl+C`.
+
+**Testar a Extensão**
+1. Abra o Chrome.
+2. Vá para:
+
+```text
+chrome://extensions
+```
+
+3. Ative **Modo do desenvolvedor**.
+4. Clique em **Carregar sem compactação**.
+5. Selecione a pasta:
+
+```text
+C:\web\navegador-extensao
+```
+
+6. Abra:
+
+[https://web.whatsapp.com/](https://web.whatsapp.com/)
+
+7. Clique no ícone da extensão.
+
+Você deve ver:
+- aba `Free`;
+- aba `Pro`;
+- seção de licença;
+- recursos Pro bloqueados enquanto não houver licença ativa.
+
+**Importante**
+A ativação Pro ainda não vai funcionar de ponta a ponta sem o Worker/Supabase local ou dev configurado, porque o `background.js` aponta para:
+
+```text
+https://api.agioblur.com
+```
+
+Então, por enquanto, o teste local da extensão serve para validar:
+- UI do popup;
+- abas Free/Pro;
+- bloqueio dos recursos Pro;
+- funcionamento dos recursos Free no WhatsApp Web.
+
+Para testar ativação Pro localmente, o próximo ajuste seria criar um modo dev apontando para `http://127.0.0.1:8787` ou configurar o domínio/API real.
+
+> Antes, quero testar localmente a landing page e a extensão, como posso fazer?
+
+> -Não acha que seria interessante que essa sessão:
+> "
+> AgioBlur
+> Plano gratuito ativo. Recursos Pro bloqueados.
+> FREE
+> XXXX-XXXX-XXXX-XXXX
+> Ativar
+> Upgrade Pro
+> Atualizar
+> " estivesse apenas quando o usuário acessar a aba PRO? Melhore também a organização de informações desssa mesma sessão. Porque o usuário quando baixar a extensão, a primeia coisa que está no topo é essa sessãopara colocar a chave.
+> -As opções grátis não estão funcionando. Combinamos que as funcionalidades não seriam alteradas e continuariam funcionando.
+> -Qual seria a opção do botão "Upgrade Pro"?
+> -A extensão está traduzindo também, para todas as 10 linguas, as novas sessões e textos?
+> -"Para testar ativação Pro localmente, o próximo ajuste seria criar um modo dev apontando para http://127.0.0.1:8787 ou configurar o domínio/API real." - quando você aplicar os ajustes anteriores, podemos fazer isso.
+>
+> -"
+> Testar a Landing
+> No PowerShell, dentro de C:\web\navegador-extensao, rode:
+> python -m http.server 4177 --bind 127.0.0.1 --directory .\landing-page-extensao
+> Depois abra no navegador:
+> [http://127.0.0.1:4177/pt-BR/](http://127.0.0.1:4177/pt-BR/)
+> Outros idiomas:
+> [http://127.0.0.1:4177/en/](http://127.0.0.1:4177/en/)
+> [http://127.0.0.1:4177/es/](http://127.0.0.1:4177/es/)
+> [http://127.0.0.1:4177/](http://127.0.0.1:4177/) redireciona por idioma do navegador.
+> Para parar o servidor, volte ao terminal e aperte Ctrl+C.
+> " - Fiz esse passo a passo e está dando erro 404: "Error response
+> Error code: 404
+>
+> Message: File not found.
+>
+> Error code explanation: 404 - Nothing matches the given URI."
+>
+> User context
+>
+> Images:
+> - `C:/Users/Jhuan/AppData/Local/Temp/codex-clipboard-4cc9c769-6a8e-49e9-ae9a-c95ef00e96d8.png`
+
+<details><summary>9 previous messages</summary>
+
+> Entendi os pontos. Vou corrigir agora: mover a ativação/licença para dentro da aba Pro, reorganizar essa seção, revisar por que os controles Free podem ter sido afetados e preparar as novas strings para i18n nas 10 línguas. Depois disso a gente parte para o modo dev da API local.
+>
+> Vou ajustar em três blocos: primeiro a UI do popup, depois i18n dos novos textos nas 10 línguas, e por fim um comando `npm run landing:dev` para evitar o 404 causado por servidor iniciado no diretório errado.
+>
+> Encontrei também uma melhoria útil: ao colocar a área de licença dentro da aba Pro, o usuário entra primeiro direto nas opções Free. Vou aproveitar e deixar o card de licença com hierarquia mais clara: status, texto curto, chave, ações.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./popup.html` (+45 -41)
+>
+> </details>
+>
+> Agora vou transformar os textos dinâmicos do popup para usarem `chrome.i18n`, e melhorar o botão Upgrade Pro para abrir a seção de preço da landing (`#pricing`).
+>
+> <details><summary>Edited 4 files</summary>
+>
+> - Wrote `./package.json` (+1 -0)
+> - Wrote `./popup/constants.js` (+1 -1)
+> - Wrote `./popup/main.js` (+19 -12)
+> - Wrote `./popup/ui.js` (+7 -2)
+>
+> </details>
+>
+> Vou corrigir também um ponto que pode explicar parte do “Free não funciona”: o botão “Ativar Tudo” na aba Free não estava contemplando `Censura Sólida`, porque ela é uma configuração e não uma categoria. Vou incluir isso sem alterar a lógica antiga das funcionalidades.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./popup/main.js` (+6 -0)
+>
+> </details>
+>
+> Agora vou adicionar as traduções das novas abas/seção de licença nas 10 localidades existentes, para que esses textos não fiquem fixos em português/inglês.
+</details>
+
+Vou fazer uma atualização mecânica dos JSONs de locale com as novas chaves, preservando o restante do conteúdo.
+
+> Continue o processo qu estava fazendo neste chat. Se precisar de informações, me diga
+
+<details><summary>12 previous messages</summary>
+
+> Estou continuando daqui. Já movi a seção de licença para dentro da aba Pro, transformei os textos novos em chaves de i18n nas 10 línguas e adicionei um script `landing:dev` para reduzir o risco do 404 por servidor iniciado no diretório errado. Vou validar tudo agora e depois vejo se ainda há algum ponto que explique os toggles Free não aplicarem no WhatsApp Web.
+>
+> As validações estão limpas. Pelo código, os toggles Free continuam seguindo o mesmo fluxo antigo de `chrome.storage.local` e content script; o que pode ter acontecido no teste é extensão carregada sem recarregar o WhatsApp Web/content script depois da atualização. Mesmo assim vou melhorar um ponto: ao entrar na aba Free, a seção de licença sai do caminho e os botões Free ficam independentes.
+>
+> O card de licença já saiu do topo e foi para a aba Pro. Vou acrescentar só o estilo do texto de ajuda da licença e depois fazer uma rodada final de validação.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./popup/styles.css` (+7 -0)
+>
+> </details>
+>
+> Agora vou validar lint, sintaxe, JSON das localidades e o servidor da landing pelo novo script.
+>
+> A validação dos locales falhou por erro de aspas no comando PowerShell, não por JSON. Vou repetir com um comando mais simples.
+>
+> Vou testar o novo comando de preview da landing sem deixar servidor preso: subo em background, verifico `/pt-BR/`, e paro o processo.
+>
+> Esse teste com `npm` não retornou saída porque no Windows o executável é `npm.cmd`. Vou repetir usando `npm.cmd`.
+>
+> Percebi o motivo do teste anterior terminar sem saída: meu filtro de processos era amplo e podia capturar o próprio PowerShell que estava executando o comando. Vou repetir com filtro excluindo o processo atual.
+>
+> O preview da landing em `http://127.0.0.1:4177/pt-BR/` respondeu 200 quando servido com o diretório correto. Isso confirma que o 404 vinha de servidor apontado para outra pasta ou processo antigo na porta. Vou commitar os ajustes agora.
+>
+> O staging foi feito; vou confirmar o status detalhado e rodar as validações sobre o staged antes do commit.
+>
+> Staged limpo, lint limpo. Vou commitar os ajustes de UX/i18n/local preview.
+</details>
+
+Feito. Apliquei os ajustes e comitei:
+
+`b3a06fa feat(popup): move license controls into pro tab`
+
+O que mudou:
+- A seção de licença/chave saiu do topo e agora aparece apenas na aba `Pro`.
+- A aba `Free` abre primeiro, mostrando só recursos gratuitos.
+- A seção Pro ficou mais organizada: status da licença, descrição curta, campo da chave e ações.
+- `Upgrade Pro` agora aponta para `https://agioblur.com/pt-BR/#pricing`. Quando tivermos domínio/link final, trocamos.
+- Adicionei i18n para os novos textos nas 10 línguas em `_locales/*/messages.json`.
+- Adicionei `npm run landing:dev` para testar a landing sem errar o diretório.
+- Corrigi o botão “Ativar Tudo” na aba Free para também considerar `Censura Sólida`.
+
+Validei:
+- `npm run lint`: passou.
+- `node --check` nos scripts do popup: passou.
+- JSON das 10 localidades: OK.
+- Landing local em `http://127.0.0.1:4177/pt-BR/`: respondeu `200`.
+
+Para testar a landing agora, use este comando na raiz do projeto:
+
+```powershell
+npm run landing:dev
+```
+
+Depois abra:
+
+```text
+http://127.0.0.1:4177/pt-BR/
+```
+
+Se ainda aparecer 404, provavelmente existe um servidor antigo na porta `4177` apontando para outra pasta. Pare com `Ctrl+C` no terminal antigo ou feche esse processo e rode `npm run landing:dev` de novo.
+
+Sobre as opções grátis: pelo código, elas continuam usando o fluxo original da extensão. Depois de recarregar a extensão em `chrome://extensions`, recarregue também a aba do WhatsApp Web para o content script novo entrar. Se ainda não funcionar, me diga exatamente qual toggle Free falhou (`Fotos`, `Nomes`, `Campo de digitação` ou `Censura Sólida`) que eu investigo esse ponto direto.
+
+> -Melhore o design dessa campo de troca de idiomas.
+> -Notei que a mudança para idiomas não está traduzindo tod a página, só alguns textos, o certo é toda a página estar no idioma selecionado.
+> -Melhore a sessão de "Perguntas rápidas", com perguntas mais pertinentes e que geralmente surgem ao utilziar a extensão e ao adquirir a versão PRO.
+> -Melhore o desing do topo da página, onde aparece a logo e o nome "AgioBlur", Aumente o tamanho da logo e o nome.
+> -Melhore a organização dos textos dessa sessão: "Privacidade visual para WhatsApp Web
+> AgioBlur
+> Desfoque conversas, nomes, fotos e dados sensíveis no WhatsApp Web antes que alguém olhe para a sua tela.
+>
+> [Instalar extensão](https://chromewebstore.google.com/)
+> [Ver Pro](http://127.0.0.1:4177/pt-BR/#pricing)
+> Sem rastreamento
+> Proteção local no navegador
+> 10 idiomas
+> Interface preparada para uso global
+> Free + Pro
+> Comece grátis e libere recursos avançados"
+>
+> User context
+>
+> Images:
+> - `C:/Users/Jhuan/AppData/Local/Temp/codex-clipboard-e49ccb86-4bed-41ab-8967-2e2ae55195ff.png`
+
+<details><summary>14 previous messages</summary>
+
+> Vou ajustar a landing exatamente nesses pontos: seletor de idioma com visual próprio, tradução completa por locale, FAQ mais útil para compra/uso Pro, topo com marca mais forte e hero mais organizado. Depois valido no navegador local.
+>
+> Vou reescrever o módulo de conteúdo da landing para não depender mais de fallback parcial. Assim cada idioma passa a ter todos os textos da página, inclusive FAQ, planos, privacidade e CTA final.
+>
+> <details><summary>Created a file</summary>
+>
+> - Wrote `./landing-page-extensao/assets/js/main.js` (+654 -0)
+>
+> </details>
+>
+> O JS agora tem conteúdo completo para todos os idiomas. Vou ajustar o CSS para o seletor customizado, marca maior no topo, hero mais organizado e FAQ em layout mais forte.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./landing-page-extensao/assets/css/styles.css` (+159 -16)
+>
+> </details>
+>
+> Agora vou validar sintaxe, lint e render em navegador para garantir que a troca de idioma realmente muda a página inteira e que o novo seletor não cria overflow.
+>
+> As validações estáticas passaram. Vou fazer uma QA rápida em porta separada para não mexer no servidor que você está usando no navegador.
+>
+> Vou renderizar em Chrome headless para checar texto em alguns idiomas e verificar o menu visualmente.
+>
+> Servidor de QA na porta 4181 está ativo só para eu validar a renderização; vou fechá-lo depois.
+>
+> MCP tool call
+>
+> node_repl.js
+>
+> ```json
+> {
+>   "title": "QA landing translations and language menu",
+>   "code": "{\n  const pw = await import('playwright');\n  const browser = await pw.chromium.launch({ headless: true, executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' });\n  const checks = [];\n  for (const locale of ['pt-BR', 'fr', 'es', 'ar']) {\n    const page = await browser.newPage({ viewport: { width: 1366, height: 900 } });\n    await page.goto(`http://127.0.0.1:4181/${locale}/`, { waitUntil: 'networkidle' });\n    await page.locator('.language-trigger').click();\n    const info = await page.evaluate(() => ({\n      title: document.title,\n      eyebrow: document.querySelector('.eyebrow')?.textContent,\n      pricingTitle: document.querySelector('#pricing h2')?.textContent,\n      faqTitle: Array.from(document.querySelectorAll('h2')).find(h => h.textContent.includes('Perguntas') || h.textContent.includes('Frequently') || h.textContent.includes('Preguntas') || h.textContent.includes('Questions') || h.textContent.includes('أسئلة'))?.textContent,\n      faqCount: document.querySelectorAll('.faq-item').length,\n      languageOptions: document.querySelectorAll('.language-menu button').length,\n      overflowX: document.documentElement.scrollWidth > document.documentElement.clientWidth,\n      direction: document.body.getAttribute('dir') || 'ltr'\n    }));\n    checks.push({ locale, ...info });\n    if (locale === 'pt-BR') await page.screenshot({ path: `${nodeRepl.tmpDir}/agioblur-lang-menu.png`, fullPage: false });\n    await page.close();\n  }\n  await browser.close();\n  nodeRepl.write(JSON.stringify(checks, null, 2));\n}",
+>   "timeout_ms": 60000
+> }
+> ```
+>
+> ```text
+> [
+>   {
+>     "locale": "pt-BR",
+>     "title": "AgioBlur | Privacidade para WhatsApp Web",
+>     "eyebrow": "Privacidade visual para WhatsApp Web",
+>     "pricingTitle": "Escolha seu nível de proteção",
+>     "faqTitle": "Perguntas frequentes",
+>     "faqCount": 6,
+>     "languageOptions": 10,
+>     "overflowX": false,
+>     "direction": "ltr"
+>   },
+>   {
+>     "locale": "fr",
+>     "title": "AgioBlur | Confidentialité WhatsApp Web",
+>     "eyebrow": "Confidentialité visuelle pour WhatsApp Web",
+>     "pricingTitle": "Choisissez votre niveau de protection",
+>     "faqTitle": "Questions fréquentes",
+>     "faqCount": 6,
+>     "languageOptions": 10,
+>     "overflowX": false,
+>     "direction": "ltr"
+>   },
+>   {
+>     "locale": "es",
+>     "title": "AgioBlur | Privacidad para WhatsApp Web",
+>     "eyebrow": "Privacidad visual para WhatsApp Web",
+>     "pricingTitle": "Elige tu nivel de protección",
+>     "faqTitle": "Preguntas frecuentes",
+>     "faqCount": 6,
+>     "languageOptions": 10,
+>     "overflowX": false,
+>     "direction": "ltr"
+>   },
+>   {
+>     "locale": "ar",
+>     "title": "AgioBlur | خصوصية WhatsApp Web",
+>     "eyebrow": "خصوصية بصرية لـ WhatsApp Web",
+>     "pricingTitle": "اختر مستوى الحماية",
+>     "faqTitle": "أسئلة شائعة",
+>     "faqCount": 6,
+>     "languageOptions": 10,
+>     "overflowX": false,
+>     "direction": "rtl"
+>   }
+> ]
+> ```
+>
+> QA mostrou tradução completa nos blocos principais em PT/FR/ES/AR, 10 opções no menu, FAQ com 6 perguntas e sem overflow horizontal. Vou ver o screenshot do seletor novo e fechar o servidor de QA.
+>
+> O seletor novo ficou bem mais integrado ao topo e o hero também está mais legível. Vou parar o servidor de QA e commitar esses ajustes.
+>
+> Vou salvar em commit separado de refinamento visual/tradução da landing.
+>
+> Bati de novo no lock do Git por chamada paralela de status/add. Vou resolver sequencialmente como antes.
+</details>
+
+O lock já sumiu. Vou stagear e commitar sem paralelizar comandos Git.
+
+> Continue o processo qu estava fazendo neste chat. Se precisar de informações, me diga
+
+<details><summary>3 previous messages</summary>
+
+> Continuando: os ajustes da landing já estão stageados e passaram no `diff --check`. Vou fazer uma validação final rápida e commitar.
+>
+> Validação final limpa. Vou commitar o refinamento visual/tradução da landing agora.
+>
+> Commit feito. Vou confirmar o estado final da branch e deixar uma resposta com o que mudou e como você deve recarregar para ver no browser.
+</details>
+
+Continuei e fechei os ajustes da landing. Commit feito:
+
+`38cd586 feat(landing): refine language selector and localized copy`
+
+O que foi melhorado:
+- Seletor de idioma virou um menu customizado, mais bonito e integrado ao topo.
+- A página agora tem tradução completa para os 10 idiomas, não apenas alguns textos.
+- FAQ foi ampliado para 6 perguntas mais pertinentes sobre Free, Pro, privacidade, dispositivos, troca de computador e offline.
+- Topo da página ficou mais forte: logo e nome `AgioBlur` maiores.
+- Hero reorganizado: textos, CTAs e indicadores ficaram mais claros e com melhor hierarquia visual.
+- Validei PT, FR, ES e AR via Chrome headless: tradução completa nos blocos principais, 10 opções no menu, sem overflow horizontal.
+
+Validações:
+- `npm run lint`: passou.
+- `node --check landing-page-extensao/assets/js/main.js`: passou.
+- `git diff --check`: passou.
+
+Para ver no navegador, recarregue a aba com `Ctrl+F5` para evitar cache:
+
+```text
+http://127.0.0.1:4177/pt-BR/
+```
+
+Se o servidor não estiver rodando, use:
+
+```powershell
+npm run landing:dev
+```
+
+Ainda fora do commit, como combinado:
+- `landing-page-extensao/historico-conversa.txt`
+
+> - Na extensão, a função " Solid Censor" não está funcionando.
+> -Temos que testar se a validação do código que desbloqueia a versão pro funciona?
+> -Qual é o proximo passo agora? Seria a etapa de integração local do backend: feature/license-worker-integration. Com "gerar/organizar .dev.vars local sem commitar;
+> preparar comandos de teste;
+> rodar as migrations em um Supabase dev;
+> subir wrangler dev;
+> criar uma licença de teste;
+> validar se a extensão consegue ativar Pro usando o Worker local ou ambiente dev."?
+
+<details><summary>23 previous messages</summary>
+
+> Vou investigar o `Solid Censor` primeiro, porque isso é regressão em recurso Free e precisa ficar correto antes da integração Pro. Depois respondo objetivamente sobre validação da chave Pro e a próxima etapa do backend local.
+>
+> Context compaction
+>
+> Source: automatic
+> Status: completed
+>
+> Vou continuar exatamente daí: primeiro vou corrigir o `Solid Censor`, porque recurso Free quebrado vem antes da integração Pro. Depois eu deixo claro o que já dá para testar agora e o que entra na branch `feature/license-worker-integration`.
+>
+> Achei um ponto bem suspeito: o CSS do modo sólido existe, mas vou seguir o fluxo completo popup → storage → content para ver se o clique está salvando e se a página recebe a classe certa. Se for só seletor/estado, a correção deve ser pequena e bem segura.
+>
+> Vou ajustar duas coisas juntas: deixar o estado `wpb-solid-mode` mais robusto no content script e corrigir o CSS de fotos/mídias, que hoje usa `opacity: 0` e acaba escondendo o elemento inteiro em vez de virar censura sólida visível. Esse detalhe explica bem a sensação de “não funciona”.
+>
+> <details><summary>Edited 2 files</summary>
+>
+> - Wrote `./content/main.js` (+8 -5)
+> - Wrote `./styles.css` (+65 -61)
+>
+> </details>
+>
+> A correção já está aplicada localmente. Agora vou rodar as validações básicas e um teste pequeno de CSS para confirmar que o modo sólido realmente deixa foto/mídia visíveis como bloco preto, em vez de desaparecer.
+>
+> As validações passaram (`lint`, checagem JS e `git diff --check`). Vou fazer só mais uma checagem visual/computada em HTML mínimo, porque esse bug é muito CSS: é melhor provar que o seletor resultante gera preto visível.
+>
+> MCP tool call
+>
+> node_repl.js
+>
+> ```json
+> {
+>   "title": "Verify solid censor CSS",
+>   "timeout_ms": 30000,
+>   "code": "const { chromium } = await import('playwright');\nconst fs = await import('node:fs/promises');\nconst css = await fs.readFile('C:/web/navegador-extensao/styles.css', 'utf8');\nconst browser = await chromium.launch({ headless: true, executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' });\nconst page = await browser.newPage({ viewport: { width: 420, height: 260 } });\nawait page.setContent(`<!doctype html><html class=\"wpb-solid-mode\"><head><style>${css}</style></head><body>\n  <img class=\"wpb-blur-photo\" id=\"photo\" src=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Crect width='80' height='80' fill='red'/%3E%3C/svg%3E\">\n  <span class=\"wpb-blur-name\" id=\"name\">Contato Teste</span>\n  <div class=\"wpb-blur-media\" id=\"media\" style=\"width:100px;height:60px;background:red\"></div>\n</body></html>`);\nconst result = await page.evaluate(() => {\n  const read = (id) => {\n    const style = getComputedStyle(document.getElementById(id));\n    return { filter: style.filter, opacity: style.opacity, backgroundColor: style.backgroundColor, color: style.color };\n  };\n  return { photo: read('photo'), name: read('name'), media: read('media') };\n});\nawait browser.close();\nnodeRepl.write(JSON.stringify(result, null, 2));"
+> }
+> ```
+>
+> ```text
+> {
+>   "photo": {
+>     "filter": "brightness(0)",
+>     "opacity": "1",
+>     "backgroundColor": "rgb(0, 0, 0)",
+>     "color": "rgb(0, 0, 0)"
+>   },
+>   "name": {
+>     "filter": "none",
+>     "opacity": "1",
+>     "backgroundColor": "rgb(0, 0, 0)",
+>     "color": "rgba(0, 0, 0, 0)"
+>   },
+>   "media": {
+>     "filter": "brightness(0)",
+>     "opacity": "1",
+>     "backgroundColor": "rgb(0, 0, 0)",
+>     "color": "rgb(0, 0, 0)"
+>   }
+> }
+> ```
+>
+> O teste confirmou o ponto: foto e mídia agora ficam com `brightness(0)`, `opacity: 1` e fundo preto. Ou seja, censura sólida visível, não elemento sumido. Vou revisar o diff e comitar esse ajuste separado.
+>
+> O diff está enxuto: só `content/main.js` e `styles.css`. Vou comitar apenas esses dois arquivos; o `historico-conversa.txt` continua fora do commit como combinado.
+>
+> Commit feito. Vou checar o estado final da branch e então te digo o próximo passo com a integração local do Worker/licenças.
+>
+> Sobre a próxima etapa: sim, a ordem que você descreveu está certa. Vou abrir a branch `feature/license-worker-integration` a partir do estado atual e preparar o que não depende de segredo: modo local da API, comandos de teste e organização de `.dev.vars` sem commitar. Para rodar Supabase/Wrangler de ponta a ponta, talvez eu precise confirmar o ambiente depois.
+>
+> A infraestrutura já ignora `infra/worker/.dev.vars`, então dá para criar arquivo local sem risco de commit acidental. Vou mudar para a branch de integração agora e preparar um override local para a extensão conseguir apontar para `http://127.0.0.1:8787` durante testes.
+>
+> Vou manter o override fora da UI principal para não poluir a extensão para usuários finais. A ideia é aceitar uma chave de storage local (`license_api_base_url`) ou mensagem interna de dev, validada contra origens permitidas, e documentar os comandos para ligar/desligar isso durante teste.
+>
+> Vou tocar só em três pontos agora: `background.js` para trocar a base da API em dev, `manifest.json` para permitir o Worker local, e o README do Worker com os comandos. Depois valido tudo e faço um commit próprio dessa etapa.
+>
+> <details><summary>Edited 2 files</summary>
+>
+> - Wrote `./background.js` (+56 -2)
+> - Wrote `./manifest.json` (+3 -1)
+>
+> </details>
+>
+> O override já está implementado. Vou documentar o fluxo local de ponta a ponta: subir Worker, apontar a extensão para o Worker local, voltar para produção e testar os endpoints básicos.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./infra/worker/README.md` (+42 -0)
+>
+> </details>
+>
+> Também vou criar o `infra/worker/.dev.vars` local a partir do exemplo se ele ainda não existir. Ele está no `.gitignore`, então fica só na máquina para preencher com Supabase/dev secrets.
+>
+> O arquivo local foi criado. Agora vou ver a migration para preparar um comando de licença de teste compatível com o schema, sem inventar coluna errada.
+>
+> A migration tem uma função `sha256_hex`, então dá para documentar uma licença de teste idempotente sem calcular hash manual. Vou acrescentar esse seed SQL ao README.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./infra/worker/README.md` (+24 -0)
+>
+> </details>
+</details>
+
+A licença de teste idempotente ficou documentada. Agora vou rodar a bateria de validação dessa primeira parte da integração local.
+
+> Continue o processo qu estava fazendo neste chat.
+
+<details><summary>21 previous messages</summary>
+
+> Vou retomar da integração local. Já corrigi e comitei o `Solid Censor`; agora vou finalizar a primeira parte da branch `feature/license-worker-integration`, revisar o que ficou pendente e validar antes de comitar.
+>
+> <details><summary>Ran 3 commands</summary>
+>
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short --branch`
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' diff -- background.js manifest.json infra/worker/README.md`
+> - Ran `Get-Content infra\worker\package.json`
+>
+> </details>
+>
+> O sandbox atual bloqueou o `git.exe` fora do ambiente da pasta, então vou pedir permissão só para ler o estado/diff do Git e, se passar, usar isso para fechar o commit da integração.
+>
+> <details><summary>Ran 2 commands</summary>
+>
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short --branch`
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' diff -- background.js manifest.json infra/worker/README.md`
+>
+> </details>
+>
+> O diff está bom. Vou transformar a licença de teste em um seed SQL versionado também, para o processo ficar reproduzível em vez de depender só do README.
+>
+> <details><summary>Created a file</summary>
+>
+> - Wrote `./infra/supabase/seeds/local_test_license.sql` (+19 -0)
+>
+> </details>
+>
+> Agora vou ajustar o README para apontar para esse seed e manter o comando SQL visível. Em seguida valido a branch.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./infra/worker/README.md` (+1 -1)
+>
+> </details>
+>
+> Vou rodar as validações de novo: lint geral, checagem sintática do background/Worker, parse do manifest e verificação de whitespace do Git.
+>
+> <details><summary>Ran 5 commands</summary>
+>
+> - Ran `node -e "JSON.parse(require('fs').readFileSync('manifest.json','utf8')); console.log('manifest ok')"`
+> - Ran `node --check infra\worker\src\index.js`
+> - Ran `node --check background.js`
+> - Ran `npm run lint`
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' diff --check`
+>
+> </details>
+>
+> Tudo passou. Vou comitar essa parte inicial da integração local: override seguro da API, permissões locais e documentação/seed de licença de teste.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short`
+>
+> </details>
+>
+> Vou adicionar somente os arquivos da integração. O histórico da conversa continua de fora, como combinado.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' add background.js manifest.json infra/worker/README.md infra/supabase/seeds/local_test_license.sql`
+>
+> </details>
+>
+> Arquivos certos no stage. Vou criar o commit agora.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' commit -m "feat(extension): support local license API testing"`
+>
+> </details>
+>
+> Commit criado. Agora vou checar se a máquina já tem Supabase CLI/Docker/Wrangler prontos; isso define se consigo rodar a validação ponta a ponta agora ou se falta credencial/ambiente.
+>
+> <details><summary>Ran 4 commands</summary>
+>
+> - Ran `where.exe supabase`
+> - Ran `where.exe docker`
+> - Ran `Test-Path infra\worker\node_modules\.bin\wrangler.cmd`
+> - Ran `Get-Content infra\worker\.dev.vars`
+>
+> </details>
+>
+> O estado do ambiente ficou claro: Docker existe, Wrangler já está instalado no projeto, mas Supabase CLI não está no PATH e o `.dev.vars` local ainda está com placeholders. Então a parte de código está pronta; para validar Pro de ponta a ponta falta uma base Supabase dev real ou instalar/usar Supabase local.
+>
+> Vou fazer a checagem final do repositório e então te deixo um próximo passo bem objetivo, porque agora chegamos no ponto em que depende de Supabase dev/credenciais.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short --branch`
+>
+> </details>
+</details>
+
+Corrigi o `Solid Censor` e comitei:
+
+`0d5c825 fix(extension): restore solid censor visibility`
+
+O problema era que fotos/mídias no modo sólido estavam ficando com `opacity: 0`, ou seja, sumiam em vez de virar uma censura preta visível. Ajustei para `brightness(0)` + fundo preto e deixei o estado aplicado em `html` e `body`.
+
+Também avancei a etapa `feature/license-worker-integration` e comitei:
+
+`4f62c04 feat(extension): support local license API testing`
+
+Entrou:
+- override local da API de licenças na extensão;
+- permissões para `http://127.0.0.1:8787/*` e `http://localhost:8787/*`;
+- seed SQL `infra/supabase/seeds/local_test_license.sql`;
+- documentação de teste local no README do Worker;
+- `.dev.vars` local criado, mas não commitado.
+
+Validações passaram:
+- `npm run lint`
+- `node --check background.js`
+- `node --check infra/worker/src/index.js`
+- parse do `manifest.json`
+- `git diff --check`
+
+Estado atual da branch está limpo, exceto o arquivo combinado fora do commit:
+`landing-page-extensao/historico-conversa.txt`
+
+Sobre a validação Pro: sim, agora precisamos testar de ponta a ponta. O bloqueio atual é que o Supabase CLI não está instalado e o `.dev.vars` ainda está com placeholders. Para continuar preciso de uma destas opções:
+
+1. Dados de um Supabase dev: `SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY`.
+2. Permissão para preparar Supabase local via Docker, instalando/baixando o Supabase CLI.
+
+> -Na extensão, a opção solid Censor não está funcionando ainda. Veja como ela foi feita na branch principal para você fazer da mesma forma.
+
+<details><summary>16 previous messages</summary>
+
+> Vou comparar diretamente com a `main` para ver como o `Solid Censor` funcionava antes, em vez de tentar adivinhar pelo CSS atual. Vou olhar principalmente `styles.css`, `content/main.js` e o fluxo do popup/storage.
+>
+> <details><summary>Ran 4 commands</summary>
+>
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' show main:styles.css`
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' branch --show-current`
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' show main:content/main.js`
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' show main:popup/main.js`
+>
+> </details>
+>
+> Comparando com a `main`, vi que minha última tentativa mudou justamente o bloco CSS do modo sólido, enquanto a `main` usava outra semântica: o solid mode não “escurecia” a imagem com filtro, ele removia o blur e controlava opacidade/background nos mesmos seletores originais. Vou restaurar esse bloco do jeito da `main` e manter só a compatibilidade com o fluxo Freemium atual.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `Get-Content styles.css | Select-Object -Index (84..235)`
+>
+> </details>
+>
+> Vou aplicar a restauração cirúrgica no `styles.css`: voltar o bloco do solid mode para os seletores/propriedades da `main`. Depois valido com lint e comparo o bloco para garantir que ficou igual.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' show main:styles.css > C:\tmp\main-styles.css`
+>
+> </details>
+>
+> Peguei uma cópia temporária do CSS da `main` só para conferir a equivalência do bloco, sem tocar no repositório. Agora vou editar o arquivo do projeto com patch.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./styles.css` (+61 -65)
+>
+> </details>
+>
+> O bloco foi restaurado. Vou confirmar se `styles.css` voltou a ficar igual à `main` e depois rodar as validações.
+>
+> <details><summary>Ran 4 commands</summary>
+>
+> - Ran `npm run lint`
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' diff main -- styles.css`
+> - Ran `node --check content\main.js`
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' diff --check`
+>
+> </details>
+>
+> `styles.css` agora não tem diferença nenhuma contra a `main`, então o Solid Censor voltou ao comportamento original nessa camada. Vou comitar só essa restauração, mantendo o histórico fora do commit.
+>
+> <details><summary>Ran 2 commands</summary>
+>
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short --branch`
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' diff -- styles.css`
+>
+> </details>
+>
+> A alteração pendente é exatamente a reversão do bloco para o padrão da `main`. Vou comitar isso agora como correção de regressão.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' add styles.css; & 'C:\Program Files\Git\cmd\git.exe' commit -m "fix(extension): match main solid censor styles"`
+>
+> </details>
+>
+> Commit feito. Vou só confirmar o estado final da branch para fechar com segurança.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short --branch`
+>
+> </details>
+</details>
+
+Feito. Comparei com a `main` e restaurei o bloco do `Solid Censor` em [styles.css](./styles.css) para ficar exatamente como era na branch principal.
+
+Commit criado:
+
+`fe1cbe0 fix(extension): match main solid censor styles`
+
+Validei:
+- `npm run lint`
+- `node --check content/main.js`
+- `git diff --check`
+- `git diff main -- styles.css` sem diferenças
+
+A branch está limpa, exceto o arquivo combinado fora do commit:
+
+`landing-page-extensao/historico-conversa.txt`
+
+Para testar no Chrome, recarregue a extensão em `chrome://extensions`, recarregue o WhatsApp Web e ative `Solid Censor` na aba Free.
+
+> de um push nas branchs para o github
+
+<details><summary>6 previous messages</summary>
+
+> Vou verificar quais branches locais existem, quais ainda não têm upstream no GitHub e então faço push delas. Vou tomar cuidado para não mexer no `historico-conversa.txt`, que segue fora do commit.
+>
+> <details><summary>Ran 3 commands</summary>
+>
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' branch -vv`
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' remote -v`
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short --branch`
+>
+> </details>
+>
+> As branches do fluxo Freemium ainda estão locais sem upstream. Vou enviar para `origin`: `feature/freemium-architecture`, `feature/license-worker`, `feature/extension-premium-gates`, `feature/landing-page-freemium` e `feature/license-worker-integration`.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' push -u origin feature/freemium-architecture feature/license-worker feature/extension-premium-gates feature/landing-page-freemium feature/license-worker-integration`
+>
+> </details>
+>
+> Push concluído. O Git mostrou só um aviso de `credential-manager-core` ausente depois do envio, mas as branches foram criadas no GitHub e já ficaram com upstream configurado. Vou conferir o estado final local.
+>
+> <details><summary>Ran a command</summary>
+>
+> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short --branch; & 'C:\Program Files\Git\cmd\git.exe' branch -vv`
+>
+> </details>
+</details>
+
+Push feito para o GitHub em `origin`:
+
+- `feature/freemium-architecture`
+- `feature/license-worker`
+- `feature/extension-premium-gates`
+- `feature/landing-page-freemium`
+- `feature/license-worker-integration`
+
+Todas ficaram com upstream configurado. A branch atual é `feature/license-worker-integration` e está sincronizada com `origin/feature/license-worker-integration`.
+
+Único arquivo fora do Git continua sendo `landing-page-extensao/historico-conversa.txt`, como combinado.

@@ -13,7 +13,7 @@ const WPB_CONSTANTS = {
     names: 'FREE',
     compose: 'FREE',
     solidMode: 'FREE',
-    messages: 'PRO',
+    messages: 'FREE',
     media: 'PRO',
     fakeData: 'PRO',
     blurIntensity: 'PRO',
@@ -32,7 +32,6 @@ const WPB_CONSTANTS = {
       selectors: [
         '#pane-side img',
         '[role="listitem"] img',
-        '[role="row"] img',
         '[data-testid="cell-frame-container"] img',
         'header img',
         '[data-testid="chat-info-drawer"] img',

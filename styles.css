@@ -88,142 +88,142 @@
    Modo Tarja Preta Sólida
    ========================================================================== */
 
-:root.wpb-solid-mode .wpb-blur-photo {
-  filter: none !important;
+.wpb-solid-mode .wpb-blur-photo {
+  filter: brightness(0) !important;
   background-color: #000 !important;
-  opacity: 0 !important;
-  transition: opacity var(--wpb-speed) var(--wpb-easing) !important;
-}
-:root.wpb-solid-mode .wpb-blur-photo:hover {
   opacity: 1 !important;
+  transition: filter var(--wpb-speed) var(--wpb-easing) !important;
 }
-:root.wpb-solid-mode .wpb-locked .wpb-blur-photo:hover {
-  opacity: 0 !important;
+.wpb-solid-mode .wpb-blur-photo:hover {
+  filter: none !important;
+}
+.wpb-solid-mode .wpb-locked .wpb-blur-photo:hover {
+  filter: brightness(0) !important;
 }
 
-:root.wpb-solid-mode .wpb-blur-name {
+.wpb-solid-mode .wpb-blur-name {
   filter: none !important;
   background-color: #000 !important;
   color: transparent !important;
   border-radius: 3px;
   transition: background-color var(--wpb-speed) var(--wpb-easing), color var(--wpb-speed) var(--wpb-easing) !important;
 }
-:root.wpb-solid-mode .wpb-blur-name *,
-:root.wpb-solid-mode .wpb-blur-name a {
+.wpb-solid-mode .wpb-blur-name *,
+.wpb-solid-mode .wpb-blur-name a {
   color: transparent !important;
   -webkit-text-fill-color: transparent !important;
 }
-:root.wpb-solid-mode .wpb-blur-name:hover {
+.wpb-solid-mode .wpb-blur-name:hover {
   background-color: transparent !important;
   color: inherit !important;
 }
-:root.wpb-solid-mode .wpb-blur-name:hover *,
-:root.wpb-solid-mode .wpb-blur-name:hover a {
+.wpb-solid-mode .wpb-blur-name:hover *,
+.wpb-solid-mode .wpb-blur-name:hover a {
   color: inherit !important;
   -webkit-text-fill-color: initial !important;
 }
-:root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover {
+.wpb-solid-mode .wpb-locked .wpb-blur-name:hover {
   background-color: #000 !important;
   color: transparent !important;
 }
-:root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover *,
-:root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover a {
+.wpb-solid-mode .wpb-locked .wpb-blur-name:hover *,
+.wpb-solid-mode .wpb-locked .wpb-blur-name:hover a {
   color: transparent !important;
   -webkit-text-fill-color: transparent !important;
 }
-:root.wpb-solid-mode .wpb-blur-name img,
-:root.wpb-solid-mode .wpb-blur-name span.emoji { opacity: 0 !important; }
-:root.wpb-solid-mode .wpb-blur-name:hover img,
-:root.wpb-solid-mode .wpb-blur-name:hover span.emoji { opacity: 1 !important; }
-:root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover img,
-:root.wpb-solid-mode .wpb-locked .wpb-blur-name:hover span.emoji { opacity: 0 !important; }
+.wpb-solid-mode .wpb-blur-name img,
+.wpb-solid-mode .wpb-blur-name span.emoji { opacity: 0 !important; }
+.wpb-solid-mode .wpb-blur-name:hover img,
+.wpb-solid-mode .wpb-blur-name:hover span.emoji { opacity: 1 !important; }
+.wpb-solid-mode .wpb-locked .wpb-blur-name:hover img,
+.wpb-solid-mode .wpb-locked .wpb-blur-name:hover span.emoji { opacity: 0 !important; }
 
-:root.wpb-solid-mode .wpb-blur-msg {
+.wpb-solid-mode .wpb-blur-msg {
   filter: none !important;
   background-color: #000 !important;
   color: transparent !important;
   border-radius: 3px;
   transition: background-color var(--wpb-speed) var(--wpb-easing), color var(--wpb-speed) var(--wpb-easing) !important;
 }
-:root.wpb-solid-mode .wpb-blur-msg *,
-:root.wpb-solid-mode .wpb-blur-msg a {
+.wpb-solid-mode .wpb-blur-msg *,
+.wpb-solid-mode .wpb-blur-msg a {
   color: transparent !important;
   -webkit-text-fill-color: transparent !important;
 }
-:root.wpb-solid-mode .wpb-blur-msg:hover {
+.wpb-solid-mode .wpb-blur-msg:hover {
   background-color: transparent !important;
   color: inherit !important;
 }
-:root.wpb-solid-mode .wpb-blur-msg:hover *,
-:root.wpb-solid-mode .wpb-blur-msg:hover a {
+.wpb-solid-mode .wpb-blur-msg:hover *,
+.wpb-solid-mode .wpb-blur-msg:hover a {
   color: inherit !important;
   -webkit-text-fill-color: initial !important;
 }
-:root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover {
+.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover {
   background-color: #000 !important;
   color: transparent !important;
 }
-:root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover *,
-:root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover a {
+.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover *,
+.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover a {
   color: transparent !important;
   -webkit-text-fill-color: transparent !important;
 }
-:root.wpb-solid-mode .wpb-blur-msg img,
-:root.wpb-solid-mode .wpb-blur-msg span.emoji { opacity: 0 !important; }
-:root.wpb-solid-mode .wpb-blur-msg:hover img,
-:root.wpb-solid-mode .wpb-blur-msg:hover span.emoji { opacity: 1 !important; }
-:root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover img,
-:root.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover span.emoji { opacity: 0 !important; }
+.wpb-solid-mode .wpb-blur-msg img,
+.wpb-solid-mode .wpb-blur-msg span.emoji { opacity: 0 !important; }
+.wpb-solid-mode .wpb-blur-msg:hover img,
+.wpb-solid-mode .wpb-blur-msg:hover span.emoji { opacity: 1 !important; }
+.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover img,
+.wpb-solid-mode .wpb-locked .wpb-blur-msg:hover span.emoji { opacity: 0 !important; }
 
-:root.wpb-solid-mode .wpb-blur-media {
-  filter: none !important;
+.wpb-solid-mode .wpb-blur-media {
+  filter: brightness(0) !important;
   background-color: #000 !important;
-  opacity: 0 !important;
-  transition: opacity var(--wpb-speed) var(--wpb-easing) !important;
-}
-:root.wpb-solid-mode .wpb-blur-media:hover {
   opacity: 1 !important;
+  transition: filter var(--wpb-speed) var(--wpb-easing) !important;
 }
-:root.wpb-solid-mode .wpb-locked .wpb-blur-media:hover {
-  opacity: 0 !important;
+.wpb-solid-mode .wpb-blur-media:hover {
+  filter: none !important;
+}
+.wpb-solid-mode .wpb-locked .wpb-blur-media:hover {
+  filter: brightness(0) !important;
 }
 
-:root.wpb-solid-mode .wpb-blur-compose {
+.wpb-solid-mode .wpb-blur-compose {
   filter: none !important;
   background-color: #000 !important;
   color: transparent !important;
   border-radius: 3px;
   transition: background-color var(--wpb-speed) var(--wpb-easing), color var(--wpb-speed) var(--wpb-easing) !important;
 }
-:root.wpb-solid-mode .wpb-blur-compose *,
-:root.wpb-solid-mode .wpb-blur-compose a {
+.wpb-solid-mode .wpb-blur-compose *,
+.wpb-solid-mode .wpb-blur-compose a {
   color: transparent !important;
   -webkit-text-fill-color: transparent !important;
 }
-:root.wpb-solid-mode .wpb-blur-compose:hover {
+.wpb-solid-mode .wpb-blur-compose:hover {
   background-color: transparent !important;
   color: inherit !important;
 }
-:root.wpb-solid-mode .wpb-blur-compose:hover *,
-:root.wpb-solid-mode .wpb-blur-compose:hover a {
+.wpb-solid-mode .wpb-blur-compose:hover *,
+.wpb-solid-mode .wpb-blur-compose:hover a {
   color: inherit !important;
   -webkit-text-fill-color: initial !important;
 }
-:root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover {
+.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover {
   background-color: #000 !important;
   color: transparent !important;
 }
-:root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover *,
-:root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover a {
+.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover *,
+.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover a {
   color: transparent !important;
   -webkit-text-fill-color: transparent !important;
 }
-:root.wpb-solid-mode .wpb-blur-compose img,
-:root.wpb-solid-mode .wpb-blur-compose span.emoji { opacity: 0 !important; }
-:root.wpb-solid-mode .wpb-blur-compose:hover img,
-:root.wpb-solid-mode .wpb-blur-compose:hover span.emoji { opacity: 1 !important; }
-:root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover img,
-:root.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover span.emoji { opacity: 0 !important; }
+.wpb-solid-mode .wpb-blur-compose img,
+.wpb-solid-mode .wpb-blur-compose span.emoji { opacity: 0 !important; }
+.wpb-solid-mode .wpb-blur-compose:hover img,
+.wpb-solid-mode .wpb-blur-compose:hover span.emoji { opacity: 1 !important; }
+.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover img,
+.wpb-solid-mode .wpb-locked .wpb-blur-compose:hover span.emoji { opacity: 0 !important; }
 
 /* ==========================================================================
    Modo Fake Data — visibility: hidden/visible
