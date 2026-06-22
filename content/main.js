@@ -7,6 +7,13 @@
 
 let appliedFakeData = false;
 
+function toggleDocumentClass(className, enabled) {
+  document.documentElement.classList.toggle(className, enabled);
+  if (document.body) {
+    document.body.classList.toggle(className, enabled);
+  }
+}
+
 /**
  * Aplica as configurações globais de estilo (blur, modo dark) na raiz
  * @param {Object} settings 
@@ -23,11 +30,7 @@ function applySettingsToRoot(settings) {
   root.style.setProperty('--wpb-blur-heavy', (effectiveBlur + 4) + 'px');
 
   // Tarja Preta
-  if (effectiveSolidMode) {
-    root.classList.add('wpb-solid-mode');
-  } else {
-    root.classList.remove('wpb-solid-mode');
-  }
+  toggleDocumentClass('wpb-solid-mode', effectiveSolidMode);
 
   // Ao mudar Fake Data, disparamos um re-scan total
   if (effectiveFakeData !== appliedFakeData) {
