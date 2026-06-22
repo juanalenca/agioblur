@@ -9,6 +9,19 @@ const STORE_URLS = {
   firefox: 'https://addons.mozilla.org/'
 };
 
+const LANGUAGES = [
+  ['pt-BR', 'Português'],
+  ['en', 'English'],
+  ['es', 'Español'],
+  ['de', 'Deutsch'],
+  ['fr', 'Français'],
+  ['it', 'Italiano'],
+  ['id', 'Indonesia'],
+  ['tr', 'Türkçe'],
+  ['hi', 'हिन्दी'],
+  ['ar', 'العربية']
+];
+
 const CONTENT = {
   'pt-BR': {
     navInstall: 'Instalar',
@@ -18,10 +31,10 @@ const CONTENT = {
     lede: 'Desfoque conversas, nomes, fotos e dados sensíveis no WhatsApp Web antes que alguém olhe para a sua tela.',
     install: 'Instalar extensão',
     proCta: 'Ver Pro',
-    trust: ['Sem rastreamento', '10 idiomas', 'Free + Pro'],
-    trustText: ['Proteção local no navegador', 'Interface preparada para uso global', 'Comece grátis e libere recursos avançados'],
+    trust: ['Local no navegador', '10 idiomas', 'Free + Pro'],
+    trustText: ['Sem rastrear suas conversas', 'Interface preparada para uso global', 'Comece grátis e libere recursos avançados'],
     featuresTitle: 'Proteção clara, controle rápido',
-    featuresText: 'Tudo fica a um clique, com recursos separados entre Free e Pro para o usuário entender o que está ativo.',
+    featuresText: 'Os controles são separados entre Free e Pro para o usuário entender o que está ativo e o que pode ser desbloqueado.',
     features: [
       ['Fotos e nomes', 'Oculte informações visuais da lista de conversas e do cabeçalho.'],
       ['Mensagens e mídias', 'No Pro, proteja texto, imagens, vídeos e previews de arquivos.'],
@@ -40,11 +53,14 @@ const CONTENT = {
     privacyTitle: 'Privacidade como padrão',
     privacyText: 'A extensão aplica classes e filtros no navegador. A licença Pro é validada por recibo assinado, sem colocar segredo dentro da extensão.',
     privacyItems: ['Manifest V3 e CSP restritiva', 'Recibo Premium com chave pública', 'Tolerância offline limitada'],
-    faqTitle: 'Perguntas rápidas',
+    faqTitle: 'Perguntas frequentes',
     faqs: [
-      ['Funciona em qual navegador?', 'Chrome e Edge são o alvo inicial. Firefox pode ser habilitado quando a publicação estiver pronta.'],
-      ['Preciso pagar para usar?', 'Não. O plano Free continua útil para proteção básica.'],
-      ['O Pro é por dispositivo?', 'A licença Pro foi planejada para até 3 dispositivos.']
+      ['O que continua grátis?', 'Fotos de perfil, nomes/números, campo de digitação e censura sólida continuam disponíveis no plano Free.'],
+      ['O que o Pro desbloqueia?', 'Mensagens, mídias, filtros LGPD, Fake Data, PIN de segurança e intensidade personalizada do desfoque.'],
+      ['A extensão lê minhas conversas?', 'Não. O objetivo é aplicar proteção visual local no WhatsApp Web; suas conversas não são enviadas para análise.'],
+      ['Quantos dispositivos posso usar?', 'A licença Pro foi planejada para até 3 dispositivos vinculados.'],
+      ['O que acontece se eu trocar de computador?', 'Você poderá solicitar um reset de dispositivos por e-mail para reativar a licença em um novo navegador.'],
+      ['Funciona offline?', 'O Pro usa recibo assinado com validade curta e uma tolerância offline limitada para quedas temporárias de conexão.']
     ],
     finalTitle: 'Sua tela não precisa revelar tudo.',
     finalText: 'Instale o AgioBlur e transforme o WhatsApp Web em um espaço mais seguro para trabalhar em público.',
@@ -58,10 +74,10 @@ const CONTENT = {
     lede: 'Blur chats, names, photos, media, and sensitive data on WhatsApp Web before someone sees your screen.',
     install: 'Install extension',
     proCta: 'See Pro',
-    trust: ['No tracking', '10 languages', 'Free + Pro'],
-    trustText: ['Local browser protection', 'Global-ready interface', 'Start free and unlock advanced controls'],
+    trust: ['Local in-browser', '10 languages', 'Free + Pro'],
+    trustText: ['No conversation tracking', 'Global-ready interface', 'Start free and unlock advanced controls'],
     featuresTitle: 'Clear protection, fast control',
-    featuresText: 'Free and Pro tools are separated so people can see exactly what is active.',
+    featuresText: 'Free and Pro tools are separated so users can see exactly what is active and what can be unlocked.',
     features: [
       ['Photos and names', 'Hide visual details from chat lists and headers.'],
       ['Messages and media', 'With Pro, protect text, images, videos, and file previews.'],
@@ -80,38 +96,367 @@ const CONTENT = {
     privacyTitle: 'Privacy by default',
     privacyText: 'The extension applies local browser classes and filters. Pro access is validated with a signed receipt, without embedding secrets.',
     privacyItems: ['Manifest V3 and strict CSP', 'Premium receipt with public-key verification', 'Limited offline tolerance'],
-    faqTitle: 'Quick questions',
+    faqTitle: 'Frequently asked questions',
     faqs: [
-      ['Which browser is supported?', 'Chrome and Edge are the first targets. Firefox can follow when publication is ready.'],
-      ['Do I need to pay?', 'No. Free remains useful for basic protection.'],
-      ['Is Pro per device?', 'The Pro license is planned for up to 3 devices.']
+      ['What remains free?', 'Profile photos, names/numbers, the typing field, and solid censor mode remain available in Free.'],
+      ['What does Pro unlock?', 'Messages, media, sensitive-data filters, Fake Data, security PIN, and custom blur intensity.'],
+      ['Does the extension read my chats?', 'No. The goal is local visual protection on WhatsApp Web; your chats are not sent for analysis.'],
+      ['How many devices can I use?', 'The Pro license is planned for up to 3 linked devices.'],
+      ['What if I change computers?', 'You can request a device reset by e-mail to activate the license in a new browser.'],
+      ['Does it work offline?', 'Pro uses a short-lived signed receipt and limited offline tolerance for temporary connection loss.']
     ],
     finalTitle: 'Your screen does not have to reveal everything.',
     finalText: 'Install AgioBlur and make WhatsApp Web safer for public work.',
     footer: 'AgioBlur. Visual privacy for WhatsApp Web.'
+  },
+  es: {
+    navInstall: 'Instalar',
+    navUpgrade: 'Mejorar a Pro',
+    eyebrow: 'Privacidad visual para WhatsApp Web',
+    headline: 'AgioBlur',
+    lede: 'Desenfoca chats, nombres, fotos, medios y datos sensibles en WhatsApp Web antes de que alguien vea tu pantalla.',
+    install: 'Instalar extensión',
+    proCta: 'Ver Pro',
+    trust: ['Local en el navegador', '10 idiomas', 'Gratis + Pro'],
+    trustText: ['Sin rastrear conversaciones', 'Interfaz lista para uso global', 'Empieza gratis y desbloquea controles avanzados'],
+    featuresTitle: 'Protección clara, control rápido',
+    featuresText: 'Las herramientas Free y Pro están separadas para que sepas qué está activo y qué puedes desbloquear.',
+    features: [
+      ['Fotos y nombres', 'Oculta detalles visuales en listas de chats y encabezados.'],
+      ['Mensajes y medios', 'Con Pro, protege texto, imágenes, videos y vistas previas.'],
+      ['Filtros de datos', 'Detecta documentos, e-mails, teléfonos, tarjetas y claves de pago en mensajes.']
+    ],
+    pricingTitle: 'Elige tu nivel de protección',
+    pricingText: 'Free cubre lo básico. Pro desbloquea privacidad avanzada para trabajo, soporte y espacios compartidos.',
+    free: 'Gratis',
+    pro: 'Pro',
+    freeDesc: 'Privacidad rápida para el día a día.',
+    proDesc: 'Para conversaciones sensibles.',
+    freeItems: ['Fotos de perfil', 'Nombres y números', 'Campo de escritura', 'Censura sólida'],
+    proItems: ['Mensajes y medios', 'Filtros de datos sensibles', 'Modo Fake Data', 'PIN e intensidad personalizada'],
+    startFree: 'Empezar gratis',
+    buyPro: 'Comprar Pro',
+    privacyTitle: 'Privacidad por defecto',
+    privacyText: 'La extensión aplica clases y filtros locales en el navegador. Pro se valida con un recibo firmado, sin secretos dentro de la extensión.',
+    privacyItems: ['Manifest V3 y CSP estricta', 'Recibo Premium con clave pública', 'Tolerancia offline limitada'],
+    faqTitle: 'Preguntas frecuentes',
+    faqs: [
+      ['¿Qué sigue siendo gratis?', 'Fotos de perfil, nombres/números, campo de escritura y censura sólida siguen en Free.'],
+      ['¿Qué desbloquea Pro?', 'Mensajes, medios, filtros de datos, Fake Data, PIN de seguridad e intensidad personalizada.'],
+      ['¿La extensión lee mis chats?', 'No. La protección visual ocurre localmente en WhatsApp Web; tus chats no se envían para análisis.'],
+      ['¿En cuántos dispositivos puedo usarla?', 'La licencia Pro está pensada para hasta 3 dispositivos vinculados.'],
+      ['¿Qué pasa si cambio de computador?', 'Puedes pedir un reset por e-mail para activar la licencia en un nuevo navegador.'],
+      ['¿Funciona sin conexión?', 'Pro usa un recibo firmado de corta duración y tolerancia offline limitada.']
+    ],
+    finalTitle: 'Tu pantalla no tiene que revelarlo todo.',
+    finalText: 'Instala AgioBlur y haz que WhatsApp Web sea más seguro en público.',
+    footer: 'AgioBlur. Privacidad visual para WhatsApp Web.'
+  },
+  de: {
+    navInstall: 'Installieren',
+    navUpgrade: 'Upgrade Pro',
+    eyebrow: 'Visueller Datenschutz für WhatsApp Web',
+    headline: 'AgioBlur',
+    lede: 'Verberge Chats, Namen, Fotos, Medien und sensible Daten in WhatsApp Web, bevor jemand auf deinen Bildschirm schaut.',
+    install: 'Erweiterung installieren',
+    proCta: 'Pro ansehen',
+    trust: ['Lokal im Browser', '10 Sprachen', 'Free + Pro'],
+    trustText: ['Kein Tracking von Gesprächen', 'Globale Oberfläche', 'Kostenlos starten und Pro-Kontrollen freischalten'],
+    featuresTitle: 'Klare Schutzfunktionen, schnelle Kontrolle',
+    featuresText: 'Free- und Pro-Werkzeuge sind getrennt, damit klar bleibt, was aktiv ist und was freigeschaltet werden kann.',
+    features: [
+      ['Fotos und Namen', 'Verberge visuelle Details in Chatlisten und Kopfbereichen.'],
+      ['Nachrichten und Medien', 'Mit Pro schützt du Text, Bilder, Videos und Dateivorschauen.'],
+      ['Datenfilter', 'Erkenne IDs, E-Mails, Telefone, Karten und Zahlungsschlüssel in Nachrichten.']
+    ],
+    pricingTitle: 'Wähle dein Schutzlevel',
+    pricingText: 'Free deckt das Wesentliche ab. Pro schaltet erweiterten Datenschutz für Arbeit, Support und geteilte Räume frei.',
+    free: 'Free',
+    pro: 'Pro',
+    freeDesc: 'Schneller Alltagsschutz.',
+    proDesc: 'Für sensible Gespräche.',
+    freeItems: ['Profilfotos', 'Namen und Nummern', 'Eingabefeld', 'Solider Zensurmodus'],
+    proItems: ['Nachrichten und Medien', 'Datenfilter', 'Fake-Data-Modus', 'PIN und eigene Intensität'],
+    startFree: 'Kostenlos starten',
+    buyPro: 'Pro kaufen',
+    privacyTitle: 'Datenschutz als Standard',
+    privacyText: 'Die Erweiterung nutzt lokale Browserklassen und Filter. Pro wird mit einem signierten Beleg geprüft, ohne Geheimnisse in der Erweiterung.',
+    privacyItems: ['Manifest V3 und strenge CSP', 'Premium-Beleg mit Public-Key-Prüfung', 'Begrenzte Offline-Toleranz'],
+    faqTitle: 'Häufige Fragen',
+    faqs: [
+      ['Was bleibt kostenlos?', 'Profilfotos, Namen/Nummern, Eingabefeld und solider Zensurmodus bleiben in Free.'],
+      ['Was schaltet Pro frei?', 'Nachrichten, Medien, Datenfilter, Fake Data, Sicherheits-PIN und eigene Blur-Intensität.'],
+      ['Liest die Erweiterung meine Chats?', 'Nein. Der visuelle Schutz läuft lokal in WhatsApp Web; Chats werden nicht zur Analyse gesendet.'],
+      ['Wie viele Geräte sind möglich?', 'Die Pro-Lizenz ist für bis zu 3 verknüpfte Geräte geplant.'],
+      ['Was passiert beim Computerwechsel?', 'Du kannst per E-Mail einen Geräte-Reset anfordern und im neuen Browser aktivieren.'],
+      ['Funktioniert Pro offline?', 'Pro nutzt einen kurzlebigen signierten Beleg und begrenzte Offline-Toleranz.']
+    ],
+    finalTitle: 'Dein Bildschirm muss nicht alles preisgeben.',
+    finalText: 'Installiere AgioBlur und arbeite sicherer mit WhatsApp Web in der Öffentlichkeit.',
+    footer: 'AgioBlur. Visueller Datenschutz für WhatsApp Web.'
+  },
+  fr: {
+    navInstall: 'Installer',
+    navUpgrade: 'Passer Pro',
+    eyebrow: 'Confidentialité visuelle pour WhatsApp Web',
+    headline: 'AgioBlur',
+    lede: 'Floutez discussions, noms, photos, médias et données sensibles dans WhatsApp Web avant qu’un regard ne tombe sur votre écran.',
+    install: 'Installer l’extension',
+    proCta: 'Voir Pro',
+    trust: ['Local dans le navigateur', '10 langues', 'Gratuit + Pro'],
+    trustText: ['Sans suivi des conversations', 'Interface prête pour le monde entier', 'Commencez gratuitement puis débloquez les contrôles avancés'],
+    featuresTitle: 'Protection claire, contrôle rapide',
+    featuresText: 'Les outils gratuits et Pro sont séparés pour comprendre ce qui est actif et ce qui peut être débloqué.',
+    features: [
+      ['Photos et noms', 'Masquez les détails visuels des listes de discussions et en-têtes.'],
+      ['Messages et médias', 'Avec Pro, protégez textes, images, vidéos et aperçus de fichiers.'],
+      ['Filtres de données', 'Détectez identifiants, e-mails, téléphones, cartes et clés de paiement dans les messages.']
+    ],
+    pricingTitle: 'Choisissez votre niveau de protection',
+    pricingText: 'Gratuit couvre l’essentiel. Pro débloque une confidentialité avancée pour le travail, le support et les espaces partagés.',
+    free: 'Gratuit',
+    pro: 'Pro',
+    freeDesc: 'Confidentialité rapide au quotidien.',
+    proDesc: 'Pour les conversations sensibles.',
+    freeItems: ['Photos de profil', 'Noms et numéros', 'Champ de saisie', 'Mode censure solide'],
+    proItems: ['Messages et médias', 'Filtres de données', 'Mode Fake Data', 'PIN et intensité personnalisée'],
+    startFree: 'Commencer gratuitement',
+    buyPro: 'Acheter Pro',
+    privacyTitle: 'Confidentialité par défaut',
+    privacyText: 'L’extension applique localement des classes et filtres dans le navigateur. Pro est validé par reçu signé, sans secret embarqué.',
+    privacyItems: ['Manifest V3 et CSP stricte', 'Reçu Premium vérifié par clé publique', 'Tolérance hors ligne limitée'],
+    faqTitle: 'Questions fréquentes',
+    faqs: [
+      ['Qu’est-ce qui reste gratuit ?', 'Photos de profil, noms/numéros, champ de saisie et censure solide restent dans Gratuit.'],
+      ['Que débloque Pro ?', 'Messages, médias, filtres de données, Fake Data, PIN de sécurité et intensité personnalisée.'],
+      ['L’extension lit-elle mes discussions ?', 'Non. La protection visuelle est locale dans WhatsApp Web; vos discussions ne sont pas envoyées pour analyse.'],
+      ['Combien d’appareils puis-je utiliser ?', 'La licence Pro est prévue pour jusqu’à 3 appareils liés.'],
+      ['Et si je change d’ordinateur ?', 'Vous pourrez demander une réinitialisation par e-mail pour activer un nouveau navigateur.'],
+      ['Pro fonctionne-t-il hors ligne ?', 'Pro utilise un reçu signé de courte durée et une tolérance hors ligne limitée.']
+    ],
+    finalTitle: 'Votre écran n’a pas besoin de tout révéler.',
+    finalText: 'Installez AgioBlur et rendez WhatsApp Web plus sûr en public.',
+    footer: 'AgioBlur. Confidentialité visuelle pour WhatsApp Web.'
+  },
+  it: {
+    navInstall: 'Installa',
+    navUpgrade: 'Upgrade Pro',
+    eyebrow: 'Privacy visiva per WhatsApp Web',
+    headline: 'AgioBlur',
+    lede: 'Sfoca chat, nomi, foto, media e dati sensibili in WhatsApp Web prima che qualcuno guardi lo schermo.',
+    install: 'Installa estensione',
+    proCta: 'Vedi Pro',
+    trust: ['Locale nel browser', '10 lingue', 'Gratis + Pro'],
+    trustText: ['Senza tracciare conversazioni', 'Interfaccia pronta per uso globale', 'Inizia gratis e sblocca controlli avanzati'],
+    featuresTitle: 'Protezione chiara, controllo rapido',
+    featuresText: 'Gli strumenti Free e Pro sono separati per capire cosa è attivo e cosa si può sbloccare.',
+    features: [
+      ['Foto e nomi', 'Nasconde dettagli visivi da liste chat e intestazioni.'],
+      ['Messaggi e media', 'Con Pro protegge testo, immagini, video e anteprime file.'],
+      ['Filtri dati', 'Rileva ID, e-mail, telefoni, carte e chiavi di pagamento nei messaggi.']
+    ],
+    pricingTitle: 'Scegli il tuo livello di protezione',
+    pricingText: 'Free copre le basi. Pro sblocca privacy avanzata per lavoro, supporto e spazi condivisi.',
+    free: 'Gratis',
+    pro: 'Pro',
+    freeDesc: 'Privacy rapida quotidiana.',
+    proDesc: 'Per conversazioni sensibili.',
+    freeItems: ['Foto profilo', 'Nomi e numeri', 'Campo di digitazione', 'Censura solida'],
+    proItems: ['Messaggi e media', 'Filtri dati sensibili', 'Modalità Fake Data', 'PIN e intensità personalizzata'],
+    startFree: 'Inizia gratis',
+    buyPro: 'Acquista Pro',
+    privacyTitle: 'Privacy predefinita',
+    privacyText: 'L’estensione applica classi e filtri locali nel browser. Pro viene validato con ricevuta firmata, senza segreti nell’estensione.',
+    privacyItems: ['Manifest V3 e CSP rigida', 'Ricevuta Premium con chiave pubblica', 'Tolleranza offline limitata'],
+    faqTitle: 'Domande frequenti',
+    faqs: [
+      ['Cosa resta gratis?', 'Foto profilo, nomi/numeri, campo di digitazione e censura solida restano in Free.'],
+      ['Cosa sblocca Pro?', 'Messaggi, media, filtri dati, Fake Data, PIN di sicurezza e intensità personalizzata.'],
+      ['L’estensione legge le chat?', 'No. La protezione visiva è locale in WhatsApp Web; le chat non vengono inviate per analisi.'],
+      ['Quanti dispositivi posso usare?', 'La licenza Pro è pensata per un massimo di 3 dispositivi collegati.'],
+      ['Se cambio computer?', 'Puoi richiedere un reset via e-mail per attivare un nuovo browser.'],
+      ['Funziona offline?', 'Pro usa una ricevuta firmata a breve durata e tolleranza offline limitata.']
+    ],
+    finalTitle: 'Il tuo schermo non deve rivelare tutto.',
+    finalText: 'Installa AgioBlur e rendi WhatsApp Web più sicuro in pubblico.',
+    footer: 'AgioBlur. Privacy visiva per WhatsApp Web.'
+  },
+  id: {
+    navInstall: 'Pasang',
+    navUpgrade: 'Upgrade Pro',
+    eyebrow: 'Privasi visual untuk WhatsApp Web',
+    headline: 'AgioBlur',
+    lede: 'Blur chat, nama, foto, media, dan data sensitif di WhatsApp Web sebelum orang lain melihat layar Anda.',
+    install: 'Pasang ekstensi',
+    proCta: 'Lihat Pro',
+    trust: ['Lokal di browser', '10 bahasa', 'Gratis + Pro'],
+    trustText: ['Tanpa melacak percakapan', 'Antarmuka siap global', 'Mulai gratis dan buka kontrol lanjutan'],
+    featuresTitle: 'Perlindungan jelas, kontrol cepat',
+    featuresText: 'Alat Free dan Pro dipisahkan agar pengguna tahu yang aktif dan yang bisa dibuka.',
+    features: [
+      ['Foto dan nama', 'Sembunyikan detail visual dari daftar chat dan header.'],
+      ['Pesan dan media', 'Dengan Pro, lindungi teks, gambar, video, dan pratinjau file.'],
+      ['Filter data sensitif', 'Deteksi ID, e-mail, telepon, kartu, dan kunci pembayaran dalam pesan.']
+    ],
+    pricingTitle: 'Pilih tingkat perlindungan',
+    pricingText: 'Free mencakup dasar. Pro membuka privasi lanjutan untuk kerja, dukungan, dan ruang bersama.',
+    free: 'Gratis',
+    pro: 'Pro',
+    freeDesc: 'Privasi cepat untuk harian.',
+    proDesc: 'Untuk percakapan sensitif.',
+    freeItems: ['Foto profil', 'Nama dan nomor', 'Kolom mengetik', 'Mode sensor solid'],
+    proItems: ['Pesan dan media', 'Filter data sensitif', 'Mode Fake Data', 'PIN dan intensitas khusus'],
+    startFree: 'Mulai gratis',
+    buyPro: 'Beli Pro',
+    privacyTitle: 'Privasi sebagai standar',
+    privacyText: 'Ekstensi menerapkan kelas dan filter lokal di browser. Pro divalidasi dengan tanda terima bertanda tangan tanpa menyimpan rahasia di ekstensi.',
+    privacyItems: ['Manifest V3 dan CSP ketat', 'Tanda terima Premium dengan kunci publik', 'Toleransi offline terbatas'],
+    faqTitle: 'Pertanyaan umum',
+    faqs: [
+      ['Apa yang tetap gratis?', 'Foto profil, nama/nomor, kolom mengetik, dan mode sensor solid tetap tersedia di Free.'],
+      ['Apa yang dibuka Pro?', 'Pesan, media, filter data, Fake Data, PIN keamanan, dan intensitas blur khusus.'],
+      ['Apakah ekstensi membaca chat?', 'Tidak. Perlindungan visual berjalan lokal di WhatsApp Web; chat tidak dikirim untuk analisis.'],
+      ['Berapa perangkat yang bisa dipakai?', 'Lisensi Pro dirancang untuk hingga 3 perangkat tertaut.'],
+      ['Bagaimana jika ganti komputer?', 'Anda dapat meminta reset perangkat lewat e-mail untuk mengaktifkan browser baru.'],
+      ['Apakah bisa offline?', 'Pro memakai tanda terima bertanda tangan berdurasi pendek dan toleransi offline terbatas.']
+    ],
+    finalTitle: 'Layar Anda tidak harus menampilkan semuanya.',
+    finalText: 'Pasang AgioBlur agar WhatsApp Web lebih aman saat digunakan di publik.',
+    footer: 'AgioBlur. Privasi visual untuk WhatsApp Web.'
+  },
+  tr: {
+    navInstall: 'Yükle',
+    navUpgrade: 'Pro’ya geç',
+    eyebrow: 'WhatsApp Web için görsel gizlilik',
+    headline: 'AgioBlur',
+    lede: 'Birisi ekranınızı görmeden önce WhatsApp Web’de sohbetleri, adları, fotoğrafları, medyayı ve hassas verileri bulanıklaştırın.',
+    install: 'Uzantıyı yükle',
+    proCta: 'Pro’yu gör',
+    trust: ['Tarayıcıda yerel', '10 dil', 'Ücretsiz + Pro'],
+    trustText: ['Konuşma takibi yok', 'Küresel kullanıma hazır arayüz', 'Ücretsiz başlayın, gelişmiş kontrolleri açın'],
+    featuresTitle: 'Net koruma, hızlı kontrol',
+    featuresText: 'Free ve Pro araçları ayrıdır; neyin aktif olduğu ve neyin açılabileceği nettir.',
+    features: [
+      ['Fotoğraflar ve adlar', 'Sohbet listeleri ve başlıklardaki görsel ayrıntıları gizleyin.'],
+      ['Mesajlar ve medya', 'Pro ile metinleri, görselleri, videoları ve dosya önizlemelerini koruyun.'],
+      ['Veri filtreleri', 'Mesajlarda kimlik, e-posta, telefon, kart ve ödeme anahtarlarını tespit edin.']
+    ],
+    pricingTitle: 'Koruma seviyenizi seçin',
+    pricingText: 'Free temel korumayı sunar. Pro iş, destek ve ortak alanlar için gelişmiş gizliliği açar.',
+    free: 'Ücretsiz',
+    pro: 'Pro',
+    freeDesc: 'Günlük hızlı gizlilik.',
+    proDesc: 'Hassas konuşmalar için.',
+    freeItems: ['Profil fotoğrafları', 'Adlar ve numaralar', 'Yazma alanı', 'Katı sansür modu'],
+    proItems: ['Mesajlar ve medya', 'Hassas veri filtreleri', 'Fake Data modu', 'PIN ve özel yoğunluk'],
+    startFree: 'Ücretsiz başla',
+    buyPro: 'Pro satın al',
+    privacyTitle: 'Varsayılan gizlilik',
+    privacyText: 'Uzantı tarayıcıda yerel sınıflar ve filtreler uygular. Pro erişimi, uzantıya sır koymadan imzalı makbuzla doğrulanır.',
+    privacyItems: ['Manifest V3 ve sıkı CSP', 'Açık anahtarla Premium makbuz doğrulama', 'Sınırlı çevrimdışı tolerans'],
+    faqTitle: 'Sık sorulan sorular',
+    faqs: [
+      ['Neler ücretsiz kalır?', 'Profil fotoğrafları, adlar/numaralar, yazma alanı ve katı sansür modu Free’de kalır.'],
+      ['Pro neyi açar?', 'Mesajlar, medya, veri filtreleri, Fake Data, güvenlik PIN’i ve özel bulanıklık yoğunluğu.'],
+      ['Uzantı sohbetlerimi okur mu?', 'Hayır. Görsel koruma WhatsApp Web’de yerel çalışır; sohbetler analiz için gönderilmez.'],
+      ['Kaç cihaz kullanabilirim?', 'Pro lisansı en fazla 3 bağlı cihaz için planlandı.'],
+      ['Bilgisayar değiştirirsem?', 'Yeni tarayıcıda etkinleştirmek için e-posta ile cihaz sıfırlama isteyebilirsiniz.'],
+      ['Çevrimdışı çalışır mı?', 'Pro kısa süreli imzalı makbuz ve sınırlı çevrimdışı tolerans kullanır.']
+    ],
+    finalTitle: 'Ekranınız her şeyi göstermek zorunda değil.',
+    finalText: 'AgioBlur’u yükleyin ve WhatsApp Web’i kamusal kullanımda daha güvenli hale getirin.',
+    footer: 'AgioBlur. WhatsApp Web için görsel gizlilik.'
+  },
+  hi: {
+    navInstall: 'इंस्टॉल करें',
+    navUpgrade: 'Upgrade Pro',
+    eyebrow: 'WhatsApp Web के लिए visual privacy',
+    headline: 'AgioBlur',
+    lede: 'किसी के देखने से पहले WhatsApp Web पर chats, names, photos, media और sensitive data को blur करें।',
+    install: 'Extension इंस्टॉल करें',
+    proCta: 'Pro देखें',
+    trust: ['Browser में local', '10 भाषाएं', 'Free + Pro'],
+    trustText: ['Conversations tracking नहीं', 'Global use के लिए interface', 'Free शुरू करें और advanced controls खोलें'],
+    featuresTitle: 'Clear protection, fast control',
+    featuresText: 'Free और Pro tools अलग हैं ताकि user समझ सके क्या active है और क्या unlock हो सकता है।',
+    features: [
+      ['Photos और names', 'Chat list और headers में visual details छिपाएं।'],
+      ['Messages और media', 'Pro में text, images, videos और file previews protect करें।'],
+      ['Sensitive data filters', 'Messages में IDs, e-mails, phones, cards और payment keys detect करें।']
+    ],
+    pricingTitle: 'अपना protection level चुनें',
+    pricingText: 'Free basic privacy देता है। Pro work, support और shared spaces के लिए advanced privacy खोलता है।',
+    free: 'Free',
+    pro: 'Pro',
+    freeDesc: 'Daily quick privacy.',
+    proDesc: 'Sensitive conversations के लिए.',
+    freeItems: ['Profile photos', 'Names और numbers', 'Typing field', 'Solid censor mode'],
+    proItems: ['Messages और media', 'Sensitive-data filters', 'Fake Data mode', 'PIN और custom intensity'],
+    startFree: 'Free शुरू करें',
+    buyPro: 'Pro खरीदें',
+    privacyTitle: 'Privacy by default',
+    privacyText: 'Extension browser में local classes और filters लगाता है। Pro access signed receipt से validate होता है, बिना extension में secret रखने के।',
+    privacyItems: ['Manifest V3 और strict CSP', 'Public-key verification वाला Premium receipt', 'Limited offline tolerance'],
+    faqTitle: 'अक्सर पूछे जाने वाले सवाल',
+    faqs: [
+      ['Free में क्या रहेगा?', 'Profile photos, names/numbers, typing field और solid censor mode Free में उपलब्ध रहेंगे।'],
+      ['Pro क्या unlock करता है?', 'Messages, media, data filters, Fake Data, security PIN और custom blur intensity।'],
+      ['क्या extension मेरी chats पढ़ता है?', 'नहीं। Visual protection WhatsApp Web में local चलती है; chats analysis के लिए नहीं भेजी जातीं।'],
+      ['कितने devices इस्तेमाल कर सकता हूं?', 'Pro license अधिकतम 3 linked devices के लिए planned है।'],
+      ['Computer बदलने पर क्या होगा?', 'नए browser में activate करने के लिए e-mail device reset request कर सकते हैं।'],
+      ['क्या offline काम करता है?', 'Pro short-lived signed receipt और limited offline tolerance इस्तेमाल करता है।']
+    ],
+    finalTitle: 'आपकी screen को सब कुछ दिखाने की जरूरत नहीं है।',
+    finalText: 'AgioBlur install करें और public जगहों में WhatsApp Web को सुरक्षित बनाएं।',
+    footer: 'AgioBlur. WhatsApp Web के लिए visual privacy.'
+  },
+  ar: {
+    navInstall: 'تثبيت',
+    navUpgrade: 'ترقية Pro',
+    eyebrow: 'خصوصية بصرية لـ WhatsApp Web',
+    headline: 'AgioBlur',
+    lede: 'قم بتمويه المحادثات والأسماء والصور والوسائط والبيانات الحساسة في WhatsApp Web قبل أن يراها الآخرون.',
+    install: 'تثبيت الإضافة',
+    proCta: 'عرض Pro',
+    trust: ['محلي داخل المتصفح', '10 لغات', 'مجاني + Pro'],
+    trustText: ['بدون تتبع للمحادثات', 'واجهة جاهزة للاستخدام العالمي', 'ابدأ مجاناً وافتح أدوات متقدمة'],
+    featuresTitle: 'حماية واضحة وتحكم سريع',
+    featuresText: 'تم فصل أدوات Free وPro حتى يعرف المستخدم ما هو نشط وما يمكن فتحه.',
+    features: [
+      ['الصور والأسماء', 'إخفاء التفاصيل المرئية من قوائم المحادثات والرؤوس.'],
+      ['الرسائل والوسائط', 'مع Pro يمكنك حماية النصوص والصور والفيديوهات ومعاينات الملفات.'],
+      ['فلاتر البيانات', 'اكتشاف المعرفات والبريد والهاتف والبطاقات ومفاتيح الدفع داخل الرسائل.']
+    ],
+    pricingTitle: 'اختر مستوى الحماية',
+    pricingText: 'Free يغطي الأساسيات. Pro يفتح خصوصية متقدمة للعمل والدعم والمساحات المشتركة.',
+    free: 'مجاني',
+    pro: 'Pro',
+    freeDesc: 'خصوصية سريعة يومياً.',
+    proDesc: 'للمحادثات الحساسة.',
+    freeItems: ['صور الملف الشخصي', 'الأسماء والأرقام', 'حقل الكتابة', 'وضع حجب صلب'],
+    proItems: ['الرسائل والوسائط', 'فلاتر البيانات الحساسة', 'وضع Fake Data', 'PIN وشدة مخصصة'],
+    startFree: 'ابدأ مجاناً',
+    buyPro: 'شراء Pro',
+    privacyTitle: 'الخصوصية افتراضياً',
+    privacyText: 'تطبق الإضافة فلاتر محلية داخل المتصفح. يتم التحقق من Pro بإيصال موقّع بدون وضع أسرار داخل الإضافة.',
+    privacyItems: ['Manifest V3 وCSP صارمة', 'إيصال Premium يتحقق بمفتاح عام', 'سماحية محدودة دون اتصال'],
+    faqTitle: 'أسئلة شائعة',
+    faqs: [
+      ['ما الذي يبقى مجانياً؟', 'صور الملف الشخصي والأسماء/الأرقام وحقل الكتابة ووضع الحجب الصلب تبقى في Free.'],
+      ['ماذا يفتح Pro؟', 'الرسائل والوسائط وفلاتر البيانات وFake Data وPIN الأمان وشدة تمويه مخصصة.'],
+      ['هل تقرأ الإضافة محادثاتي؟', 'لا. الحماية البصرية تعمل محلياً في WhatsApp Web ولا تُرسل محادثاتك للتحليل.'],
+      ['كم جهازاً يمكنني استخدامه؟', 'تم التخطيط لترخيص Pro حتى 3 أجهزة مرتبطة.'],
+      ['ماذا لو غيرت الكمبيوتر؟', 'يمكنك طلب إعادة ضبط الأجهزة عبر البريد لتفعيل الترخيص في متصفح جديد.'],
+      ['هل يعمل Pro دون اتصال؟', 'يستخدم Pro إيصالاً موقّعاً قصير المدة وسماحية محدودة دون اتصال.']
+    ],
+    finalTitle: 'لا يجب أن تكشف شاشتك كل شيء.',
+    finalText: 'ثبّت AgioBlur واجعل WhatsApp Web أكثر أماناً في الأماكن العامة.',
+    footer: 'AgioBlur. خصوصية بصرية لـ WhatsApp Web.'
   }
-};
-
-const FALLBACKS = {
-  es: ['Privacidad visual para WhatsApp Web', 'Protege tu pantalla antes de que alguien mire.'],
-  de: ['Visueller Datenschutz für WhatsApp Web', 'Schütze deinen Bildschirm, bevor jemand mitliest.'],
-  fr: ['Confidentialité visuelle pour WhatsApp Web', 'Protégez votre écran avant qu’il ne soit visible.'],
-  it: ['Privacy visiva per WhatsApp Web', 'Proteggi lo schermo prima che qualcuno guardi.'],
-  id: ['Privasi visual untuk WhatsApp Web', 'Lindungi layar sebelum orang lain melihatnya.'],
-  tr: ['WhatsApp Web için görsel gizlilik', 'Ekranını biri görmeden önce koru.'],
-  hi: ['WhatsApp Web के लिए visual privacy', 'किसी के देखने से पहले अपनी screen सुरक्षित रखें।'],
-  ar: ['خصوصية بصرية لـ WhatsApp Web', 'احم شاشتك قبل أن يراها الآخرون.']
 };
 
 function contentFor(locale) {
-  if (CONTENT[locale]) return CONTENT[locale];
-  const base = { ...CONTENT.en };
-  const fallback = FALLBACKS[locale];
-  if (fallback) {
-    base.eyebrow = fallback[0];
-    base.lede = fallback[1];
-  }
-  return base;
+  return CONTENT[locale] || CONTENT.en;
 }
 
 function getInstallUrl() {
@@ -132,6 +477,8 @@ function html(strings, ...values) {
 function render() {
   const locale = document.body.dataset.locale || 'en';
   const t = contentFor(locale);
+  const currentLanguage = LANGUAGES.find(([code]) => code === locale) || LANGUAGES[1];
+
   document.documentElement.lang = locale;
   if (locale === 'ar') document.body.setAttribute('dir', 'rtl');
 
@@ -144,9 +491,15 @@ function render() {
             <span>AgioBlur</span>
           </a>
           <div class="nav-actions">
-            <select class="lang-select" aria-label="Language">
-              ${['pt-BR', 'en', 'es', 'de', 'fr', 'it', 'id', 'tr', 'hi', 'ar'].map(code => `<option value="${code}" ${code === locale ? 'selected' : ''}>${code}</option>`).join('')}
-            </select>
+            <div class="language-picker">
+              <button class="language-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+                <span>${currentLanguage[0]}</span>
+                <small>${currentLanguage[1]}</small>
+              </button>
+              <div class="language-menu" role="listbox" hidden>
+                ${LANGUAGES.map(([code, label]) => `<button type="button" role="option" aria-selected="${code === locale}" data-lang="${code}"><span>${code}</span><small>${label}</small></button>`).join('')}
+              </div>
+            </div>
             <a class="button secondary" href="#pricing">${t.navUpgrade}</a>
           </div>
         </div>
@@ -182,7 +535,7 @@ function render() {
               <a class="button secondary" href="#pricing">${t.proCta}</a>
             </div>
             <div class="trust-strip">
-              ${t.trust.map((item, index) => `<div class="trust-item"><strong>${item}</strong><span>${t.trustText[index]}</span></div>`).join('')}
+              ${t.trust.map((item, index) => `<div class="trust-item"><span>${index + 1}</span><strong>${item}</strong><small>${t.trustText[index]}</small></div>`).join('')}
             </div>
           </div>
         </div>
@@ -275,8 +628,26 @@ function render() {
     </div>
   `;
 
-  document.querySelector('.lang-select')?.addEventListener('change', event => {
-    location.href = `../${event.target.value}/`;
+  const languagePicker = document.querySelector('.language-picker');
+  const trigger = document.querySelector('.language-trigger');
+  const menu = document.querySelector('.language-menu');
+
+  trigger?.addEventListener('click', () => {
+    const expanded = trigger.getAttribute('aria-expanded') === 'true';
+    trigger.setAttribute('aria-expanded', String(!expanded));
+    menu.hidden = expanded;
+  });
+
+  menu?.addEventListener('click', event => {
+    const button = event.target.closest('[data-lang]');
+    if (!button) return;
+    location.href = `../${button.dataset.lang}/`;
+  });
+
+  document.addEventListener('click', event => {
+    if (languagePicker?.contains(event.target)) return;
+    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    if (menu) menu.hidden = true;
   });
 }
 
