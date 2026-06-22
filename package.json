@@ -3,7 +3,9 @@
   "version": "2.1.0",
   "description": "",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "worker:dev": "npm --prefix infra/worker run dev",
+    "worker:deploy": "npm --prefix infra/worker run deploy"
   },
   "repository": {
     "type": "git",

@@ -6,7 +6,6 @@
 /* exported WPB_DOM */
 'use strict';
 
-// eslint-disable-next-line no-unused-vars
 const WPB_DOM = (function() {
   let containerObservers = [];
   let rootObserver = null;

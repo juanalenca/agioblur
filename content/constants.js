@@ -5,7 +5,6 @@
 /* exported WPB_CONSTANTS */
 'use strict';
 
-// eslint-disable-next-line no-unused-vars
 const WPB_CONSTANTS = {
   STORAGE_KEY: 'wpbCategories',
   SETTINGS_KEY: 'wpbSettings',

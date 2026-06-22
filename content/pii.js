@@ -6,7 +6,6 @@
 /* exported WPB_PII */
 'use strict';
 
-// eslint-disable-next-line no-unused-vars
 window.WPB_PII = (function() {
   const originalTextMap = new WeakMap();
   let hoverListenerAdded = false;

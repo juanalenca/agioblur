@@ -1,0 +1,11 @@
+name = "agioblur-license-api"
+main = "src/index.js"
+compatibility_date = "2026-06-22"
+
+[observability]
+enabled = true
+
+[vars]
+LICENSE_PUBLIC_KEY_KID = "agioblur-dev-2026-01"
+APP_API_BASE_URL = "http://localhost:8787"
+LICENSE_FROM_EMAIL = "AgioBlur <licenses@example.com>"

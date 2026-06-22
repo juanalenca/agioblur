@@ -8,7 +8,6 @@
 /**
  * Módulo de estado do AgioBlur.
  */
-// eslint-disable-next-line no-unused-vars
 const WPB_STATE = (function() {
   let categoryState = {};
   let currentSettings = {

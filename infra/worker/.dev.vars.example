@@ -1,0 +1,9 @@
+SUPABASE_URL=https://PROJECT_REF.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=replace-with-service-role-key
+LICENSE_PRIVATE_KEY_JWK={"kty":"EC","crv":"P-256","x":"...","y":"...","d":"...","ext":true,"key_ops":["sign"]}
+LICENSE_PUBLIC_KEY_KID=agioblur-dev-2026-01
+CAKTO_WEBHOOK_SECRET=replace-with-cakto-secret
+LEMONSQUEEZY_WEBHOOK_SECRET=replace-with-lemonsqueezy-secret
+RESEND_API_KEY=re_replace_with_resend_key
+APP_API_BASE_URL=http://localhost:8787
+LICENSE_FROM_EMAIL=AgioBlur <licenses@example.com>

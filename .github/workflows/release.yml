@@ -18,7 +18,7 @@ jobs:
     - name: Create Zip Archive
       run: |
         # Cria um arquivo zip excluindo arquivos e pastas de desenvolvimento
-        zip -r agioblur-${{ github.ref_name }}.zip . -x "*.git*" "*.github*" "*node_modules*" "package-lock.json" "package.json" "eslint.config.mjs" "*.md" "logo-extensao.png" "resize_icons.js" "crop_resize.ps1" "contexto/*"
+        zip -r agioblur-${{ github.ref_name }}.zip . -x "*.git*" "*.github*" "*node_modules*" "package-lock.json" "package.json" "eslint.config.mjs" "*.md" "logo-extensao.png" "resize_icons.js" "crop_resize.ps1" "contexto/*" "infra/*" "landing-page-extensao/*"
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v2
