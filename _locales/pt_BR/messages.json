@@ -127,5 +127,89 @@
   },
   "fakeMessageLong": {
     "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+  },
+  "tabFree": {
+    "message": "Free"
+  },
+  "tabPro": {
+    "message": "Pro"
+  },
+  "titleFreeFeatures": {
+    "message": "Recursos Free"
+  },
+  "titleProPlan": {
+    "message": "Plano Pro"
+  },
+  "titleProFeatures": {
+    "message": "Recursos Pro"
+  },
+  "licenseEyebrow": {
+    "message": "Status da licença"
+  },
+  "licenseStatusFree": {
+    "message": "Plano gratuito ativo. Recursos Pro bloqueados."
+  },
+  "licenseStatusPro": {
+    "message": "Licença ativa. Recursos Pro liberados."
+  },
+  "licenseHelp": {
+    "message": "Ative o Pro para liberar mensagens, mídias, filtros LGPD, Fake Data, PIN e intensidade personalizada."
+  },
+  "placeholderLicenseKey": {
+    "message": "XXXX-XXXX-XXXX-XXXX"
+  },
+  "btnActivateLicense": {
+    "message": "Ativar"
+  },
+  "btnUpgradePro": {
+    "message": "Upgrade Pro"
+  },
+  "btnRefreshLicense": {
+    "message": "Atualizar"
+  },
+  "btnResetDevices": {
+    "message": "Resetar dispositivos"
+  },
+  "msgProFeatureLocked": {
+    "message": "Recurso Pro. Ative uma licença para liberar."
+  },
+  "msgProSettingLocked": {
+    "message": "Configuração Pro. Ative uma licença para liberar."
+  },
+  "msgPinProOnly": {
+    "message": "PIN é um recurso Pro."
+  },
+  "msgEnterLicenseKey": {
+    "message": "Digite uma chave de licença."
+  },
+  "msgValidatingLicense": {
+    "message": "Validando licença..."
+  },
+  "msgLicenseActivated": {
+    "message": "Licença ativada com sucesso."
+  },
+  "msgDeviceLimit": {
+    "message": "Limite de dispositivos atingido. Solicite reset por e-mail."
+  },
+  "msgLicenseActivationFailed": {
+    "message": "Não foi possível ativar essa licença."
+  },
+  "msgRefreshingLicense": {
+    "message": "Atualizando status..."
+  },
+  "msgLicenseProActive": {
+    "message": "Licença Pro ativa."
+  },
+  "msgLicenseFreeActive": {
+    "message": "Plano Free ativo."
+  },
+  "msgEnterKeyForReset": {
+    "message": "Digite a chave para solicitar o reset."
+  },
+  "msgResetEmailSent": {
+    "message": "E-mail de confirmação enviado."
+  },
+  "msgResetFailed": {
+    "message": "Não foi possível solicitar o reset."
   }
 }

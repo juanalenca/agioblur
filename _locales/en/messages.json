@@ -124,5 +124,89 @@
   },
   "fakeMessageLong": {
     "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+  },
+  "tabFree": {
+    "message": "Free"
+  },
+  "tabPro": {
+    "message": "Pro"
+  },
+  "titleFreeFeatures": {
+    "message": "Free features"
+  },
+  "titleProPlan": {
+    "message": "Pro plan"
+  },
+  "titleProFeatures": {
+    "message": "Pro features"
+  },
+  "licenseEyebrow": {
+    "message": "License status"
+  },
+  "licenseStatusFree": {
+    "message": "Free plan active. Pro features locked."
+  },
+  "licenseStatusPro": {
+    "message": "License active. Pro features unlocked."
+  },
+  "licenseHelp": {
+    "message": "Activate Pro to unlock messages, media, sensitive-data filters, Fake Data, PIN, and custom intensity."
+  },
+  "placeholderLicenseKey": {
+    "message": "XXXX-XXXX-XXXX-XXXX"
+  },
+  "btnActivateLicense": {
+    "message": "Activate"
+  },
+  "btnUpgradePro": {
+    "message": "Upgrade Pro"
+  },
+  "btnRefreshLicense": {
+    "message": "Refresh"
+  },
+  "btnResetDevices": {
+    "message": "Reset devices"
+  },
+  "msgProFeatureLocked": {
+    "message": "Pro feature. Activate a license to unlock it."
+  },
+  "msgProSettingLocked": {
+    "message": "Pro setting. Activate a license to unlock it."
+  },
+  "msgPinProOnly": {
+    "message": "PIN is a Pro feature."
+  },
+  "msgEnterLicenseKey": {
+    "message": "Enter a license key."
+  },
+  "msgValidatingLicense": {
+    "message": "Validating license..."
+  },
+  "msgLicenseActivated": {
+    "message": "License activated successfully."
+  },
+  "msgDeviceLimit": {
+    "message": "Device limit reached. Request an e-mail reset."
+  },
+  "msgLicenseActivationFailed": {
+    "message": "Could not activate this license."
+  },
+  "msgRefreshingLicense": {
+    "message": "Refreshing status..."
+  },
+  "msgLicenseProActive": {
+    "message": "Pro license active."
+  },
+  "msgLicenseFreeActive": {
+    "message": "Free plan active."
+  },
+  "msgEnterKeyForReset": {
+    "message": "Enter the key to request a reset."
+  },
+  "msgResetEmailSent": {
+    "message": "Confirmation e-mail sent."
+  },
+  "msgResetFailed": {
+    "message": "Could not request the reset."
   }
 }

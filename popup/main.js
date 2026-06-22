@@ -21,7 +21,7 @@ async function onToggleChange() {
   const feature = Object.entries(POPUP_CONSTANTS.TOGGLE_IDS).find(([, id]) => id === this.id)?.[0];
   if (feature && !POPUP_UI.isFeatureAllowed(feature)) {
     this.checked = false;
-    POPUP_UI.showLicenseMessage('Recurso Pro. Ative uma licença para liberar.', 'warning');
+    POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgProFeatureLocked', 'Recurso Pro. Ative uma licença para liberar.'), 'warning');
     return;
   }
 
@@ -35,7 +35,7 @@ async function onSettingsChange(e) {
   if (POPUP_STATE.getIsPremium() && settings.savedPin && !unlocked) return;
   if (!POPUP_STATE.getIsPremium() && (e?.target === POPUP_UI.elements.sliderBlur || e?.target === POPUP_UI.elements.toggleFakeData)) {
     POPUP_UI.renderPremiumState();
-    POPUP_UI.showLicenseMessage('Configuração Pro. Ative uma licença para liberar.', 'warning');
+    POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgProSettingLocked', 'Configuração Pro. Ative uma licença para liberar.'), 'warning');
     return;
   }
 
@@ -60,11 +60,17 @@ async function setAll(value) {
   }
   const state = POPUP_UI.readUIState();
   await POPUP_STORAGE.saveState(state);
+
+  const activePanel = document.querySelector('.plan-panel.active');
+  if (activePanel?.contains(POPUP_UI.elements.toggleSolid)) {
+    POPUP_UI.elements.toggleSolid.checked = value;
+    await onSettingsChange({ target: POPUP_UI.elements.toggleSolid });
+  }
 }
 
 async function handleSavePin() {
   if (!POPUP_STATE.getIsPremium()) {
-    POPUP_UI.showLicenseMessage('PIN é um recurso Pro.', 'warning');
+    POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgPinProOnly', 'PIN é um recurso Pro.'), 'warning');
     return;
   }
 
@@ -97,43 +103,50 @@ async function handleSavePin() {
 async function handleActivateLicense() {
   const key = POPUP_UI.elements.licenseInput.value.trim();
   if (!key) {
-    POPUP_UI.showLicenseMessage('Digite uma chave de licença.', 'warning');
+    POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgEnterLicenseKey', 'Digite uma chave de licença.'), 'warning');
     return;
   }
 
-  POPUP_UI.showLicenseMessage('Validando licença...', 'neutral');
+  POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgValidatingLicense', 'Validando licença...'), 'neutral');
   const result = await chrome.runtime.sendMessage({ action: 'license:activate', licenseKey: key });
   POPUP_STATE.setLicenseStatus(result.status);
   POPUP_UI.renderPremiumState();
 
   if (result.ok) {
-    POPUP_UI.showLicenseMessage('Licença ativada com sucesso.', 'success');
+    POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgLicenseActivated', 'Licença ativada com sucesso.'), 'success');
     await POPUP_STORAGE.loadAndSync();
   } else if (result.error === 'DEVICE_LIMIT_EXCEEDED') {
-    POPUP_UI.showLicenseMessage('Limite de dispositivos atingido. Solicite reset por e-mail.', 'warning');
+    POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgDeviceLimit', 'Limite de dispositivos atingido. Solicite reset por e-mail.'), 'warning');
   } else {
-    POPUP_UI.showLicenseMessage('Não foi possível ativar essa licença.', 'danger');
+    POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgLicenseActivationFailed', 'Não foi possível ativar essa licença.'), 'danger');
   }
 }
 
 async function handleValidateLicense() {
-  POPUP_UI.showLicenseMessage('Atualizando status...', 'neutral');
+  POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgRefreshingLicense', 'Atualizando status...'), 'neutral');
   const result = await chrome.runtime.sendMessage({ action: 'license:validateNow' });
   POPUP_STATE.setLicenseStatus(result.status);
   POPUP_UI.renderPremiumState();
-  POPUP_UI.showLicenseMessage(result.status?.isPremium ? 'Licença Pro ativa.' : 'Plano Free ativo.', result.status?.isPremium ? 'success' : 'neutral');
+  POPUP_UI.showLicenseMessage(
+    result.status?.isPremium
+      ? POPUP_UI.getMessage('msgLicenseProActive', 'Licença Pro ativa.')
+      : POPUP_UI.getMessage('msgLicenseFreeActive', 'Plano Free ativo.'),
+    result.status?.isPremium ? 'success' : 'neutral'
+  );
 }
 
 async function handleRequestDeviceReset() {
   const key = POPUP_UI.elements.licenseInput.value.trim();
   if (!key) {
-    POPUP_UI.showLicenseMessage('Digite a chave para solicitar o reset.', 'warning');
+    POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgEnterKeyForReset', 'Digite a chave para solicitar o reset.'), 'warning');
     return;
   }
 
   const result = await chrome.runtime.sendMessage({ action: 'license:requestDeviceReset', licenseKey: key });
   POPUP_UI.showLicenseMessage(
-    result.ok ? 'E-mail de confirmação enviado.' : 'Não foi possível solicitar o reset.',
+    result.ok
+      ? POPUP_UI.getMessage('msgResetEmailSent', 'E-mail de confirmação enviado.')
+      : POPUP_UI.getMessage('msgResetFailed', 'Não foi possível solicitar o reset.'),
     result.ok ? 'success' : 'danger'
   );
 }

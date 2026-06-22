@@ -127,5 +127,89 @@
   },
   "fakeMessageLong": {
     "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+  },
+  "tabFree": {
+    "message": "Gratis"
+  },
+  "tabPro": {
+    "message": "Pro"
+  },
+  "titleFreeFeatures": {
+    "message": "Funzioni gratuite"
+  },
+  "titleProPlan": {
+    "message": "Piano Pro"
+  },
+  "titleProFeatures": {
+    "message": "Funzioni Pro"
+  },
+  "licenseEyebrow": {
+    "message": "Stato licenza"
+  },
+  "licenseStatusFree": {
+    "message": "Piano gratis attivo. Funzioni Pro bloccate."
+  },
+  "licenseStatusPro": {
+    "message": "Licenza attiva. Funzioni Pro sbloccate."
+  },
+  "licenseHelp": {
+    "message": "Attiva Pro per sbloccare messaggi, media, filtri dati, Fake Data, PIN e intensità personalizzata."
+  },
+  "placeholderLicenseKey": {
+    "message": "XXXX-XXXX-XXXX-XXXX"
+  },
+  "btnActivateLicense": {
+    "message": "Attiva"
+  },
+  "btnUpgradePro": {
+    "message": "Upgrade Pro"
+  },
+  "btnRefreshLicense": {
+    "message": "Aggiorna"
+  },
+  "btnResetDevices": {
+    "message": "Reimposta dispositivi"
+  },
+  "msgProFeatureLocked": {
+    "message": "Funzione Pro. Attiva una licenza per sbloccarla."
+  },
+  "msgProSettingLocked": {
+    "message": "Impostazione Pro. Attiva una licenza per sbloccarla."
+  },
+  "msgPinProOnly": {
+    "message": "Il PIN è una funzione Pro."
+  },
+  "msgEnterLicenseKey": {
+    "message": "Inserisci una chiave di licenza."
+  },
+  "msgValidatingLicense": {
+    "message": "Validazione licenza..."
+  },
+  "msgLicenseActivated": {
+    "message": "Licenza attivata con successo."
+  },
+  "msgDeviceLimit": {
+    "message": "Limite dispositivi raggiunto. Richiedi reset via e-mail."
+  },
+  "msgLicenseActivationFailed": {
+    "message": "Impossibile attivare questa licenza."
+  },
+  "msgRefreshingLicense": {
+    "message": "Aggiornamento stato..."
+  },
+  "msgLicenseProActive": {
+    "message": "Licenza Pro attiva."
+  },
+  "msgLicenseFreeActive": {
+    "message": "Piano gratis attivo."
+  },
+  "msgEnterKeyForReset": {
+    "message": "Inserisci la chiave per richiedere il reset."
+  },
+  "msgResetEmailSent": {
+    "message": "E-mail di conferma inviata."
+  },
+  "msgResetFailed": {
+    "message": "Impossibile richiedere il reset."
   }
 }

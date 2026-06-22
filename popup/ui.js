@@ -68,6 +68,10 @@ const POPUP_UI = (function() {
     return POPUP_CONSTANTS.FEATURE_TIERS[featureKey] !== 'PRO' || POPUP_STATE.getIsPremium();
   }
 
+  function getMessage(key, fallback = '') {
+    return chrome.i18n.getMessage(key) || fallback;
+  }
+
   function renderPremiumState() {
     const status = POPUP_STATE.getLicenseStatus();
     const isPremium = !!status.isPremium;
@@ -75,8 +79,8 @@ const POPUP_UI = (function() {
     elements.licensePlanBadge.textContent = isPremium ? 'PRO' : 'FREE';
     elements.licensePlanBadge.classList.toggle('premium', isPremium);
     elements.licenseStatusText.textContent = isPremium
-      ? 'Licença ativa. Recursos Pro liberados.'
-      : 'Plano gratuito ativo. Recursos Pro bloqueados.';
+      ? getMessage('licenseStatusPro', 'Licença ativa. Recursos Pro liberados.')
+      : getMessage('licenseStatusFree', 'Plano gratuito ativo. Recursos Pro bloqueados.');
     elements.btnResetDevices.style.display = status.error === 'DEVICE_LIMIT_EXCEEDED' ? 'block' : 'none';
 
     for (const [feature, tier] of Object.entries(POPUP_CONSTANTS.FEATURE_TIERS)) {
@@ -200,6 +204,7 @@ const POPUP_UI = (function() {
     readUIState,
     getVisibleToggleKeys,
     isFeatureAllowed,
+    getMessage,
     renderPremiumState,
     showLicenseMessage,
     setActivePlanTab,

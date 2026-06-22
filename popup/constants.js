@@ -57,5 +57,5 @@ const POPUP_CONSTANTS = {
     piiPix: 'PRO'
   },
 
-  UPGRADE_URL: 'https://agioblur.com/pt-BR/'
+  UPGRADE_URL: 'https://agioblur.com/pt-BR/#pricing'
 };

@@ -127,5 +127,89 @@
   },
   "fakeMessageLong": {
     "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+  },
+  "tabFree": {
+    "message": "Free"
+  },
+  "tabPro": {
+    "message": "Pro"
+  },
+  "titleFreeFeatures": {
+    "message": "Free सुविधाएं"
+  },
+  "titleProPlan": {
+    "message": "Pro प्लान"
+  },
+  "titleProFeatures": {
+    "message": "Pro सुविधाएं"
+  },
+  "licenseEyebrow": {
+    "message": "लाइसेंस स्थिति"
+  },
+  "licenseStatusFree": {
+    "message": "Free प्लान सक्रिय है। Pro सुविधाएं लॉक हैं।"
+  },
+  "licenseStatusPro": {
+    "message": "लाइसेंस सक्रिय है। Pro सुविधाएं खुल गई हैं।"
+  },
+  "licenseHelp": {
+    "message": "Messages, media, data filters, Fake Data, PIN और custom intensity के लिए Pro सक्रिय करें।"
+  },
+  "placeholderLicenseKey": {
+    "message": "XXXX-XXXX-XXXX-XXXX"
+  },
+  "btnActivateLicense": {
+    "message": "सक्रिय करें"
+  },
+  "btnUpgradePro": {
+    "message": "Upgrade Pro"
+  },
+  "btnRefreshLicense": {
+    "message": "अपडेट करें"
+  },
+  "btnResetDevices": {
+    "message": "Devices reset करें"
+  },
+  "msgProFeatureLocked": {
+    "message": "Pro सुविधा। Unlock करने के लिए license सक्रिय करें।"
+  },
+  "msgProSettingLocked": {
+    "message": "Pro setting। Unlock करने के लिए license सक्रिय करें।"
+  },
+  "msgPinProOnly": {
+    "message": "PIN एक Pro सुविधा है।"
+  },
+  "msgEnterLicenseKey": {
+    "message": "License key दर्ज करें।"
+  },
+  "msgValidatingLicense": {
+    "message": "License validate हो रहा है..."
+  },
+  "msgLicenseActivated": {
+    "message": "License सफलतापूर्वक सक्रिय हुआ।"
+  },
+  "msgDeviceLimit": {
+    "message": "Device limit पूरी हो गई। E-mail reset मांगें।"
+  },
+  "msgLicenseActivationFailed": {
+    "message": "यह license सक्रिय नहीं हो सका।"
+  },
+  "msgRefreshingLicense": {
+    "message": "Status update हो रहा है..."
+  },
+  "msgLicenseProActive": {
+    "message": "Pro license सक्रिय है।"
+  },
+  "msgLicenseFreeActive": {
+    "message": "Free प्लान सक्रिय है।"
+  },
+  "msgEnterKeyForReset": {
+    "message": "Reset मांगने के लिए key दर्ज करें।"
+  },
+  "msgResetEmailSent": {
+    "message": "Confirmation e-mail भेजा गया।"
+  },
+  "msgResetFailed": {
+    "message": "Reset request नहीं हो सकी।"
   }
 }

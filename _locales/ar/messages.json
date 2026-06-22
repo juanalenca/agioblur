@@ -127,5 +127,89 @@
   },
   "fakeMessageLong": {
     "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+  },
+  "tabFree": {
+    "message": "مجاني"
+  },
+  "tabPro": {
+    "message": "Pro"
+  },
+  "titleFreeFeatures": {
+    "message": "ميزات مجانية"
+  },
+  "titleProPlan": {
+    "message": "خطة Pro"
+  },
+  "titleProFeatures": {
+    "message": "ميزات Pro"
+  },
+  "licenseEyebrow": {
+    "message": "حالة الترخيص"
+  },
+  "licenseStatusFree": {
+    "message": "الخطة المجانية نشطة. ميزات Pro مقفلة."
+  },
+  "licenseStatusPro": {
+    "message": "الترخيص نشط. ميزات Pro متاحة."
+  },
+  "licenseHelp": {
+    "message": "فعّل Pro لفتح الرسائل والوسائط وفلاتر البيانات وFake Data وPIN وشدة مخصصة."
+  },
+  "placeholderLicenseKey": {
+    "message": "XXXX-XXXX-XXXX-XXXX"
+  },
+  "btnActivateLicense": {
+    "message": "تفعيل"
+  },
+  "btnUpgradePro": {
+    "message": "ترقية Pro"
+  },
+  "btnRefreshLicense": {
+    "message": "تحديث"
+  },
+  "btnResetDevices": {
+    "message": "إعادة ضبط الأجهزة"
+  },
+  "msgProFeatureLocked": {
+    "message": "ميزة Pro. فعّل الترخيص لفتحها."
+  },
+  "msgProSettingLocked": {
+    "message": "إعداد Pro. فعّل الترخيص لفتحه."
+  },
+  "msgPinProOnly": {
+    "message": "PIN ميزة Pro."
+  },
+  "msgEnterLicenseKey": {
+    "message": "أدخل مفتاح الترخيص."
+  },
+  "msgValidatingLicense": {
+    "message": "جارٍ التحقق من الترخيص..."
+  },
+  "msgLicenseActivated": {
+    "message": "تم تفعيل الترخيص بنجاح."
+  },
+  "msgDeviceLimit": {
+    "message": "تم بلوغ حد الأجهزة. اطلب إعادة الضبط عبر البريد."
+  },
+  "msgLicenseActivationFailed": {
+    "message": "تعذر تفعيل هذا الترخيص."
+  },
+  "msgRefreshingLicense": {
+    "message": "جارٍ تحديث الحالة..."
+  },
+  "msgLicenseProActive": {
+    "message": "ترخيص Pro نشط."
+  },
+  "msgLicenseFreeActive": {
+    "message": "الخطة المجانية نشطة."
+  },
+  "msgEnterKeyForReset": {
+    "message": "أدخل المفتاح لطلب إعادة الضبط."
+  },
+  "msgResetEmailSent": {
+    "message": "تم إرسال بريد التأكيد."
+  },
+  "msgResetFailed": {
+    "message": "تعذر طلب إعادة الضبط."
   }
 }

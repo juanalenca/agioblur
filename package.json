@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "lint": "eslint .",
+    "landing:dev": "python -m http.server 4177 --bind 127.0.0.1 --directory landing-page-extensao",
     "worker:dev": "npm --prefix infra/worker run dev",
     "worker:deploy": "npm --prefix infra/worker run deploy"
   },

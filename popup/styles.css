@@ -436,6 +436,13 @@ button:disabled {
   margin-bottom: 3px;
 }
 
+.license-help {
+  margin: 0 0 14px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .license-plan-badge,
 .pro-badge {
   display: inline-flex;

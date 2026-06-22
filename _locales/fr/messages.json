@@ -127,5 +127,89 @@
   },
   "fakeMessageLong": {
     "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+  },
+  "tabFree": {
+    "message": "Gratuit"
+  },
+  "tabPro": {
+    "message": "Pro"
+  },
+  "titleFreeFeatures": {
+    "message": "Fonctions gratuites"
+  },
+  "titleProPlan": {
+    "message": "Offre Pro"
+  },
+  "titleProFeatures": {
+    "message": "Fonctions Pro"
+  },
+  "licenseEyebrow": {
+    "message": "Statut de licence"
+  },
+  "licenseStatusFree": {
+    "message": "Offre gratuite active. Fonctions Pro verrouillées."
+  },
+  "licenseStatusPro": {
+    "message": "Licence active. Fonctions Pro débloquées."
+  },
+  "licenseHelp": {
+    "message": "Activez Pro pour débloquer messages, médias, filtres de données, Fake Data, PIN et intensité personnalisée."
+  },
+  "placeholderLicenseKey": {
+    "message": "XXXX-XXXX-XXXX-XXXX"
+  },
+  "btnActivateLicense": {
+    "message": "Activer"
+  },
+  "btnUpgradePro": {
+    "message": "Passer Pro"
+  },
+  "btnRefreshLicense": {
+    "message": "Actualiser"
+  },
+  "btnResetDevices": {
+    "message": "Réinitialiser les appareils"
+  },
+  "msgProFeatureLocked": {
+    "message": "Fonction Pro. Activez une licence pour la débloquer."
+  },
+  "msgProSettingLocked": {
+    "message": "Réglage Pro. Activez une licence pour le débloquer."
+  },
+  "msgPinProOnly": {
+    "message": "Le PIN est une fonction Pro."
+  },
+  "msgEnterLicenseKey": {
+    "message": "Saisissez une clé de licence."
+  },
+  "msgValidatingLicense": {
+    "message": "Validation de la licence..."
+  },
+  "msgLicenseActivated": {
+    "message": "Licence activée avec succès."
+  },
+  "msgDeviceLimit": {
+    "message": "Limite d’appareils atteinte. Demandez une réinitialisation par e-mail."
+  },
+  "msgLicenseActivationFailed": {
+    "message": "Impossible d’activer cette licence."
+  },
+  "msgRefreshingLicense": {
+    "message": "Actualisation du statut..."
+  },
+  "msgLicenseProActive": {
+    "message": "Licence Pro active."
+  },
+  "msgLicenseFreeActive": {
+    "message": "Offre gratuite active."
+  },
+  "msgEnterKeyForReset": {
+    "message": "Saisissez la clé pour demander la réinitialisation."
+  },
+  "msgResetEmailSent": {
+    "message": "E-mail de confirmation envoyé."
+  },
+  "msgResetFailed": {
+    "message": "Impossible de demander la réinitialisation."
   }
 }

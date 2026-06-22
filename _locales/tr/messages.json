@@ -127,5 +127,89 @@
   },
   "fakeMessageLong": {
     "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+  },
+  "tabFree": {
+    "message": "Ücretsiz"
+  },
+  "tabPro": {
+    "message": "Pro"
+  },
+  "titleFreeFeatures": {
+    "message": "Ücretsiz özellikler"
+  },
+  "titleProPlan": {
+    "message": "Pro plan"
+  },
+  "titleProFeatures": {
+    "message": "Pro özellikler"
+  },
+  "licenseEyebrow": {
+    "message": "Lisans durumu"
+  },
+  "licenseStatusFree": {
+    "message": "Ücretsiz plan aktif. Pro özellikler kilitli."
+  },
+  "licenseStatusPro": {
+    "message": "Lisans aktif. Pro özellikler açıldı."
+  },
+  "licenseHelp": {
+    "message": "Mesajlar, medya, veri filtreleri, Fake Data, PIN ve özel yoğunluk için Pro’yu etkinleştirin."
+  },
+  "placeholderLicenseKey": {
+    "message": "XXXX-XXXX-XXXX-XXXX"
+  },
+  "btnActivateLicense": {
+    "message": "Etkinleştir"
+  },
+  "btnUpgradePro": {
+    "message": "Pro’ya geç"
+  },
+  "btnRefreshLicense": {
+    "message": "Yenile"
+  },
+  "btnResetDevices": {
+    "message": "Cihazları sıfırla"
+  },
+  "msgProFeatureLocked": {
+    "message": "Pro özelliği. Açmak için lisans etkinleştirin."
+  },
+  "msgProSettingLocked": {
+    "message": "Pro ayarı. Açmak için lisans etkinleştirin."
+  },
+  "msgPinProOnly": {
+    "message": "PIN bir Pro özelliğidir."
+  },
+  "msgEnterLicenseKey": {
+    "message": "Lisans anahtarı girin."
+  },
+  "msgValidatingLicense": {
+    "message": "Lisans doğrulanıyor..."
+  },
+  "msgLicenseActivated": {
+    "message": "Lisans başarıyla etkinleştirildi."
+  },
+  "msgDeviceLimit": {
+    "message": "Cihaz sınırına ulaşıldı. E-posta ile sıfırlama isteyin."
+  },
+  "msgLicenseActivationFailed": {
+    "message": "Bu lisans etkinleştirilemedi."
+  },
+  "msgRefreshingLicense": {
+    "message": "Durum yenileniyor..."
+  },
+  "msgLicenseProActive": {
+    "message": "Pro lisans aktif."
+  },
+  "msgLicenseFreeActive": {
+    "message": "Ücretsiz plan aktif."
+  },
+  "msgEnterKeyForReset": {
+    "message": "Sıfırlama istemek için anahtarı girin."
+  },
+  "msgResetEmailSent": {
+    "message": "Onay e-postası gönderildi."
+  },
+  "msgResetFailed": {
+    "message": "Sıfırlama istenemedi."
   }
 }

@@ -45,44 +45,15 @@
   </div>
 
   <div class="popup-body">
-    <!-- Plano / Licença -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-title">Plano</span>
-      </div>
-
-      <div class="card license-card">
-        <div class="license-summary">
-          <div>
-            <span class="license-eyebrow">AgioBlur</span>
-            <strong id="license-status-text">Plano gratuito ativo.</strong>
-          </div>
-          <span id="license-plan-badge" class="license-plan-badge">FREE</span>
-        </div>
-
-        <div class="license-actions">
-          <input type="text" id="input-license-key" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off">
-          <button id="btn-activate-license" class="btn-primary">Ativar</button>
-        </div>
-
-        <div class="quick-row">
-          <button id="btn-upgrade" class="btn">Upgrade Pro</button>
-          <button id="btn-validate-license" class="btn">Atualizar</button>
-        </div>
-
-        <button id="btn-reset-devices" class="btn btn-reset-devices">Resetar dispositivos</button>
-        <p id="license-message" class="license-message"></p>
-      </div>
-    </div>
     <div class="plan-tabs" role="tablist" aria-label="Recursos Free e Pro">
-      <button class="plan-tab active" id="tab-free" type="button" role="tab" aria-selected="true" aria-controls="panel-free" data-plan-tab="free">Free</button>
-      <button class="plan-tab" id="tab-pro" type="button" role="tab" aria-selected="false" aria-controls="panel-pro" data-plan-tab="pro">Pro</button>
+      <button class="plan-tab active" id="tab-free" type="button" role="tab" aria-selected="true" aria-controls="panel-free" data-plan-tab="free" data-i18n="tabFree">Free</button>
+      <button class="plan-tab" id="tab-pro" type="button" role="tab" aria-selected="false" aria-controls="panel-pro" data-plan-tab="pro" data-i18n="tabPro">Pro</button>
     </div>
 
     <div class="plan-panel active" id="panel-free" role="tabpanel" aria-labelledby="tab-free" data-plan-panel="free">
       <div class="section">
         <div class="section-header">
-          <span class="section-title">Recursos Free</span>
+          <span class="section-title" data-i18n="titleFreeFeatures">Recursos Free</span>
         </div>
 
         <div class="card">
@@ -141,7 +112,40 @@
     <div class="plan-panel" id="panel-pro" role="tabpanel" aria-labelledby="tab-pro" data-plan-panel="pro" hidden>
       <div class="section">
         <div class="section-header">
-          <span class="section-title">Recursos Pro</span>
+          <span class="section-title" data-i18n="titleProPlan">Plano Pro</span>
+        </div>
+
+        <div class="card license-card">
+          <div class="license-summary">
+            <div>
+              <span class="license-eyebrow" data-i18n="licenseEyebrow">Status da licença</span>
+              <strong id="license-status-text" data-i18n="licenseStatusFree">Plano gratuito ativo.</strong>
+            </div>
+            <span id="license-plan-badge" class="license-plan-badge">FREE</span>
+          </div>
+
+          <p class="license-help" data-i18n="licenseHelp">
+            Ative o Pro para liberar mensagens, mídias, filtros LGPD, Fake Data, PIN e intensidade personalizada.
+          </p>
+
+          <div class="license-actions">
+            <input type="text" id="input-license-key" data-i18n-placeholder="placeholderLicenseKey" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off">
+            <button id="btn-activate-license" class="btn-primary" data-i18n="btnActivateLicense">Ativar</button>
+          </div>
+
+          <div class="quick-row">
+            <button id="btn-upgrade" class="btn" data-i18n="btnUpgradePro">Upgrade Pro</button>
+            <button id="btn-validate-license" class="btn" data-i18n="btnRefreshLicense">Atualizar</button>
+          </div>
+
+          <button id="btn-reset-devices" class="btn btn-reset-devices" data-i18n="btnResetDevices">Resetar dispositivos</button>
+          <p id="license-message" class="license-message"></p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title" data-i18n="titleProFeatures">Recursos Pro</span>
         </div>
 
         <div class="card">

@@ -127,5 +127,89 @@
   },
   "fakeMessageLong": {
     "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+  },
+  "tabFree": {
+    "message": "Gratis"
+  },
+  "tabPro": {
+    "message": "Pro"
+  },
+  "titleFreeFeatures": {
+    "message": "Recursos gratis"
+  },
+  "titleProPlan": {
+    "message": "Plan Pro"
+  },
+  "titleProFeatures": {
+    "message": "Recursos Pro"
+  },
+  "licenseEyebrow": {
+    "message": "Estado de licencia"
+  },
+  "licenseStatusFree": {
+    "message": "Plan gratis activo. Recursos Pro bloqueados."
+  },
+  "licenseStatusPro": {
+    "message": "Licencia activa. Recursos Pro liberados."
+  },
+  "licenseHelp": {
+    "message": "Activa Pro para liberar mensajes, medios, filtros de datos, Fake Data, PIN e intensidad personalizada."
+  },
+  "placeholderLicenseKey": {
+    "message": "XXXX-XXXX-XXXX-XXXX"
+  },
+  "btnActivateLicense": {
+    "message": "Activar"
+  },
+  "btnUpgradePro": {
+    "message": "Mejorar a Pro"
+  },
+  "btnRefreshLicense": {
+    "message": "Actualizar"
+  },
+  "btnResetDevices": {
+    "message": "Restablecer dispositivos"
+  },
+  "msgProFeatureLocked": {
+    "message": "Recurso Pro. Activa una licencia para liberarlo."
+  },
+  "msgProSettingLocked": {
+    "message": "Configuración Pro. Activa una licencia para liberarla."
+  },
+  "msgPinProOnly": {
+    "message": "El PIN es un recurso Pro."
+  },
+  "msgEnterLicenseKey": {
+    "message": "Introduce una clave de licencia."
+  },
+  "msgValidatingLicense": {
+    "message": "Validando licencia..."
+  },
+  "msgLicenseActivated": {
+    "message": "Licencia activada correctamente."
+  },
+  "msgDeviceLimit": {
+    "message": "Límite de dispositivos alcanzado. Solicita restablecimiento por e-mail."
+  },
+  "msgLicenseActivationFailed": {
+    "message": "No se pudo activar esta licencia."
+  },
+  "msgRefreshingLicense": {
+    "message": "Actualizando estado..."
+  },
+  "msgLicenseProActive": {
+    "message": "Licencia Pro activa."
+  },
+  "msgLicenseFreeActive": {
+    "message": "Plan gratis activo."
+  },
+  "msgEnterKeyForReset": {
+    "message": "Introduce la clave para solicitar el restablecimiento."
+  },
+  "msgResetEmailSent": {
+    "message": "E-mail de confirmación enviado."
+  },
+  "msgResetFailed": {
+    "message": "No se pudo solicitar el restablecimiento."
   }
 }
