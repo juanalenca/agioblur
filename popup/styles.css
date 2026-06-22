@@ -76,7 +76,7 @@ body {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 /* ── Seções ── */
@@ -497,6 +497,59 @@ button:disabled {
 
 .premium-locked:hover {
   background: var(--bg-surface);
+}
+
+/* ── Abas Free / Pro ── */
+.plan-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+}
+
+.plan-tab {
+  min-height: 36px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.plan-tab:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.04);
+}
+
+.plan-tab.active {
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  box-shadow: inset 0 0 0 1px var(--border-hover);
+}
+
+.plan-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.plan-panel[hidden] {
+  display: none;
+}
+
+.card-note {
+  font-size: 12px;
+  color: #8696a0;
+  padding: 16px 16px 4px 16px;
+  margin: 0;
+  line-height: 1.4;
 }
 
 /* Aplicar no nó raiz do popup se o idioma for 'ar' */

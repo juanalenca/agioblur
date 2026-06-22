@@ -32,6 +32,8 @@ const POPUP_UI = (function() {
     btnUpgrade: document.getElementById('btn-upgrade'),
     btnResetDevices: document.getElementById('btn-reset-devices'),
     licenseMessage: document.getElementById('license-message'),
+    planTabs: Array.from(document.querySelectorAll('[data-plan-tab]')),
+    planPanels: Array.from(document.querySelectorAll('[data-plan-panel]')),
     
     // Overlay (bloqueado)
     overlay: document.getElementById('overlay'),
@@ -52,6 +54,14 @@ const POPUP_UI = (function() {
       state[key] = getToggle(key).checked;
     }
     return state;
+  }
+
+  function getVisibleToggleKeys() {
+    const activePanel = document.querySelector('.plan-panel.active');
+    const ids = new Set(Array.from(activePanel?.querySelectorAll('input[type="checkbox"][id]') || []).map(input => input.id));
+    return Object.entries(POPUP_CONSTANTS.TOGGLE_IDS)
+      .filter(([, id]) => ids.has(id))
+      .map(([key]) => key);
   }
 
   function isFeatureAllowed(featureKey) {
@@ -117,6 +127,20 @@ const POPUP_UI = (function() {
     elements.licenseMessage.className = `license-message ${type}`;
   }
 
+  function setActivePlanTab(plan) {
+    for (const tab of elements.planTabs) {
+      const active = tab.dataset.planTab === plan;
+      tab.classList.toggle('active', active);
+      tab.setAttribute('aria-selected', String(active));
+    }
+
+    for (const panel of elements.planPanels) {
+      const active = panel.dataset.planPanel === plan;
+      panel.classList.toggle('active', active);
+      panel.hidden = !active;
+    }
+  }
+
 
 
   function applyLockState() {
@@ -174,9 +198,11 @@ const POPUP_UI = (function() {
     elements,
     getToggle,
     readUIState,
+    getVisibleToggleKeys,
     isFeatureAllowed,
     renderPremiumState,
     showLicenseMessage,
+    setActivePlanTab,
     applyLockState,
     localizeUI
   };

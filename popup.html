@@ -17,7 +17,7 @@
       </div>
       <h2 data-i18n="overlayTitle">Acesso Restrito</h2>
       <p data-i18n="overlayDesc">Sessão protegida por PIN.</p>
-      
+
       <div id="lock-state" style="margin-bottom: 20px; display: none;">
         <span class="status-badge" id="lock-status-badge">Bloqueado</span>
       </div>
@@ -74,205 +74,207 @@
         <p id="license-message" class="license-message"></p>
       </div>
     </div>
-    
-    <!-- Módulos de Privacidade -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-title" data-i18n="titleContentProtection">Proteção de Conteúdo</span>
-      </div>
-      
-      <div class="card">
-        <div class="cat-row">
-          <div class="cat-info">
-            <span class="cat-emoji">🖼️</span>
-            <span class="cat-label" data-i18n="labelPhotos">Fotos de Perfil</span>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" id="toggle-photos">
-            <span class="toggle-track"></span>
-          </label>
-        </div>
-
-        <div class="cat-row">
-          <div class="cat-info">
-            <span class="cat-emoji">👤</span>
-            <span class="cat-label" data-i18n="labelNames">Nomes e Números</span>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" id="toggle-names">
-            <span class="toggle-track"></span>
-          </label>
-        </div>
-
-        <div class="cat-row">
-          <div class="cat-info">
-            <span class="cat-emoji">💬</span>
-            <span class="cat-label" data-i18n="labelMessages">Mensagens de Texto</span>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" id="toggle-messages">
-            <span class="toggle-track"></span>
-          </label>
-        </div>
-
-        <div class="cat-row">
-          <div class="cat-info">
-            <span class="cat-emoji">📸</span>
-            <span class="cat-label" data-i18n="labelMedia">Mídias Recebidas</span>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" id="toggle-media">
-            <span class="toggle-track"></span>
-          </label>
-        </div>
-
-        <div class="cat-row">
-          <div class="cat-info">
-            <span class="cat-emoji">⌨️</span>
-            <span class="cat-label" data-i18n="labelCompose">O que estou digitando</span>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" id="toggle-compose">
-            <span class="toggle-track"></span>
-          </label>
-        </div>
-      </div>
-      
-      <div class="quick-row">
-        <button id="btn-all-on" class="btn" data-i18n="btnAllOn">Ativar Tudo</button>
-        <button id="btn-all-off" class="btn" data-i18n="btnAllOff">Desativar Tudo</button>
-      </div>
+    <div class="plan-tabs" role="tablist" aria-label="Recursos Free e Pro">
+      <button class="plan-tab active" id="tab-free" type="button" role="tab" aria-selected="true" aria-controls="panel-free" data-plan-tab="free">Free</button>
+      <button class="plan-tab" id="tab-pro" type="button" role="tab" aria-selected="false" aria-controls="panel-pro" data-plan-tab="pro">Pro</button>
     </div>
 
-    <!-- Filtros LGPD / PII -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-title" data-i18n="titleLgpdFilters">Filtros Inteligentes (LGPD)</span>
-      </div>
-      
-      <div class="card">
-        <p style="font-size: 12px; color: #8696a0; padding: 16px 16px 4px 16px; margin: 0; line-height: 1.4;" data-i18n="descLgpdFilters">
-          Desfoca dados confidenciais no meio de textos. Passe o mouse para revelar.
-        </p>
-
-        <div class="cat-row">
-          <div class="cat-info">
-            <span class="cat-emoji">🪪</span>
-            <span class="cat-label" data-i18n="labelCpf">CPF e CNPJ</span>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" id="toggle-pii-cpf">
-            <span class="toggle-track"></span>
-          </label>
+    <div class="plan-panel active" id="panel-free" role="tabpanel" aria-labelledby="tab-free" data-plan-panel="free">
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">Recursos Free</span>
         </div>
 
-        <div class="cat-row">
-          <div class="cat-info">
-            <span class="cat-emoji">💳</span>
-            <span class="cat-label" data-i18n="labelCard">Cartão de Crédito</span>
+        <div class="card">
+          <div class="cat-row">
+            <div class="cat-info">
+              <span class="cat-emoji">🖼️</span>
+              <span class="cat-label" data-i18n="labelPhotos">Fotos de Perfil</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-photos">
+              <span class="toggle-track"></span>
+            </label>
           </div>
-          <label class="toggle">
-            <input type="checkbox" id="toggle-pii-card">
-            <span class="toggle-track"></span>
-          </label>
+
+          <div class="cat-row">
+            <div class="cat-info">
+              <span class="cat-emoji">👤</span>
+              <span class="cat-label" data-i18n="labelNames">Nomes e Números</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-names">
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="cat-row">
+            <div class="cat-info">
+              <span class="cat-emoji">⌨️</span>
+              <span class="cat-label" data-i18n="labelCompose">O que estou digitando</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-compose">
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="cat-row" data-feature-row="solidMode">
+            <div class="cat-info">
+              <span class="cat-emoji">⬛</span>
+              <span class="cat-label" data-i18n="labelSolidMode">Censura Sólida</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-solid">
+              <span class="toggle-track"></span>
+            </label>
+          </div>
         </div>
 
-        <div class="cat-row">
-          <div class="cat-info">
-            <span class="cat-emoji">✉️</span>
-            <span class="cat-label" data-i18n="labelEmail">E-mails</span>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" id="toggle-pii-email">
-            <span class="toggle-track"></span>
-          </label>
-        </div>
-
-        <div class="cat-row">
-          <div class="cat-info">
-            <span class="cat-emoji">📞</span>
-            <span class="cat-label" data-i18n="labelPhone">Telefones</span>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" id="toggle-pii-phone">
-            <span class="toggle-track"></span>
-          </label>
-        </div>
-
-        <div class="cat-row">
-          <div class="cat-info">
-            <span class="cat-emoji">🪙</span>
-            <span class="cat-label" data-i18n="labelPix">Chaves Pix</span>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" id="toggle-pii-pix">
-            <span class="toggle-track"></span>
-          </label>
+        <div class="quick-row">
+          <button id="btn-all-on" class="btn" data-i18n="btnAllOn">Ativar Tudo</button>
+          <button id="btn-all-off" class="btn" data-i18n="btnAllOff">Desativar Tudo</button>
         </div>
       </div>
     </div>
 
-    <!-- Filtros Avançados -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-title" data-i18n="titleCustomization">Modos Especiais</span>
-      </div>
-      
-      <div class="card">
-        <div class="cat-row" data-feature-row="solidMode">
-          <div class="cat-info">
-            <span class="cat-emoji">⬛</span>
-            <span class="cat-label" data-i18n="labelSolidMode">Censura Sólida</span>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" id="toggle-solid">
-            <span class="toggle-track"></span>
-          </label>
+    <div class="plan-panel" id="panel-pro" role="tabpanel" aria-labelledby="tab-pro" data-plan-panel="pro" hidden>
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title">Recursos Pro</span>
         </div>
 
-        <div class="cat-row" data-feature-row="fakeData">
-          <div class="cat-info">
-            <span class="cat-emoji">🎭</span>
-            <span class="cat-label" data-i18n="labelFakeData">Modo Fake Data</span>
+        <div class="card">
+          <div class="cat-row">
+            <div class="cat-info">
+              <span class="cat-emoji">💬</span>
+              <span class="cat-label" data-i18n="labelMessages">Mensagens de Texto</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-messages">
+              <span class="toggle-track"></span>
+            </label>
           </div>
-          <label class="toggle">
-            <input type="checkbox" id="toggle-fake-data">
-            <span class="toggle-track"></span>
-          </label>
-        </div>
-        
-        <div class="range-container" data-feature-row="blurIntensity">
-          <div class="range-header">
-            <span data-i18n="labelIntensity">Intensidade do Desfoque</span>
-            <span class="range-val" id="blur-val">8px</span>
+
+          <div class="cat-row">
+            <div class="cat-info">
+              <span class="cat-emoji">📸</span>
+              <span class="cat-label" data-i18n="labelMedia">Mídias Recebidas</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-media">
+              <span class="toggle-track"></span>
+            </label>
           </div>
-          <input type="range" id="slider-blur" min="2" max="20" value="8">
+
+          <div class="cat-row" data-feature-row="fakeData">
+            <div class="cat-info">
+              <span class="cat-emoji">🎭</span>
+              <span class="cat-label" data-i18n="labelFakeData">Modo Fake Data</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-fake-data">
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="range-container" data-feature-row="blurIntensity">
+            <div class="range-header">
+              <span data-i18n="labelIntensity">Intensidade do Desfoque</span>
+              <span class="range-val" id="blur-val">8px</span>
+            </div>
+            <input type="range" id="slider-blur" min="2" max="20" value="8">
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- PIN e Segurança -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-title" data-i18n="titleSecurity">Segurança</span>
-      </div>
-      
-      <div class="card" id="pin-settings">
-        <!-- Container principal de PIN (exibido quando não há PIN salvo) -->
-        <div id="pin-setup-container">
-          <p data-i18n="descSecurity">Defina um PIN para impedir que desativem a proteção ou leiam com o hover.</p>
-          <div class="input-group">
-            <input type="password" id="input-pin" data-i18n-placeholder="placeholderPin" placeholder="Criar novo PIN..." autocomplete="off">
-            <button id="btn-save-pin" class="btn-primary" data-i18n="btnSavePin">Salvar PIN</button>
-          </div>
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title" data-i18n="titleLgpdFilters">Filtros Inteligentes (LGPD)</span>
         </div>
 
-        <!-- Container de controle ativo (exibido quando há PIN salvo) -->
-        <div id="pin-active-container" style="display: none;">
-          <p style="color:var(--accent); font-weight:500;" data-i18n="textPinActive">Sessão desbloqueada temporariamente.</p>
-          <div class="quick-row">
-            <button id="btn-relock" class="btn" style="border-color:var(--accent); color:var(--accent);" data-i18n="btnRelock">Bloquear Agora</button>
-            <button id="btn-remove-pin" class="btn" style="border-color:var(--danger); color:var(--danger);" data-i18n="btnRemovePin">Remover PIN</button>
+        <div class="card">
+          <p class="card-note" data-i18n="descLgpdFilters">
+            Desfoca dados confidenciais no meio de textos. Passe o mouse para revelar.
+          </p>
+
+          <div class="cat-row">
+            <div class="cat-info">
+              <span class="cat-emoji">🪪</span>
+              <span class="cat-label" data-i18n="labelCpf">CPF e CNPJ</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-pii-cpf">
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="cat-row">
+            <div class="cat-info">
+              <span class="cat-emoji">💳</span>
+              <span class="cat-label" data-i18n="labelCard">Cartão de Crédito</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-pii-card">
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="cat-row">
+            <div class="cat-info">
+              <span class="cat-emoji">✉️</span>
+              <span class="cat-label" data-i18n="labelEmail">E-mails</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-pii-email">
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="cat-row">
+            <div class="cat-info">
+              <span class="cat-emoji">📞</span>
+              <span class="cat-label" data-i18n="labelPhone">Telefones</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-pii-phone">
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="cat-row">
+            <div class="cat-info">
+              <span class="cat-emoji">🪙</span>
+              <span class="cat-label" data-i18n="labelPix">Chaves Pix</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-pii-pix">
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <span class="section-title" data-i18n="titleSecurity">Segurança Pro</span>
+        </div>
+
+        <div class="card" id="pin-settings">
+          <div id="pin-setup-container">
+            <p data-i18n="descSecurity">Defina um PIN para impedir que desativem a proteção ou leiam com o hover.</p>
+            <div class="input-group">
+              <input type="password" id="input-pin" data-i18n-placeholder="placeholderPin" placeholder="Criar novo PIN..." autocomplete="off">
+              <button id="btn-save-pin" class="btn-primary" data-i18n="btnSavePin">Salvar PIN</button>
+            </div>
+          </div>
+
+          <div id="pin-active-container" style="display: none;">
+            <p style="color:var(--accent); font-weight:500;" data-i18n="textPinActive">Sessão desbloqueada temporariamente.</p>
+            <div class="quick-row">
+              <button id="btn-relock" class="btn" style="border-color:var(--accent); color:var(--accent);" data-i18n="btnRelock">Bloquear Agora</button>
+              <button id="btn-remove-pin" class="btn" style="border-color:var(--danger); color:var(--danger);" data-i18n="btnRemovePin">Remover PIN</button>
+            </div>
           </div>
         </div>
       </div>

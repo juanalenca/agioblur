@@ -55,7 +55,7 @@ async function setAll(value) {
   const unlocked = POPUP_STATE.getIsUnlocked();
   if (POPUP_STATE.getIsPremium() && settings.savedPin && !unlocked) return;
 
-  for (const key of Object.keys(POPUP_CONSTANTS.TOGGLE_IDS)) {
+  for (const key of POPUP_UI.getVisibleToggleKeys()) {
     POPUP_UI.getToggle(key).checked = value && POPUP_UI.isFeatureAllowed(key);
   }
   const state = POPUP_UI.readUIState();
@@ -276,6 +276,9 @@ function attachListeners() {
   POPUP_UI.elements.btnValidateLicense.addEventListener('click', handleValidateLicense);
   POPUP_UI.elements.btnUpgrade.addEventListener('click', handleUpgrade);
   POPUP_UI.elements.btnResetDevices.addEventListener('click', handleRequestDeviceReset);
+  POPUP_UI.elements.planTabs.forEach((tab) => {
+    tab.addEventListener('click', () => POPUP_UI.setActivePlanTab(tab.dataset.planTab));
+  });
 
   // Setup PIN
   POPUP_UI.elements.btnSavePin.addEventListener('click', handleSavePin);
