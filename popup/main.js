@@ -15,12 +15,7 @@ async function hashPin(pin) {
 
 async function onToggleChange() {
   const settings = POPUP_STATE.getSettings();
-  if (!POPUP_STATE.getIsPremium() && val !== 'custom') {
-        POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgProFeatureLocked', 'Recurso Pro. Ative uma licença.'), 'warning');
-        e.target.value = 'custom';
-        return;
-      }
-      const unlocked = POPUP_STATE.getIsUnlocked();
+  const unlocked = POPUP_STATE.getIsUnlocked();
   if (POPUP_STATE.getIsPremium() && settings.savedPin && !unlocked) return;
 
   const feature = Object.entries(POPUP_CONSTANTS.TOGGLE_IDS).find(([, id]) => id === this.id)?.[0];
@@ -301,6 +296,12 @@ function attachListeners() {
       const val = e.target.value;
       if (val === 'custom') return;
       
+      if (!POPUP_STATE.getIsPremium()) {
+        POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgProFeatureLocked', 'Recurso Pro. Ative uma licença para liberar.'), 'warning');
+        e.target.value = 'custom';
+        return;
+      }
+
       const unlocked = POPUP_STATE.getIsUnlocked();
       if (POPUP_STATE.getIsPremium() && POPUP_STATE.getSettings().savedPin && !unlocked) return;
 
@@ -362,3 +363,11 @@ function attachListeners() {
 POPUP_UI.localizeUI();
 attachListeners();
 POPUP_STORAGE.loadAndSync();
+
+
+chrome.storage.onChanged.addListener((changes, area) => {
+  if (area !== 'local') return;
+  if (changes.wpbCategories || changes.wpbSettings) {
+    POPUP_STORAGE.loadAndSync();
+  }
+});

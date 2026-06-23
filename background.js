@@ -355,7 +355,8 @@ chrome.commands.onCommand.addListener(async (command) => {
     for (const key of ALL_CATEGORIES) {
       newCats[key] = targetState;
     }
-    await chrome.storage.local.set({ wpbCategories: newCats });
+    settings.solidMode = targetState; // Toggle solidMode together with the categories
+    await chrome.storage.local.set({ wpbCategories: newCats, wpbSettings: settings });
   } else if (command === 'lock-privacy') {
     for (const key of ALL_CATEGORIES) {
       newCats[key] = true;
