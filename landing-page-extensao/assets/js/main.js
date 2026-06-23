@@ -47,7 +47,7 @@ const CONTENT = {
     freeDesc: 'Para privacidade rápida no dia a dia.',
     proDesc: 'Para quem trabalha com conversas sensíveis.',
     freeItems: ['Fotos de perfil', 'Nomes e números', 'Campo de digitação', 'Censura sólida'],
-    proItems: ['Mensagens e mídias', 'Filtros LGPD', 'Modo Fake Data', 'PIN e intensidade customizada'],
+    proItems: ['Auto-Blur por inatividade', 'Perfis de Privacidade', 'Atalhos de Teclado', 'Filtros LGPD', 'Modo Fake Data'],
     startFree: 'Começar grátis',
     buyPro: 'Comprar Pro',
     privacyTitle: 'Privacidade como padrão',
