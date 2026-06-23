@@ -98,6 +98,9 @@ function listenForStorageChanges() {
       } else if (!mergedSettings.savedPin) {
         document.body.classList.remove('wpb-locked');
       }
+      
+      // Restart the auto-blur timer with the new settings
+      window.dispatchEvent(new Event('mousemove'));
     }
 
     if (changes[WPB_CONSTANTS.STORAGE_KEY]) {
@@ -139,9 +142,10 @@ function listenForStorageChanges() {
         const isActive = incoming[key];
         if (wasActive && !isActive) WPB_DOM.clearCategory(key);
         else if (!wasActive && isActive) WPB_DOM.scanAndApply(document);
-      applyFullScreenBlur(newCats.fullScreenBlur);
-      window.dispatchEvent(new Event('mousemove'));
       }
+      
+      applyFullScreenBlur(incoming.fullScreenBlur);
+      window.dispatchEvent(new Event('mousemove'));
 
       if (piiChanged && typeof WPB_PII !== 'undefined' && WPB_STATE.getIsPremium()) {
         WPB_PII.restore(document.body);
@@ -363,7 +367,7 @@ async function initialize() {
 
   // Observer do WhatsApp
   WPB_DOM.initObserver();
-  
+  applyFullScreenBlur(WPB_STATE.getCategoryState().fullScreenBlur);
   setupInactivityListener();
 }
 

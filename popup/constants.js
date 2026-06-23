@@ -18,7 +18,8 @@ const POPUP_CONSTANTS = {
     piiEmail: 'toggle-pii-email',
     piiCard: 'toggle-pii-card',
     piiPhone: 'toggle-pii-phone',
-    piiPix: 'toggle-pii-pix'
+    piiPix: 'toggle-pii-pix',
+    fullScreenBlur: 'toggle-full-screen-blur'
   },
 
   DEFAULTS_CATEGORIES: {
@@ -32,7 +33,8 @@ const POPUP_CONSTANTS = {
     piiEmail: false,
     piiCard: false,
     piiPhone: false,
-    piiPix: false
+    piiPix: false,
+    fullScreenBlur: false
   },
 
   DEFAULTS_SETTINGS: {
