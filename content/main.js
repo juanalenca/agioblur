@@ -116,7 +116,7 @@ function listenForStorageChanges() {
       }
       
       // Restart the auto-blur timer with the new settings
-      window.dispatchEvent(new Event('mousemove'));
+      window.dispatchEvent(new Event('wpb-settings-updated'));
     }
 
     if (changes[WPB_CONSTANTS.STORAGE_KEY]) {
