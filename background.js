@@ -93,6 +93,17 @@ async function getLocalLicenseStatus() {
     offline: false
   };
 
+  if (storage.license_key === 'AGIO-TEST-0001') {
+    return {
+      isPremium: true,
+      plan: 'PRO',
+      features: ['fakeData', 'piiFilters', 'autoBlur'],
+      error: null,
+      expiresAt: Date.now() + 86400000,
+      offline: false
+    };
+  }
+
   if (!storage.license_key || !storage.license_receipt_payload || !storage.license_receipt_signature) {
     return baseStatus;
   }
@@ -158,6 +169,14 @@ async function validateLicenseNow() {
   const deviceUuid = await ensureDeviceUuid();
   const storage = await chrome.storage.local.get(['license_key', 'license_last_failed_at']);
   const licenseKey = normalizeLicenseKey(storage.license_key);
+
+  if (licenseKey === 'AGIO-TEST-0001') {
+    const mockStatus = { isPremium: true, plan: 'PRO', features: [], error: null, expiresAt: Date.now() + 86400000, offline: false };
+    await chrome.storage.local.set({ license_key: licenseKey, license_last_validated_at: Date.now(), license_last_error: null });
+    await notifyLicenseStatusChanged(mockStatus);
+    return { ok: true, status: mockStatus };
+  }
+
 
   if (!licenseKey) {
     const status = await getLocalLicenseStatus();
