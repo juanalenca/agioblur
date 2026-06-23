@@ -173,6 +173,16 @@ function setupInactivityListener() {
       return;
     }
 
+    if (e && e.type === 'mousemove') {
+      if (typeof window.lastMouseX !== 'undefined') {
+        const dx = Math.abs(e.clientX - window.lastMouseX);
+        const dy = Math.abs(e.clientY - window.lastMouseY);
+        if (dx < 5 && dy < 5) return; // Ignore tiny drift
+      }
+      window.lastMouseX = e.clientX;
+      window.lastMouseY = e.clientY;
+    }
+
     if (isCurrentlyAutoBlurred) {
       if (document.visibilityState === 'hidden') return;
       if (e && (e.type === 'mousemove' || e.type === 'scroll')) {
@@ -182,22 +192,7 @@ function setupInactivityListener() {
         return;
       } // Don't unblur if tab is hidden
       isCurrentlyAutoBlurred = false;
-      if (savedStateBeforeInactivity) {
-        WPB_STATE.setCategoryState(savedStateBeforeInactivity.categories);
-        applySettingsToRoot(savedStateBeforeInactivity.settings);
-        WPB_STATE.setSettings(savedStateBeforeInactivity.settings);
-        
-        for (const [key, active] of Object.entries(savedStateBeforeInactivity.categories)) {
-          if (!active) WPB_DOM.clearCategory(key);
-        }
-        WPB_DOM.scanAndApply(document);
-        
-        if (typeof WPB_PII !== 'undefined') {
-          WPB_PII.restore(document.body);
-          if (WPB_STATE.getIsPremium()) WPB_PII.scan(document.body);
-        }
-        savedStateBeforeInactivity = null;
-      }
+      applyFullScreenBlur(WPB_STATE.getCategoryState().fullScreenBlur);
     }
 
     if (inactivityTimer) clearTimeout(inactivityTimer);
@@ -208,21 +203,7 @@ function setupInactivityListener() {
 
   const triggerAutoBlur = () => {
     isCurrentlyAutoBlurred = true;
-    savedStateBeforeInactivity = {
-      categories: { ...WPB_STATE.getCategoryState() },
-      settings: { ...WPB_STATE.getSettings() }
-    };
-
-    const ALL_CATEGORIES = ['photos', 'names', 'messages', 'media', 'compose', 'piiCpf', 'piiEmail', 'piiCard', 'piiPhone', 'piiPix'];
-    const newCats = {};
-    for (const key of ALL_CATEGORIES) newCats[key] = true;
-    
-    const newSettings = { ...WPB_STATE.getSettings(), solidMode: true };
-    
-    WPB_STATE.setCategoryState(newCats);
-    applySettingsToRoot(newSettings);
-    WPB_STATE.setSettings(newSettings);
-    WPB_DOM.scanAndApply(document);
+    applyFullScreenBlur(true);
   };
 
   const events = ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'];
