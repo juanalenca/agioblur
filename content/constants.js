@@ -10,7 +10,7 @@ const WPB_CONSTANTS = {
   SETTINGS_KEY: 'wpbSettings',
   FEATURE_TIERS: {
     photos: 'FREE',
-    names: 'PRO',
+    names: 'FREE',
     compose: 'FREE',
     solidMode: 'FREE',
     messages: 'FREE',
