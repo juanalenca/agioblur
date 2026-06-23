@@ -26,11 +26,11 @@ const CONTENT = {
   'pt-BR': {
     navInstall: 'Instalar',
     navUpgrade: 'Upgrade Pro',
-    eyebrow: 'Privacidade visual para WhatsApp Web',
-    headline: 'AgioBlur',
-    lede: 'Desfoque conversas, nomes, fotos e dados sensíveis no WhatsApp Web antes que alguém olhe para a sua tela.',
-    install: 'Instalar extensão',
-    proCta: 'Ver Pro',
+    eyebrow: 'CONTRA OLHARES INDISCRETOS',
+    headline: 'Sua conversa continua sua.',
+    lede: 'Desfoque automaticamente mensagens, nomes, fotos e informações sensíveis no WhatsApp Web antes que alguém veja sua tela.',
+    install: 'Instalar grátis',
+    proCta: 'Conhecer Pro',
     trust: ['Local no navegador', '10 idiomas', 'Free + Pro'],
     trustText: ['Sem rastrear suas conversas', 'Interface preparada para uso global', 'Comece grátis e libere recursos avançados'],
     featuresTitle: 'Proteção clara, controle rápido',
@@ -64,16 +64,17 @@ const CONTENT = {
     ],
     finalTitle: 'Sua tela não precisa revelar tudo.',
     finalText: 'Instale o AgioBlur e transforme o WhatsApp Web em um espaço mais seguro para trabalhar em público.',
-    footer: 'AgioBlur. Privacidade visual para WhatsApp Web.'
+    proPrice: 'R$ 9,90',
+    footer: '© 2026 AgioBlur. Uma ferramenta independente de privacidade para WhatsApp Web.'
   },
   en: {
     navInstall: 'Install',
     navUpgrade: 'Upgrade Pro',
-    eyebrow: 'Visual privacy for WhatsApp Web',
-    headline: 'AgioBlur',
-    lede: 'Blur chats, names, photos, media, and sensitive data on WhatsApp Web before someone sees your screen.',
-    install: 'Install extension',
-    proCta: 'See Pro',
+    eyebrow: 'AGAINST PRYING EYES',
+    headline: 'Your chat remains yours.',
+    lede: 'Automatically blur messages, names, photos, and sensitive information on WhatsApp Web before anyone sees your screen.',
+    install: 'Install for free',
+    proCta: 'Discover Pro',
     trust: ['Local in-browser', '10 languages', 'Free + Pro'],
     trustText: ['No conversation tracking', 'Global-ready interface', 'Start free and unlock advanced controls'],
     featuresTitle: 'Clear protection, fast control',
@@ -107,16 +108,17 @@ const CONTENT = {
     ],
     finalTitle: 'Your screen does not have to reveal everything.',
     finalText: 'Install AgioBlur and make WhatsApp Web safer for public work.',
-    footer: 'AgioBlur. Visual privacy for WhatsApp Web.'
+    proPrice: '$2.99 USD',
+    footer: '© 2026 AgioBlur. An independent visual privacy tool for WhatsApp Web.'
   },
   es: {
     navInstall: 'Instalar',
     navUpgrade: 'Mejorar a Pro',
-    eyebrow: 'Privacidad visual para WhatsApp Web',
-    headline: 'AgioBlur',
-    lede: 'Desenfoca chats, nombres, fotos, medios y datos sensibles en WhatsApp Web antes de que alguien vea tu pantalla.',
-    install: 'Instalar extensión',
-    proCta: 'Ver Pro',
+    eyebrow: 'CONTRA MIRADAS INDISCRETAS',
+    headline: 'Tu conversación sigue siendo tuya.',
+    lede: 'Desenfoca automáticamente mensajes, nombres, fotos e información sensible en WhatsApp Web antes de que alguien vea tu pantalla.',
+    install: 'Instalar gratis',
+    proCta: 'Conocer Pro',
     trust: ['Local en el navegador', '10 idiomas', 'Gratis + Pro'],
     trustText: ['Sin rastrear conversaciones', 'Interfaz lista para uso global', 'Empieza gratis y desbloquea controles avanzados'],
     featuresTitle: 'Protección clara, control rápido',
@@ -150,16 +152,17 @@ const CONTENT = {
     ],
     finalTitle: 'Tu pantalla no tiene que revelarlo todo.',
     finalText: 'Instala AgioBlur y haz que WhatsApp Web sea más seguro en público.',
-    footer: 'AgioBlur. Privacidad visual para WhatsApp Web.'
+    proPrice: '2.99 EUR',
+    footer: '© 2026 AgioBlur. Una herramienta independiente de privacidad visual para WhatsApp Web.'
   },
   de: {
     navInstall: 'Installieren',
     navUpgrade: 'Upgrade Pro',
-    eyebrow: 'Visueller Datenschutz für WhatsApp Web',
-    headline: 'AgioBlur',
-    lede: 'Verberge Chats, Namen, Fotos, Medien und sensible Daten in WhatsApp Web, bevor jemand auf deinen Bildschirm schaut.',
-    install: 'Erweiterung installieren',
-    proCta: 'Pro ansehen',
+    eyebrow: 'GEGEN NEUGIERIGE BLICKE',
+    headline: 'Dein Chat bleibt dein Chat.',
+    lede: 'Verberge automatisch Nachrichten, Namen, Fotos und sensible Informationen in WhatsApp Web, bevor jemand deinen Bildschirm sieht.',
+    install: 'Kostenlos installieren',
+    proCta: 'Pro entdecken',
     trust: ['Lokal im Browser', '10 Sprachen', 'Free + Pro'],
     trustText: ['Kein Tracking von Gesprächen', 'Globale Oberfläche', 'Kostenlos starten und Pro-Kontrollen freischalten'],
     featuresTitle: 'Klare Schutzfunktionen, schnelle Kontrolle',
@@ -193,16 +196,17 @@ const CONTENT = {
     ],
     finalTitle: 'Dein Bildschirm muss nicht alles preisgeben.',
     finalText: 'Installiere AgioBlur und arbeite sicherer mit WhatsApp Web in der Öffentlichkeit.',
-    footer: 'AgioBlur. Visueller Datenschutz für WhatsApp Web.'
+    proPrice: '2.99 EUR',
+    footer: '© 2026 AgioBlur. Ein unabhängiges Tool für visuellen Datenschutz für WhatsApp Web.'
   },
   fr: {
     navInstall: 'Installer',
     navUpgrade: 'Passer Pro',
-    eyebrow: 'Confidentialité visuelle pour WhatsApp Web',
-    headline: 'AgioBlur',
-    lede: 'Floutez discussions, noms, photos, médias et données sensibles dans WhatsApp Web avant qu’un regard ne tombe sur votre écran.',
-    install: 'Installer l’extension',
-    proCta: 'Voir Pro',
+    eyebrow: 'CONTRE LES REGARDS INDISCRETS',
+    headline: 'Votre conversation reste la vôtre.',
+    lede: 'Floutez automatiquement les messages, noms, photos et informations sensibles dans WhatsApp Web avant que quelqu\'un ne voie votre écran.',
+    install: 'Installer gratuitement',
+    proCta: 'Découvrir Pro',
     trust: ['Local dans le navigateur', '10 langues', 'Gratuit + Pro'],
     trustText: ['Sans suivi des conversations', 'Interface prête pour le monde entier', 'Commencez gratuitement puis débloquez les contrôles avancés'],
     featuresTitle: 'Protection claire, contrôle rapide',
@@ -236,16 +240,17 @@ const CONTENT = {
     ],
     finalTitle: 'Votre écran n’a pas besoin de tout révéler.',
     finalText: 'Installez AgioBlur et rendez WhatsApp Web plus sûr en public.',
-    footer: 'AgioBlur. Confidentialité visuelle pour WhatsApp Web.'
+    proPrice: '2.99 EUR',
+    footer: '© 2026 AgioBlur. Un outil indépendant de confidentialité visuelle pour WhatsApp Web.'
   },
   it: {
     navInstall: 'Installa',
     navUpgrade: 'Upgrade Pro',
-    eyebrow: 'Privacy visiva per WhatsApp Web',
-    headline: 'AgioBlur',
-    lede: 'Sfoca chat, nomi, foto, media e dati sensibili in WhatsApp Web prima che qualcuno guardi lo schermo.',
-    install: 'Installa estensione',
-    proCta: 'Vedi Pro',
+    eyebrow: 'CONTRO OCCHI INDISCRETI',
+    headline: 'La tua chat resta tua.',
+    lede: 'Sfoca automaticamente messaggi, nomi, foto e informazioni sensibili su WhatsApp Web prima che qualcuno veda il tuo schermo.',
+    install: 'Installa gratis',
+    proCta: 'Scopri Pro',
     trust: ['Locale nel browser', '10 lingue', 'Gratis + Pro'],
     trustText: ['Senza tracciare conversazioni', 'Interfaccia pronta per uso globale', 'Inizia gratis e sblocca controlli avanzati'],
     featuresTitle: 'Protezione chiara, controllo rapido',
@@ -279,16 +284,17 @@ const CONTENT = {
     ],
     finalTitle: 'Il tuo schermo non deve rivelare tutto.',
     finalText: 'Installa AgioBlur e rendi WhatsApp Web più sicuro in pubblico.',
-    footer: 'AgioBlur. Privacy visiva per WhatsApp Web.'
+    proPrice: '2.99 EUR',
+    footer: '© 2026 AgioBlur. Uno strumento indipendente per la privacy visiva per WhatsApp Web.'
   },
   id: {
-    navInstall: 'Pasang',
-    navUpgrade: 'Upgrade Pro',
-    eyebrow: 'Privasi visual untuk WhatsApp Web',
-    headline: 'AgioBlur',
-    lede: 'Blur chat, nama, foto, media, dan data sensitif di WhatsApp Web sebelum orang lain melihat layar Anda.',
-    install: 'Pasang ekstensi',
-    proCta: 'Lihat Pro',
+    navInstall: 'Instal',
+    navUpgrade: 'Tingkatkan Pro',
+    eyebrow: 'TERHADAP MATA MENGINTIP',
+    headline: 'Obrolan Anda tetap milik Anda.',
+    lede: 'Buramkan pesan, nama, foto, dan informasi sensitif secara otomatis di WhatsApp Web sebelum ada yang melihat layar Anda.',
+    install: 'Instal gratis',
+    proCta: 'Temukan Pro',
     trust: ['Lokal di browser', '10 bahasa', 'Gratis + Pro'],
     trustText: ['Tanpa melacak percakapan', 'Antarmuka siap global', 'Mulai gratis dan buka kontrol lanjutan'],
     featuresTitle: 'Perlindungan jelas, kontrol cepat',
@@ -321,17 +327,18 @@ const CONTENT = {
       ['Apakah bisa offline?', 'Pro memakai tanda terima bertanda tangan berdurasi pendek dan toleransi offline terbatas.']
     ],
     finalTitle: 'Layar Anda tidak harus menampilkan semuanya.',
-    finalText: 'Pasang AgioBlur agar WhatsApp Web lebih aman saat digunakan di publik.',
-    footer: 'AgioBlur. Privasi visual untuk WhatsApp Web.'
+    finalText: 'Instal AgioBlur dan jadikan WhatsApp Web lebih aman di tempat umum.',
+    proPrice: 'Rp 29.000 IDR',
+    footer: '© 2026 AgioBlur. Alat privasi visual independen untuk WhatsApp Web.'
   },
   tr: {
     navInstall: 'Yükle',
-    navUpgrade: 'Pro’ya geç',
-    eyebrow: 'WhatsApp Web için görsel gizlilik',
-    headline: 'AgioBlur',
-    lede: 'Birisi ekranınızı görmeden önce WhatsApp Web’de sohbetleri, adları, fotoğrafları, medyayı ve hassas verileri bulanıklaştırın.',
-    install: 'Uzantıyı yükle',
-    proCta: 'Pro’yu gör',
+    navUpgrade: 'Pro Sürümüne Geç',
+    eyebrow: 'MERAKLI GÖZLERE KARŞI',
+    headline: 'Sohbetiniz sizin kalır.',
+    lede: 'Birisi ekranınızı görmeden önce WhatsApp Web\'deki mesajları, isimleri, fotoğrafları ve hassas bilgileri otomatik olarak bulanıklaştırın.',
+    install: 'Ücretsiz yükle',
+    proCta: 'Pro\'yu Keşfet',
     trust: ['Tarayıcıda yerel', '10 dil', 'Ücretsiz + Pro'],
     trustText: ['Konuşma takibi yok', 'Küresel kullanıma hazır arayüz', 'Ücretsiz başlayın, gelişmiş kontrolleri açın'],
     featuresTitle: 'Net koruma, hızlı kontrol',
@@ -363,18 +370,19 @@ const CONTENT = {
       ['Bilgisayar değiştirirsem?', 'Yeni tarayıcıda etkinleştirmek için e-posta ile cihaz sıfırlama isteyebilirsiniz.'],
       ['Çevrimdışı çalışır mı?', 'Pro kısa süreli imzalı makbuz ve sınırlı çevrimdışı tolerans kullanır.']
     ],
-    finalTitle: 'Ekranınız her şeyi göstermek zorunda değil.',
-    finalText: 'AgioBlur’u yükleyin ve WhatsApp Web’i kamusal kullanımda daha güvenli hale getirin.',
-    footer: 'AgioBlur. WhatsApp Web için görsel gizlilik.'
+    finalTitle: 'Ekranınız her şeyi açığa vurmak zorunda değil.',
+    finalText: 'AgioBlur\'u yükleyerek WhatsApp Web\'i halka açık alanlarda daha güvenli hale getirin.',
+    proPrice: '₺59 TRY',
+    footer: '© 2026 AgioBlur. WhatsApp Web için bağımsız bir görsel gizlilik aracı.'
   },
   hi: {
     navInstall: 'इंस्टॉल करें',
     navUpgrade: 'Upgrade Pro',
-    eyebrow: 'WhatsApp Web के लिए visual privacy',
-    headline: 'AgioBlur',
-    lede: 'किसी के देखने से पहले WhatsApp Web पर chats, names, photos, media और sensitive data को blur करें।',
-    install: 'Extension इंस्टॉल करें',
-    proCta: 'Pro देखें',
+    eyebrow: 'ताक-झांक करने वालों के खिलाफ',
+    headline: 'आपकी बातचीत आपकी ही रहती है।',
+    lede: 'किसी के आपकी स्क्रीन देखने से पहले WhatsApp Web पर संदेशों, नामों, फ़ोटो और संवेदनशील जानकारी को स्वचालित रूप से धुंधला करें।',
+    install: 'मुफ्त में इंस्टॉल करें',
+    proCta: 'Pro को जानें',
     trust: ['Browser में local', '10 भाषाएं', 'Free + Pro'],
     trustText: ['Conversations tracking नहीं', 'Global use के लिए interface', 'Free शुरू करें और advanced controls खोलें'],
     featuresTitle: 'Clear protection, fast control',
@@ -406,18 +414,19 @@ const CONTENT = {
       ['Computer बदलने पर क्या होगा?', 'नए browser में activate करने के लिए e-mail device reset request कर सकते हैं।'],
       ['क्या offline काम करता है?', 'Pro short-lived signed receipt और limited offline tolerance इस्तेमाल करता है।']
     ],
-    finalTitle: 'आपकी screen को सब कुछ दिखाने की जरूरत नहीं है।',
-    finalText: 'AgioBlur install करें और public जगहों में WhatsApp Web को सुरक्षित बनाएं।',
-    footer: 'AgioBlur. WhatsApp Web के लिए visual privacy.'
+    finalTitle: 'आपकी स्क्रीन को सब कुछ दिखाने की आवश्यकता नहीं है।',
+    finalText: 'AgioBlur इंस्टॉल करें और सार्वजनिक रूप से WhatsApp Web को सुरक्षित बनाएं।',
+    proPrice: '₹149 INR',
+    footer: '© 2026 AgioBlur. WhatsApp Web के लिए एक स्वतंत्र दृश्य गोपनीयता उपकरण.'
   },
   ar: {
     navInstall: 'تثبيت',
-    navUpgrade: 'ترقية Pro',
-    eyebrow: 'خصوصية بصرية لـ WhatsApp Web',
-    headline: 'AgioBlur',
-    lede: 'قم بتمويه المحادثات والأسماء والصور والوسائط والبيانات الحساسة في WhatsApp Web قبل أن يراها الآخرون.',
-    install: 'تثبيت الإضافة',
-    proCta: 'عرض Pro',
+    navUpgrade: 'الترقية إلى Pro',
+    eyebrow: 'ضد العيون المتطفلة',
+    headline: 'محادثتك تبقى لك.',
+    lede: 'قم تلقائيًا بتعتيم الرسائل والأسماء والصور والمعلومات الحساسة على WhatsApp Web قبل أن يرى أي شخص شاشتك.',
+    install: 'تثبيت مجاني',
+    proCta: 'اكتشف Pro',
     trust: ['محلي داخل المتصفح', '10 لغات', 'مجاني + Pro'],
     trustText: ['بدون تتبع للمحادثات', 'واجهة جاهزة للاستخدام العالمي', 'ابدأ مجاناً وافتح أدوات متقدمة'],
     featuresTitle: 'حماية واضحة وتحكم سريع',
@@ -450,8 +459,9 @@ const CONTENT = {
       ['هل يعمل Pro دون اتصال؟', 'يستخدم Pro إيصالاً موقّعاً قصير المدة وسماحية محدودة دون اتصال.']
     ],
     finalTitle: 'لا يجب أن تكشف شاشتك كل شيء.',
-    finalText: 'ثبّت AgioBlur واجعل WhatsApp Web أكثر أماناً في الأماكن العامة.',
-    footer: 'AgioBlur. خصوصية بصرية لـ WhatsApp Web.'
+    finalText: 'قم بتثبيت AgioBlur واجعل WhatsApp Web أكثر أمانًا في الأماكن العامة.',
+    proPrice: '$2.99 USD',
+    footer: '© 2026 AgioBlur. أداة خصوصية بصرية مستقلة لـ WhatsApp Web.'
   }
 };
 
@@ -493,11 +503,10 @@ function render() {
           <div class="nav-actions">
             <div class="language-picker">
               <button class="language-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
-                <span>${currentLanguage[0]}</span>
-                <small>${currentLanguage[1]}</small>
+                <span>${currentLanguage[1]}</span>
               </button>
               <div class="language-menu" role="listbox" hidden>
-                ${LANGUAGES.map(([code, label]) => `<button type="button" role="option" aria-selected="${code === locale}" data-lang="${code}"><span>${code}</span><small>${label}</small></button>`).join('')}
+                ${LANGUAGES.map(([code, label]) => `<button type="button" role="option" aria-selected="${code === locale}" data-lang="${code}"><span>${label}</span></button>`).join('')}
               </div>
             </div>
             <a class="button secondary" href="#pricing">${t.navUpgrade}</a>
@@ -571,7 +580,7 @@ function render() {
               <article class="plan pro">
                 <h3>${t.pro}</h3>
                 <p>${t.proDesc}</p>
-                <div class="plan-price"><strong>Pro</strong><span></span></div>
+                <div class="plan-price"><strong>${t.proPrice}</strong><span></span></div>
                 <ul>${t.proItems.map(item => `<li>${item}</li>`).join('')}</ul>
                 <a class="button primary checkout-link" href="${checkoutUrl(locale)}">${t.buyPro}</a>
               </article>
