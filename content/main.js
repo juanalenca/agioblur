@@ -34,7 +34,7 @@ function applyFullScreenBlur(isActive) {
       overlay.style.backdropFilter = 'blur(15px)';
       overlay.style.background = 'rgba(0, 0, 0, 0.4)';
       overlay.style.transition = 'opacity 0.3s ease';
-      document.documentElement.appendChild(overlay);
+      document.body.appendChild(overlay);
     }
     overlay.style.display = 'block';
     overlay.style.opacity = '1';
@@ -161,7 +161,7 @@ function listenForStorageChanges() {
       }
       
       applyFullScreenBlur(incoming.fullScreenBlur);
-      window.dispatchEvent(new Event('mousemove'));
+      window.dispatchEvent(new Event('wpb-settings-updated'));
 
       if (piiChanged && typeof WPB_PII !== 'undefined' && WPB_STATE.getIsPremium()) {
         WPB_PII.restore(document.body);
@@ -189,6 +189,8 @@ function setupInactivityListener() {
       return;
     }
 
+    if (e && !e.isTrusted && e.type !== 'wpb-settings-updated') return;
+
     if (e && e.type === 'mousemove') {
       if (typeof window.lastMouseX !== 'undefined') {
         const dx = Math.abs(e.clientX - window.lastMouseX);
@@ -201,7 +203,7 @@ function setupInactivityListener() {
 
     if (isCurrentlyAutoBlurred) {
       if (document.visibilityState === 'hidden') return;
-      if (e && (e.type === 'mousemove' || e.type === 'scroll')) {
+      if (e && (e.type === 'mousemove' || e.type === 'scroll' || e.type === 'keydown' || e.type === 'click' || e.type === 'touchstart')) {
         if (inactivityTimer) clearTimeout(inactivityTimer);
         const minutes = parseInt(settings.autoBlurTimer, 10) || 5;
         inactivityTimer = setTimeout(triggerAutoBlur, minutes * 60 * 1000);
@@ -222,7 +224,7 @@ function setupInactivityListener() {
     applyFullScreenBlur(true);
   };
 
-  const events = ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'];
+  const events = ['mousemove', 'keydown', 'scroll', 'click', 'touchstart', 'wpb-settings-updated'];
   events.forEach(evt => window.addEventListener(evt, resetTimer, { passive: true }));
   
   // Initial setup
