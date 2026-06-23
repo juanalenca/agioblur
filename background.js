@@ -333,8 +333,35 @@ chrome.runtime.onStartup.addListener(() => {
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === 'license-check') {
+  if (alarm.name === 'validateLicense') {
     validateLicenseNow();
+  }
+});
+
+chrome.commands.onCommand.addListener(async (command) => {
+  const ALL_CATEGORIES = ['photos', 'names', 'messages', 'media', 'compose', 'piiCpf', 'piiEmail', 'piiCard', 'piiPhone', 'piiPix'];
+  const data = await chrome.storage.local.get(['wpbCategories', 'wpbSettings', 'license_key', 'license_receipt_signature']);
+  
+  // Verify if Pro is active, as some features are Pro. Wait, toggling applies to whatever is available.
+  const cats = data.wpbCategories || {};
+  const newCats = { ...cats };
+  const settings = data.wpbSettings || {};
+
+  if (command === 'toggle-privacy') {
+    // Decide based on the 'messages' category which is the main one. If missing, assume it was true (default) and we should toggle to false.
+    const isCurrentlyActive = cats.hasOwnProperty('messages') ? cats.messages : true;
+    const targetState = !isCurrentlyActive;
+    
+    for (const key of ALL_CATEGORIES) {
+      newCats[key] = targetState;
+    }
+    await chrome.storage.local.set({ wpbCategories: newCats });
+  } else if (command === 'lock-privacy') {
+    for (const key of ALL_CATEGORIES) {
+      newCats[key] = true;
+    }
+    settings.solidMode = true;
+    await chrome.storage.local.set({ wpbCategories: newCats, wpbSettings: settings });
   }
 });
 

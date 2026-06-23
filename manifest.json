@@ -40,6 +40,22 @@
       "128": "icons/icon128.png"
     }
   },
+  "commands": {
+    "toggle-privacy": {
+      "suggested_key": {
+        "default": "Alt+Z",
+        "mac": "Alt+Z"
+      },
+      "description": "__MSG_cmdTogglePrivacy__"
+    },
+    "lock-privacy": {
+      "suggested_key": {
+        "default": "Alt+X",
+        "mac": "Alt+X"
+      },
+      "description": "__MSG_cmdLockPrivacy__"
+    }
+  },
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",
