@@ -143,6 +143,70 @@ function listenForStorageChanges() {
   });
 }
 
+let inactivityTimer = null;
+let savedStateBeforeInactivity = null;
+let isCurrentlyAutoBlurred = false;
+
+function setupInactivityListener() {
+  const resetTimer = () => {
+    const settings = WPB_STATE.getSettings();
+    if (!settings.autoBlurEnabled || !WPB_STATE.getIsPremium()) {
+      if (inactivityTimer) clearTimeout(inactivityTimer);
+      return;
+    }
+
+    if (isCurrentlyAutoBlurred) {
+      isCurrentlyAutoBlurred = false;
+      if (savedStateBeforeInactivity) {
+        WPB_STATE.setCategoryState(savedStateBeforeInactivity.categories);
+        applySettingsToRoot(savedStateBeforeInactivity.settings);
+        WPB_STATE.setSettings(savedStateBeforeInactivity.settings);
+        
+        for (const [key, active] of Object.entries(savedStateBeforeInactivity.categories)) {
+          if (!active) WPB_DOM.clearCategory(key);
+        }
+        WPB_DOM.scanAndApply(document);
+        
+        if (typeof WPB_PII !== 'undefined') {
+          WPB_PII.restore(document.body);
+          if (WPB_STATE.getIsPremium()) WPB_PII.scan(document.body);
+        }
+        savedStateBeforeInactivity = null;
+      }
+    }
+
+    if (inactivityTimer) clearTimeout(inactivityTimer);
+    
+    const minutes = parseInt(settings.autoBlurTimer, 10) || 5;
+    inactivityTimer = setTimeout(triggerAutoBlur, minutes * 60 * 1000);
+  };
+
+  const triggerAutoBlur = () => {
+    isCurrentlyAutoBlurred = true;
+    savedStateBeforeInactivity = {
+      categories: { ...WPB_STATE.getCategoryState() },
+      settings: { ...WPB_STATE.getSettings() }
+    };
+
+    const ALL_CATEGORIES = ['photos', 'names', 'messages', 'media', 'compose', 'piiCpf', 'piiEmail', 'piiCard', 'piiPhone', 'piiPix'];
+    const newCats = {};
+    for (const key of ALL_CATEGORIES) newCats[key] = true;
+    
+    const newSettings = { ...WPB_STATE.getSettings(), solidMode: true };
+    
+    WPB_STATE.setCategoryState(newCats);
+    applySettingsToRoot(newSettings);
+    WPB_STATE.setSettings(newSettings);
+    WPB_DOM.scanAndApply(document);
+  };
+
+  const events = ['mousemove', 'keydown', 'scroll', 'click', 'touchstart'];
+  events.forEach(evt => window.addEventListener(evt, resetTimer, { passive: true }));
+  
+  // Initial setup
+  resetTimer();
+}
+
 /**
  * Escuta comandos vindos do popup
  */
@@ -275,6 +339,11 @@ async function initialize() {
   
   listenForStorageChanges();
   listenForRuntimeMessages();
+
+  // Observer do WhatsApp
+  WPB_DOM.initObserver();
+  
+  setupInactivityListener();
 }
 
 initialize();
