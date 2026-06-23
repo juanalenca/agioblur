@@ -128,6 +128,14 @@ const POPUP_UI = (function() {
       }
       elements.sliderBlur.value = POPUP_CONSTANTS.DEFAULTS_SETTINGS.blurIntensity;
       elements.blurLabel.textContent = POPUP_CONSTANTS.DEFAULTS_SETTINGS.blurIntensity + 'px';
+    } else {
+      const currentSettings = POPUP_STATE.getSettings();
+      if (elements.sliderAutoBlur) {
+        elements.sliderAutoBlur.value = currentSettings.autoBlurTimer || 5;
+        if (elements.autoBlurLabel) elements.autoBlurLabel.textContent = (currentSettings.autoBlurTimer || 5) + 'm';
+      }
+      elements.sliderBlur.value = currentSettings.blurIntensity || 8;
+      elements.blurLabel.textContent = (currentSettings.blurIntensity || 8) + 'px';
     }
 
     const pinSettings = document.getElementById('pin-settings');
@@ -138,6 +146,11 @@ const POPUP_UI = (function() {
     if (fakeDataRow) fakeDataRow.classList.toggle('premium-locked', !isPremium);
     const autoBlurRow = document.querySelector('[data-feature-row="autoBlur"]');
     if (autoBlurRow) autoBlurRow.classList.toggle('premium-locked', !isPremium);
+    
+    const settings = POPUP_STATE.getSettings();
+    if (elements.autoBlurContainer) {
+      elements.autoBlurContainer.style.display = (settings.autoBlurEnabled && isPremium) ? 'block' : 'none';
+    }
     const autoBlurTimerRow = document.querySelector('[data-feature-row="autoBlurTimer"]');
     if (autoBlurTimerRow) autoBlurTimerRow.classList.toggle('premium-locked', !isPremium);
   }
