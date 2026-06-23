@@ -1,221 +1,221 @@
 {
-    "extName":  {
-                    "message":  "AgioBlur | Confidentialité WhatsApp Web"
-                },
-    "extDescription":  {
-                           "message":  "Floute les informations confidentielles sur WhatsApp Web. Protection d\u0027écran et filtres de données."
-                       },
-    "titleContentProtection":  {
-                                   "message":  "Protection du contenu"
-                               },
-    "labelPhotos":  {
-                        "message":  "Photos de profil"
-                    },
-    "labelNames":  {
-                       "message":  "Noms / Numéros"
-                   },
-    "labelMessages":  {
-                          "message":  "Aperçu des messages"
-                      },
-    "labelMedia":  {
-                       "message":  "Miniatures des médias"
-                   },
-    "labelCompose":  {
-                         "message":  "Zone de saisie"
-                     },
-    "btnAllOn":  {
-                     "message":  "Tout activer"
-                 },
-    "btnAllOff":  {
-                      "message":  "Tout désactiver"
-                  },
-    "titleLgpdFilters":  {
-                             "message":  "Filtres intelligents (PII/RGPD)"
-                         },
-    "descLgpdFilters":  {
-                            "message":  "Floute les données confidentielles. Survolez pour révéler."
-                        },
-    "labelCpf":  {
-                     "message":  "Pièces d\u0027identité"
-                 },
-    "labelEmail":  {
-                       "message":  "E-mails"
-                   },
-    "labelCard":  {
-                      "message":  "Cartes de crédit"
-                  },
-    "labelPhone":  {
-                       "message":  "Numéros de téléphone"
-                   },
-    "labelPix":  {
-                     "message":  "Données bancaires"
-                 },
-    "titleCustomization":  {
-                               "message":  "Personnalisation"
-                           },
-    "labelIntensity":  {
-                           "message":  "Intensité"
-                       },
-    "labelSolidMode":  {
-                           "message":  "Masquage opaque"
-                       },
-    "descSolidMode":  {
-                          "message":  "Utilise une barre noire unie au lieu d\u0027un flou léger."
-                      },
-    "labelFakeData":  {
-                          "message":  "Données factices"
-                      },
-    "descFakeData":  {
-                         "message":  "Remplace le vrai texte par des fausses données générées."
-                     },
-    "titleSecurity":  {
-                          "message":  "Sécurité"
-                      },
-    "descSecurity":  {
-                         "message":  "Un code PIN verrouille les paramètres et empêche le survol pour révéler."
-                     },
-    "placeholderPin":  {
-                           "message":  "Entrez le code PIN..."
-                       },
-    "btnSavePin":  {
-                       "message":  "Enregistrer le PIN"
-                   },
-    "textPinActive":  {
-                          "message":  "Session protégée par code PIN."
-                      },
-    "btnRemovePin":  {
-                         "message":  "Supprimer le PIN"
-                     },
-    "btnRelock":  {
-                      "message":  "Verrouiller"
-                  },
-    "overlayTitle":  {
-                         "message":  "Extension verrouillée"
-                     },
-    "overlayDesc":  {
-                        "message":  "Votre session de sécurité a expiré. Entrez votre code PIN pour y accéder."
-                    },
-    "btnUnlock":  {
-                      "message":  "Déverrouiller"
-                  },
-    "alertPinLength":  {
-                           "message":  "Le code PIN doit comporter au moins 3 caractères."
-                       },
-    "alertPinIncorrect":  {
-                              "message":  "Code PIN incorrect !"
-                          },
-    "alertPinRemoveLock":  {
-                               "message":  "Pour supprimer un code PIN, entrez-le correctement et cliquez sur Supprimer."
-                           },
-    "fakeNamesList":  {
-                          "message":  "Client,Fournisseur,Contact VIP,Jean,Marie,Pierre,Anne,Charles"
-                      },
-    "btnFactoryReset":  {
-                            "message":  "Code PIN oublié (Réinitialiser l\u0027extension)"
-                        },
-    "btnConfirmReset":  {
-                            "message":  "Rétablir défauts \u0026 effacer PIN? Cliquez à nouveau"
-                        },
-    "fakeMessageEmpty":  {
-                             "message":  "Message..."
-                         },
-    "fakeMessageShort":  {
-                             "message":  "Compris !"
-                         },
-    "fakeMessageMedium":  {
-                              "message":  "Entendu, noté."
-                          },
-    "fakeMessageLong":  {
-                            "message":  "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        },
-    "tabFree":  {
-                    "message":  "Gratuit"
-                },
-    "tabPro":  {
-                   "message":  "Pro"
-               },
-    "titleFreeFeatures":  {
-                              "message":  "Fonctions gratuites"
-                          },
-    "titleProPlan":  {
-                         "message":  "Offre Pro"
-                     },
-    "titleProFeatures":  {
-                             "message":  "Fonctions Pro"
-                         },
-    "licenseEyebrow":  {
-                           "message":  "Statut de licence"
-                       },
-    "licenseStatusFree":  {
-                              "message":  "Offre gratuite active. Fonctions Pro verrouillées."
-                          },
-    "licenseStatusPro":  {
-                             "message":  "Licence active. Fonctions Pro débloquées."
-                         },
-    "licenseHelp":  {
-                        "message":  "Activez Pro pour débloquer messages, médias, filtres de données, Fake Data, PIN et intensité personnalisée."
-                    },
-    "placeholderLicenseKey":  {
-                                  "message":  "XXXX-XXXX-XXXX-XXXX"
-                              },
-    "btnActivateLicense":  {
-                               "message":  "Activer"
-                           },
-    "btnUpgradePro":  {
-                          "message":  "Passer Pro"
-                      },
-    "btnRefreshLicense":  {
-                              "message":  "Actualiser"
-                          },
-    "btnResetDevices":  {
-                            "message":  "Réinitialiser les appareils"
-                        },
-    "msgProFeatureLocked":  {
-                                "message":  "Fonction Pro. Activez une licence pour la débloquer."
-                            },
-    "msgProSettingLocked":  {
-                                "message":  "Réglage Pro. Activez une licence pour le débloquer."
-                            },
-    "msgPinProOnly":  {
-                          "message":  "Le PIN est une fonction Pro."
-                      },
-    "msgEnterLicenseKey":  {
-                               "message":  "Saisissez une clé de licence."
-                           },
-    "msgValidatingLicense":  {
-                                 "message":  "Validation de la licence..."
-                             },
-    "msgLicenseActivated":  {
-                                "message":  "Licence activée avec succès."
-                            },
-    "msgDeviceLimit":  {
-                           "message":  "Limite d’appareils atteinte. Demandez une réinitialisation par e-mail."
-                       },
-    "msgLicenseActivationFailed":  {
-                                       "message":  "Impossible d’activer cette licence."
-                                   },
-    "msgRefreshingLicense":  {
-                                 "message":  "Actualisation du statut..."
-                             },
-    "msgLicenseProActive":  {
-                                "message":  "Licence Pro active."
-                            },
-    "msgLicenseFreeActive":  {
-                                 "message":  "Offre gratuite active."
-                             },
-    "msgEnterKeyForReset":  {
-                                "message":  "Saisissez la clé pour demander la réinitialisation."
-                            },
-    "msgResetEmailSent":  {
-                              "message":  "E-mail de confirmation envoyé."
-                          },
-    "msgResetFailed":  {
-                           "message":  "Impossible de demander la réinitialisation."
-                       },
-    "cmdTogglePrivacy":  {
-                             "message":  "Ligar/Desligar Privacidade"
-                         },
-    "cmdLockPrivacy":  {
-                           "message":  "Censura Total (Modo P�nico)"
-                       }
+  "extName": {
+    "message": "AgioBlur | Confidentialité WhatsApp Web"
+  },
+  "extDescription": {
+    "message": "Floute les informations confidentielles sur WhatsApp Web. Protection d'écran et filtres de données."
+  },
+  "titleContentProtection": {
+    "message": "Protection du contenu"
+  },
+  "labelPhotos": {
+    "message": "Photos de profil"
+  },
+  "labelNames": {
+    "message": "Noms / Numéros"
+  },
+  "labelMessages": {
+    "message": "Aperçu des messages"
+  },
+  "labelMedia": {
+    "message": "Miniatures des médias"
+  },
+  "labelCompose": {
+    "message": "Zone de saisie"
+  },
+  "btnAllOn": {
+    "message": "Tout activer"
+  },
+  "btnAllOff": {
+    "message": "Tout désactiver"
+  },
+  "titleLgpdFilters": {
+    "message": "Filtres intelligents (PII/RGPD)"
+  },
+  "descLgpdFilters": {
+    "message": "Floute les données confidentielles. Survolez pour révéler."
+  },
+  "labelCpf": {
+    "message": "Pièces d'identité"
+  },
+  "labelEmail": {
+    "message": "E-mails"
+  },
+  "labelCard": {
+    "message": "Cartes de crédit"
+  },
+  "labelPhone": {
+    "message": "Numéros de téléphone"
+  },
+  "labelPix": {
+    "message": "Données bancaires"
+  },
+  "titleCustomization": {
+    "message": "Personnalisation"
+  },
+  "labelIntensity": {
+    "message": "Intensité"
+  },
+  "labelSolidMode": {
+    "message": "Masquage opaque"
+  },
+  "descSolidMode": {
+    "message": "Utilise une barre noire unie au lieu d'un flou léger."
+  },
+  "labelFakeData": {
+    "message": "Données factices"
+  },
+  "descFakeData": {
+    "message": "Remplace le vrai texte par des fausses données générées."
+  },
+  "titleSecurity": {
+    "message": "Sécurité"
+  },
+  "descSecurity": {
+    "message": "Un code PIN verrouille les paramètres et empêche le survol pour révéler."
+  },
+  "placeholderPin": {
+    "message": "Entrez le code PIN..."
+  },
+  "btnSavePin": {
+    "message": "Enregistrer le PIN"
+  },
+  "textPinActive": {
+    "message": "Session protégée par code PIN."
+  },
+  "btnRemovePin": {
+    "message": "Supprimer le PIN"
+  },
+  "btnRelock": {
+    "message": "Verrouiller"
+  },
+  "overlayTitle": {
+    "message": "Extension verrouillée"
+  },
+  "overlayDesc": {
+    "message": "Votre session de sécurité a expiré. Entrez votre code PIN pour y accéder."
+  },
+  "btnUnlock": {
+    "message": "Déverrouiller"
+  },
+  "alertPinLength": {
+    "message": "Le code PIN doit comporter au moins 3 caractères."
+  },
+  "alertPinIncorrect": {
+    "message": "Code PIN incorrect !"
+  },
+  "alertPinRemoveLock": {
+    "message": "Pour supprimer un code PIN, entrez-le correctement et cliquez sur Supprimer."
+  },
+  "fakeNamesList": {
+    "message": "Client,Fournisseur,Contact VIP,Jean,Marie,Pierre,Anne,Charles"
+  },
+  "btnFactoryReset": {
+    "message": "Code PIN oublié (Réinitialiser l'extension)"
+  },
+  "btnConfirmReset": {
+    "message": "Rétablir défauts & effacer PIN? Cliquez à nouveau"
+  },
+  "fakeMessageEmpty": {
+    "message": "Message..."
+  },
+  "fakeMessageShort": {
+    "message": "Compris !"
+  },
+  "fakeMessageMedium": {
+    "message": "Entendu, noté."
+  },
+  "fakeMessageLong": {
+    "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+  },
+  "tabFree": {
+    "message": "Gratuit"
+  },
+  "tabPro": {
+    "message": "Pro"
+  },
+  "titleFreeFeatures": {
+    "message": "Fonctions gratuites"
+  },
+  "titleProPlan": {
+    "message": "Offre Pro"
+  },
+  "titleProFeatures": {
+    "message": "Fonctions Pro"
+  },
+  "licenseEyebrow": {
+    "message": "Statut de licence"
+  },
+  "licenseStatusFree": {
+    "message": "Offre gratuite active. Fonctions Pro verrouillées."
+  },
+  "licenseStatusPro": {
+    "message": "Licence active. Fonctions Pro débloquées."
+  },
+  "licenseHelp": {
+    "message": "Activez Pro pour débloquer messages, médias, filtres de données, Fake Data, PIN et intensité personnalisée."
+  },
+  "placeholderLicenseKey": {
+    "message": "XXXX-XXXX-XXXX-XXXX"
+  },
+  "btnActivateLicense": {
+    "message": "Activer"
+  },
+  "btnUpgradePro": {
+    "message": "Passer Pro"
+  },
+  "btnRefreshLicense": {
+    "message": "Actualiser"
+  },
+  "btnResetDevices": {
+    "message": "Réinitialiser les appareils"
+  },
+  "msgProFeatureLocked": {
+    "message": "Fonction Pro. Activez une licence pour la débloquer."
+  },
+  "msgProSettingLocked": {
+    "message": "Réglage Pro. Activez une licence pour le débloquer."
+  },
+  "msgPinProOnly": {
+    "message": "Le PIN est une fonction Pro."
+  },
+  "msgEnterLicenseKey": {
+    "message": "Saisissez une clé de licence."
+  },
+  "msgValidatingLicense": {
+    "message": "Validation de la licence..."
+  },
+  "msgLicenseActivated": {
+    "message": "Licence activée avec succès."
+  },
+  "msgDeviceLimit": {
+    "message": "Limite d’appareils atteinte. Demandez une réinitialisation par e-mail."
+  },
+  "msgLicenseActivationFailed": {
+    "message": "Impossible d’activer cette licence."
+  },
+  "msgRefreshingLicense": {
+    "message": "Actualisation du statut..."
+  },
+  "msgLicenseProActive": {
+    "message": "Licence Pro active."
+  },
+  "msgLicenseFreeActive": {
+    "message": "Offre gratuite active."
+  },
+  "msgEnterKeyForReset": {
+    "message": "Saisissez la clé pour demander la réinitialisation."
+  },
+  "msgResetEmailSent": {
+    "message": "E-mail de confirmation envoyé."
+  },
+  "msgResetFailed": {
+    "message": "Impossible de demander la réinitialisation."
+  },
+  "cmdTogglePrivacy": {
+    "message": "Basculer la confidentialité"
+  },
+  "cmdLockPrivacy": {
+    "message": "Censure totale (Mode Panique)"
+  }
 }

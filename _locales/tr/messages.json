@@ -1,221 +1,221 @@
 {
-    "extName":  {
-                    "message":  "AgioBlur | WhatsApp Web Gizliliği"
-                },
-    "extDescription":  {
-                           "message":  "WhatsApp Web\u0027de gizli bilgileri bulanıklaştırır. Ekran koruması ve veri filtreleri."
-                       },
-    "titleContentProtection":  {
-                                   "message":  "İçerik Koruması"
-                               },
-    "labelPhotos":  {
-                        "message":  "Profil fotoğrafları"
-                    },
-    "labelNames":  {
-                       "message":  "İsimler / Numaralar"
-                   },
-    "labelMessages":  {
-                          "message":  "Mesaj listesi"
-                      },
-    "labelMedia":  {
-                       "message":  "Medya küçük resimleri"
-                   },
-    "labelCompose":  {
-                         "message":  "Metin Giriş Alanı"
-                     },
-    "btnAllOn":  {
-                     "message":  "Tümünü Etkinleştir"
-                 },
-    "btnAllOff":  {
-                      "message":  "Tümünü Devre Dışı Bırak"
-                  },
-    "titleLgpdFilters":  {
-                             "message":  "Akıllı Filtreler (PII/KVKK)"
-                         },
-    "descLgpdFilters":  {
-                            "message":  "Metinlerdeki gizli verileri bulanıklaştırır. Göstermek için üzerine gelin."
-                        },
-    "labelCpf":  {
-                     "message":  "Ulusal Kimlikler"
-                 },
-    "labelEmail":  {
-                       "message":  "E-postalar"
-                   },
-    "labelCard":  {
-                      "message":  "Kredi Kartları"
-                  },
-    "labelPhone":  {
-                       "message":  "Telefon Numaraları"
-                   },
-    "labelPix":  {
-                     "message":  "Banka Bilgileri"
-                 },
-    "titleCustomization":  {
-                               "message":  "Özelleştirme"
-                           },
-    "labelIntensity":  {
-                           "message":  "Yoğunluk"
-                       },
-    "labelSolidMode":  {
-                           "message":  "Opak Maskeleme"
-                       },
-    "descSolidMode":  {
-                          "message":  "Hafif bulanıklık yerine katı siyah bir çubuk kullanır."
-                      },
-    "labelFakeData":  {
-                          "message":  "Kurgusal Veri"
-                      },
-    "descFakeData":  {
-                         "message":  "Gerçek metni oluşturulan sahte verilerle değiştirir."
-                     },
-    "titleSecurity":  {
-                          "message":  "Güvenlik"
-                      },
-    "descSecurity":  {
-                         "message":  "PIN, ayarları kilitler ve fareyle üzerine gelindiğinde içeriğin gösterilmesini engeller."
-                     },
-    "placeholderPin":  {
-                           "message":  "PIN Girin..."
-                       },
-    "btnSavePin":  {
-                       "message":  "PIN\u0027i Kaydet"
-                   },
-    "textPinActive":  {
-                          "message":  "Oturum PIN ile korunuyor."
-                      },
-    "btnRemovePin":  {
-                         "message":  "PIN\u0027i Kaldır"
-                     },
-    "btnRelock":  {
-                      "message":  "Şimdi Kilitle"
-                  },
-    "overlayTitle":  {
-                         "message":  "Eklenti Kilitli"
-                     },
-    "overlayDesc":  {
-                        "message":  "Güvenlik oturumunuzun süresi doldu. Erişmek için PIN\u0027inizi girin."
-                    },
-    "btnUnlock":  {
-                      "message":  "Kilidi Aç"
-                  },
-    "alertPinLength":  {
-                           "message":  "PIN en az 3 karakter olmalıdır."
-                       },
-    "alertPinIncorrect":  {
-                              "message":  "Yanlış PIN!"
-                          },
-    "alertPinRemoveLock":  {
-                               "message":  "Kilitli bir PIN\u0027i kaldırmak için doğru PIN\u0027i girin ve PIN\u0027i Kaldır\u0027a tıklayın."
-                           },
-    "fakeNamesList":  {
-                          "message":  "Müşteri,Tedarikçi,VIP Kişi,Ahmet,Ayşe,Mehmet,Fatma,Ali"
-                      },
-    "btnFactoryReset":  {
-                            "message":  "PIN\u0027imi Unuttum (Eklentiyi Sıfırla)"
-                        },
-    "btnConfirmReset":  {
-                            "message":  "Varsayılanlar ve PIN sıfırlansın mı? Tekrar tıkla"
-                        },
-    "fakeMessageEmpty":  {
-                             "message":  "Mesaj..."
-                         },
-    "fakeMessageShort":  {
-                             "message":  "Anlaşıldı!"
-                         },
-    "fakeMessageMedium":  {
-                              "message":  "Tamam, anlaştık."
-                          },
-    "fakeMessageLong":  {
-                            "message":  "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        },
-    "tabFree":  {
-                    "message":  "Ücretsiz"
-                },
-    "tabPro":  {
-                   "message":  "Pro"
-               },
-    "titleFreeFeatures":  {
-                              "message":  "Ücretsiz özellikler"
-                          },
-    "titleProPlan":  {
-                         "message":  "Pro plan"
-                     },
-    "titleProFeatures":  {
-                             "message":  "Pro özellikler"
-                         },
-    "licenseEyebrow":  {
-                           "message":  "Lisans durumu"
-                       },
-    "licenseStatusFree":  {
-                              "message":  "Ücretsiz plan aktif. Pro özellikler kilitli."
-                          },
-    "licenseStatusPro":  {
-                             "message":  "Lisans aktif. Pro özellikler açıldı."
-                         },
-    "licenseHelp":  {
-                        "message":  "Mesajlar, medya, veri filtreleri, Fake Data, PIN ve özel yoğunluk için Pro’yu etkinleştirin."
-                    },
-    "placeholderLicenseKey":  {
-                                  "message":  "XXXX-XXXX-XXXX-XXXX"
-                              },
-    "btnActivateLicense":  {
-                               "message":  "Etkinleştir"
-                           },
-    "btnUpgradePro":  {
-                          "message":  "Pro’ya geç"
-                      },
-    "btnRefreshLicense":  {
-                              "message":  "Yenile"
-                          },
-    "btnResetDevices":  {
-                            "message":  "Cihazları sıfırla"
-                        },
-    "msgProFeatureLocked":  {
-                                "message":  "Pro özelliği. Açmak için lisans etkinleştirin."
-                            },
-    "msgProSettingLocked":  {
-                                "message":  "Pro ayarı. Açmak için lisans etkinleştirin."
-                            },
-    "msgPinProOnly":  {
-                          "message":  "PIN bir Pro özelliğidir."
-                      },
-    "msgEnterLicenseKey":  {
-                               "message":  "Lisans anahtarı girin."
-                           },
-    "msgValidatingLicense":  {
-                                 "message":  "Lisans doğrulanıyor..."
-                             },
-    "msgLicenseActivated":  {
-                                "message":  "Lisans başarıyla etkinleştirildi."
-                            },
-    "msgDeviceLimit":  {
-                           "message":  "Cihaz sınırına ulaşıldı. E-posta ile sıfırlama isteyin."
-                       },
-    "msgLicenseActivationFailed":  {
-                                       "message":  "Bu lisans etkinleştirilemedi."
-                                   },
-    "msgRefreshingLicense":  {
-                                 "message":  "Durum yenileniyor..."
-                             },
-    "msgLicenseProActive":  {
-                                "message":  "Pro lisans aktif."
-                            },
-    "msgLicenseFreeActive":  {
-                                 "message":  "Ücretsiz plan aktif."
-                             },
-    "msgEnterKeyForReset":  {
-                                "message":  "Sıfırlama istemek için anahtarı girin."
-                            },
-    "msgResetEmailSent":  {
-                              "message":  "Onay e-postası gönderildi."
-                          },
-    "msgResetFailed":  {
-                           "message":  "Sıfırlama istenemedi."
-                       },
-    "cmdTogglePrivacy":  {
-                             "message":  "Ligar/Desligar Privacidade"
-                         },
-    "cmdLockPrivacy":  {
-                           "message":  "Censura Total (Modo P�nico)"
-                       }
+  "extName": {
+    "message": "AgioBlur | WhatsApp Web Gizliliği"
+  },
+  "extDescription": {
+    "message": "WhatsApp Web'de gizli bilgileri bulanıklaştırır. Ekran koruması ve veri filtreleri."
+  },
+  "titleContentProtection": {
+    "message": "İçerik Koruması"
+  },
+  "labelPhotos": {
+    "message": "Profil fotoğrafları"
+  },
+  "labelNames": {
+    "message": "İsimler / Numaralar"
+  },
+  "labelMessages": {
+    "message": "Mesaj listesi"
+  },
+  "labelMedia": {
+    "message": "Medya küçük resimleri"
+  },
+  "labelCompose": {
+    "message": "Metin Giriş Alanı"
+  },
+  "btnAllOn": {
+    "message": "Tümünü Etkinleştir"
+  },
+  "btnAllOff": {
+    "message": "Tümünü Devre Dışı Bırak"
+  },
+  "titleLgpdFilters": {
+    "message": "Akıllı Filtreler (PII/KVKK)"
+  },
+  "descLgpdFilters": {
+    "message": "Metinlerdeki gizli verileri bulanıklaştırır. Göstermek için üzerine gelin."
+  },
+  "labelCpf": {
+    "message": "Ulusal Kimlikler"
+  },
+  "labelEmail": {
+    "message": "E-postalar"
+  },
+  "labelCard": {
+    "message": "Kredi Kartları"
+  },
+  "labelPhone": {
+    "message": "Telefon Numaraları"
+  },
+  "labelPix": {
+    "message": "Banka Bilgileri"
+  },
+  "titleCustomization": {
+    "message": "Özelleştirme"
+  },
+  "labelIntensity": {
+    "message": "Yoğunluk"
+  },
+  "labelSolidMode": {
+    "message": "Opak Maskeleme"
+  },
+  "descSolidMode": {
+    "message": "Hafif bulanıklık yerine katı siyah bir çubuk kullanır."
+  },
+  "labelFakeData": {
+    "message": "Kurgusal Veri"
+  },
+  "descFakeData": {
+    "message": "Gerçek metni oluşturulan sahte verilerle değiştirir."
+  },
+  "titleSecurity": {
+    "message": "Güvenlik"
+  },
+  "descSecurity": {
+    "message": "PIN, ayarları kilitler ve fareyle üzerine gelindiğinde içeriğin gösterilmesini engeller."
+  },
+  "placeholderPin": {
+    "message": "PIN Girin..."
+  },
+  "btnSavePin": {
+    "message": "PIN'i Kaydet"
+  },
+  "textPinActive": {
+    "message": "Oturum PIN ile korunuyor."
+  },
+  "btnRemovePin": {
+    "message": "PIN'i Kaldır"
+  },
+  "btnRelock": {
+    "message": "Şimdi Kilitle"
+  },
+  "overlayTitle": {
+    "message": "Eklenti Kilitli"
+  },
+  "overlayDesc": {
+    "message": "Güvenlik oturumunuzun süresi doldu. Erişmek için PIN'inizi girin."
+  },
+  "btnUnlock": {
+    "message": "Kilidi Aç"
+  },
+  "alertPinLength": {
+    "message": "PIN en az 3 karakter olmalıdır."
+  },
+  "alertPinIncorrect": {
+    "message": "Yanlış PIN!"
+  },
+  "alertPinRemoveLock": {
+    "message": "Kilitli bir PIN'i kaldırmak için doğru PIN'i girin ve PIN'i Kaldır'a tıklayın."
+  },
+  "fakeNamesList": {
+    "message": "Müşteri,Tedarikçi,VIP Kişi,Ahmet,Ayşe,Mehmet,Fatma,Ali"
+  },
+  "btnFactoryReset": {
+    "message": "PIN'imi Unuttum (Eklentiyi Sıfırla)"
+  },
+  "btnConfirmReset": {
+    "message": "Varsayılanlar ve PIN sıfırlansın mı? Tekrar tıkla"
+  },
+  "fakeMessageEmpty": {
+    "message": "Mesaj..."
+  },
+  "fakeMessageShort": {
+    "message": "Anlaşıldı!"
+  },
+  "fakeMessageMedium": {
+    "message": "Tamam, anlaştık."
+  },
+  "fakeMessageLong": {
+    "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+  },
+  "tabFree": {
+    "message": "Ücretsiz"
+  },
+  "tabPro": {
+    "message": "Pro"
+  },
+  "titleFreeFeatures": {
+    "message": "Ücretsiz özellikler"
+  },
+  "titleProPlan": {
+    "message": "Pro plan"
+  },
+  "titleProFeatures": {
+    "message": "Pro özellikler"
+  },
+  "licenseEyebrow": {
+    "message": "Lisans durumu"
+  },
+  "licenseStatusFree": {
+    "message": "Ücretsiz plan aktif. Pro özellikler kilitli."
+  },
+  "licenseStatusPro": {
+    "message": "Lisans aktif. Pro özellikler açıldı."
+  },
+  "licenseHelp": {
+    "message": "Mesajlar, medya, veri filtreleri, Fake Data, PIN ve özel yoğunluk için Pro’yu etkinleştirin."
+  },
+  "placeholderLicenseKey": {
+    "message": "XXXX-XXXX-XXXX-XXXX"
+  },
+  "btnActivateLicense": {
+    "message": "Etkinleştir"
+  },
+  "btnUpgradePro": {
+    "message": "Pro’ya geç"
+  },
+  "btnRefreshLicense": {
+    "message": "Yenile"
+  },
+  "btnResetDevices": {
+    "message": "Cihazları sıfırla"
+  },
+  "msgProFeatureLocked": {
+    "message": "Pro özelliği. Açmak için lisans etkinleştirin."
+  },
+  "msgProSettingLocked": {
+    "message": "Pro ayarı. Açmak için lisans etkinleştirin."
+  },
+  "msgPinProOnly": {
+    "message": "PIN bir Pro özelliğidir."
+  },
+  "msgEnterLicenseKey": {
+    "message": "Lisans anahtarı girin."
+  },
+  "msgValidatingLicense": {
+    "message": "Lisans doğrulanıyor..."
+  },
+  "msgLicenseActivated": {
+    "message": "Lisans başarıyla etkinleştirildi."
+  },
+  "msgDeviceLimit": {
+    "message": "Cihaz sınırına ulaşıldı. E-posta ile sıfırlama isteyin."
+  },
+  "msgLicenseActivationFailed": {
+    "message": "Bu lisans etkinleştirilemedi."
+  },
+  "msgRefreshingLicense": {
+    "message": "Durum yenileniyor..."
+  },
+  "msgLicenseProActive": {
+    "message": "Pro lisans aktif."
+  },
+  "msgLicenseFreeActive": {
+    "message": "Ücretsiz plan aktif."
+  },
+  "msgEnterKeyForReset": {
+    "message": "Sıfırlama istemek için anahtarı girin."
+  },
+  "msgResetEmailSent": {
+    "message": "Onay e-postası gönderildi."
+  },
+  "msgResetFailed": {
+    "message": "Sıfırlama istenemedi."
+  },
+  "cmdTogglePrivacy": {
+    "message": "Gizliliği Değiştir"
+  },
+  "cmdLockPrivacy": {
+    "message": "Tam Sansür (Panik Modu)"
+  }
 }

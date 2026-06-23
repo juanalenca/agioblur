@@ -1,221 +1,221 @@
 {
-    "extName":  {
-                    "message":  "AgioBlur | خصوصية واتساب ويب"
-                },
-    "extDescription":  {
-                           "message":  "يطمس المعلومات السرية على واتساب ويب. حماية الشاشة وفلاتر البيانات."
-                       },
-    "titleContentProtection":  {
-                                   "message":  "حماية المحتوى"
-                               },
-    "labelPhotos":  {
-                        "message":  "صور الملف الشخصي"
-                    },
-    "labelNames":  {
-                       "message":  "الأسماء / الأرقام"
-                   },
-    "labelMessages":  {
-                          "message":  "معاينة الرسائل"
-                      },
-    "labelMedia":  {
-                       "message":  "الصور المصغرة للوسائط"
-                   },
-    "labelCompose":  {
-                         "message":  "حقل الكتابة"
-                     },
-    "btnAllOn":  {
-                     "message":  "تفعيل الكل"
-                 },
-    "btnAllOff":  {
-                      "message":  "تعطيل الكل"
-                  },
-    "titleLgpdFilters":  {
-                             "message":  "فلاتر ذكية (PII/LGPD)"
-                         },
-    "descLgpdFilters":  {
-                            "message":  "تطمس البيانات السرية في النصوص. مرر المؤشر للكشف عنها."
-                        },
-    "labelCpf":  {
-                     "message":  "الهويات الوطنية"
-                 },
-    "labelEmail":  {
-                       "message":  "رسائل البريد الإلكتروني"
-                   },
-    "labelCard":  {
-                      "message":  "البطاقات الائتمانية"
-                  },
-    "labelPhone":  {
-                       "message":  "أرقام الهواتف"
-                   },
-    "labelPix":  {
-                     "message":  "البيانات المصرفية"
-                 },
-    "titleCustomization":  {
-                               "message":  "تخصيص"
-                           },
-    "labelIntensity":  {
-                           "message":  "شدة التمويه"
-                       },
-    "labelSolidMode":  {
-                           "message":  "تعتيم مصمت"
-                       },
-    "descSolidMode":  {
-                          "message":  "يستخدم شريطًا أسودًا صلبًا بدلاً من التمويه الناعم."
-                      },
-    "labelFakeData":  {
-                          "message":  "بيانات وهمية"
-                      },
-    "descFakeData":  {
-                         "message":  "يستبدل النص الحقيقي ببيانات وهمية تم إنشاؤها."
-                     },
-    "titleSecurity":  {
-                          "message":  "الأمان"
-                      },
-    "descSecurity":  {
-                         "message":  "يقوم بقفل الإعدادات ويمنع رؤية المحتوى عند تمرير الفأرة."
-                     },
-    "placeholderPin":  {
-                           "message":  "أدخل رمز PIN..."
-                       },
-    "btnSavePin":  {
-                       "message":  "حفظ رمز PIN"
-                   },
-    "textPinActive":  {
-                          "message":  "الجلسة محمية برمز PIN."
-                      },
-    "btnRemovePin":  {
-                         "message":  "إزالة رمز PIN"
-                     },
-    "btnRelock":  {
-                      "message":  "قفل الآن"
-                  },
-    "overlayTitle":  {
-                         "message":  "الإضافة مقفلة"
-                     },
-    "overlayDesc":  {
-                        "message":  "انتهت صلاحية جلسة الأمان. يرجى إدخال رمز PIN للوصول إلى الإعدادات."
-                    },
-    "btnUnlock":  {
-                      "message":  "إلغاء القفل"
-                  },
-    "alertPinLength":  {
-                           "message":  "يجب أن يتكون رمز PIN من 3 أحرف على الأقل."
-                       },
-    "alertPinIncorrect":  {
-                              "message":  "رمز PIN غير صحيح!"
-                          },
-    "alertPinRemoveLock":  {
-                               "message":  "لإزالة رمز مقفل، أدخل رمز PIN الصحيح وانقر على إزالة رمز PIN."
-                           },
-    "fakeNamesList":  {
-                          "message":  "عميل,مورد,جهة اتصال هامة,أحمد,مريم,عمر,فاطمة,خالد"
-                      },
-    "btnFactoryReset":  {
-                            "message":  "نسيت رمز PIN (إعادة تعيين الإضافة)"
-                        },
-    "btnConfirmReset":  {
-                            "message":  "استعادة الإعدادات الافتراضية وحذف PIN؟ انقر مجددًا"
-                        },
-    "fakeMessageEmpty":  {
-                             "message":  "رسالة..."
-                         },
-    "fakeMessageShort":  {
-                             "message":  "جيد جدًا!"
-                         },
-    "fakeMessageMedium":  {
-                              "message":  "حسنًا، متفق عليه."
-                          },
-    "fakeMessageLong":  {
-                            "message":  "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        },
-    "tabFree":  {
-                    "message":  "مجاني"
-                },
-    "tabPro":  {
-                   "message":  "Pro"
-               },
-    "titleFreeFeatures":  {
-                              "message":  "ميزات مجانية"
-                          },
-    "titleProPlan":  {
-                         "message":  "خطة Pro"
-                     },
-    "titleProFeatures":  {
-                             "message":  "ميزات Pro"
-                         },
-    "licenseEyebrow":  {
-                           "message":  "حالة الترخيص"
-                       },
-    "licenseStatusFree":  {
-                              "message":  "الخطة المجانية نشطة. ميزات Pro مقفلة."
-                          },
-    "licenseStatusPro":  {
-                             "message":  "الترخيص نشط. ميزات Pro متاحة."
-                         },
-    "licenseHelp":  {
-                        "message":  "فعّل Pro لفتح الرسائل والوسائط وفلاتر البيانات وFake Data وPIN وشدة مخصصة."
-                    },
-    "placeholderLicenseKey":  {
-                                  "message":  "XXXX-XXXX-XXXX-XXXX"
-                              },
-    "btnActivateLicense":  {
-                               "message":  "تفعيل"
-                           },
-    "btnUpgradePro":  {
-                          "message":  "ترقية Pro"
-                      },
-    "btnRefreshLicense":  {
-                              "message":  "تحديث"
-                          },
-    "btnResetDevices":  {
-                            "message":  "إعادة ضبط الأجهزة"
-                        },
-    "msgProFeatureLocked":  {
-                                "message":  "ميزة Pro. فعّل الترخيص لفتحها."
-                            },
-    "msgProSettingLocked":  {
-                                "message":  "إعداد Pro. فعّل الترخيص لفتحه."
-                            },
-    "msgPinProOnly":  {
-                          "message":  "PIN ميزة Pro."
-                      },
-    "msgEnterLicenseKey":  {
-                               "message":  "أدخل مفتاح الترخيص."
-                           },
-    "msgValidatingLicense":  {
-                                 "message":  "جارٍ التحقق من الترخيص..."
-                             },
-    "msgLicenseActivated":  {
-                                "message":  "تم تفعيل الترخيص بنجاح."
-                            },
-    "msgDeviceLimit":  {
-                           "message":  "تم بلوغ حد الأجهزة. اطلب إعادة الضبط عبر البريد."
-                       },
-    "msgLicenseActivationFailed":  {
-                                       "message":  "تعذر تفعيل هذا الترخيص."
-                                   },
-    "msgRefreshingLicense":  {
-                                 "message":  "جارٍ تحديث الحالة..."
-                             },
-    "msgLicenseProActive":  {
-                                "message":  "ترخيص Pro نشط."
-                            },
-    "msgLicenseFreeActive":  {
-                                 "message":  "الخطة المجانية نشطة."
-                             },
-    "msgEnterKeyForReset":  {
-                                "message":  "أدخل المفتاح لطلب إعادة الضبط."
-                            },
-    "msgResetEmailSent":  {
-                              "message":  "تم إرسال بريد التأكيد."
-                          },
-    "msgResetFailed":  {
-                           "message":  "تعذر طلب إعادة الضبط."
-                       },
-    "cmdTogglePrivacy":  {
-                             "message":  "Ligar/Desligar Privacidade"
-                         },
-    "cmdLockPrivacy":  {
-                           "message":  "Censura Total (Modo P�nico)"
-                       }
+  "extName": {
+    "message": "AgioBlur | خصوصية واتساب ويب"
+  },
+  "extDescription": {
+    "message": "يطمس المعلومات السرية على واتساب ويب. حماية الشاشة وفلاتر البيانات."
+  },
+  "titleContentProtection": {
+    "message": "حماية المحتوى"
+  },
+  "labelPhotos": {
+    "message": "صور الملف الشخصي"
+  },
+  "labelNames": {
+    "message": "الأسماء / الأرقام"
+  },
+  "labelMessages": {
+    "message": "معاينة الرسائل"
+  },
+  "labelMedia": {
+    "message": "الصور المصغرة للوسائط"
+  },
+  "labelCompose": {
+    "message": "حقل الكتابة"
+  },
+  "btnAllOn": {
+    "message": "تفعيل الكل"
+  },
+  "btnAllOff": {
+    "message": "تعطيل الكل"
+  },
+  "titleLgpdFilters": {
+    "message": "فلاتر ذكية (PII/LGPD)"
+  },
+  "descLgpdFilters": {
+    "message": "تطمس البيانات السرية في النصوص. مرر المؤشر للكشف عنها."
+  },
+  "labelCpf": {
+    "message": "الهويات الوطنية"
+  },
+  "labelEmail": {
+    "message": "رسائل البريد الإلكتروني"
+  },
+  "labelCard": {
+    "message": "البطاقات الائتمانية"
+  },
+  "labelPhone": {
+    "message": "أرقام الهواتف"
+  },
+  "labelPix": {
+    "message": "البيانات المصرفية"
+  },
+  "titleCustomization": {
+    "message": "تخصيص"
+  },
+  "labelIntensity": {
+    "message": "شدة التمويه"
+  },
+  "labelSolidMode": {
+    "message": "تعتيم مصمت"
+  },
+  "descSolidMode": {
+    "message": "يستخدم شريطًا أسودًا صلبًا بدلاً من التمويه الناعم."
+  },
+  "labelFakeData": {
+    "message": "بيانات وهمية"
+  },
+  "descFakeData": {
+    "message": "يستبدل النص الحقيقي ببيانات وهمية تم إنشاؤها."
+  },
+  "titleSecurity": {
+    "message": "الأمان"
+  },
+  "descSecurity": {
+    "message": "يقوم بقفل الإعدادات ويمنع رؤية المحتوى عند تمرير الفأرة."
+  },
+  "placeholderPin": {
+    "message": "أدخل رمز PIN..."
+  },
+  "btnSavePin": {
+    "message": "حفظ رمز PIN"
+  },
+  "textPinActive": {
+    "message": "الجلسة محمية برمز PIN."
+  },
+  "btnRemovePin": {
+    "message": "إزالة رمز PIN"
+  },
+  "btnRelock": {
+    "message": "قفل الآن"
+  },
+  "overlayTitle": {
+    "message": "الإضافة مقفلة"
+  },
+  "overlayDesc": {
+    "message": "انتهت صلاحية جلسة الأمان. يرجى إدخال رمز PIN للوصول إلى الإعدادات."
+  },
+  "btnUnlock": {
+    "message": "إلغاء القفل"
+  },
+  "alertPinLength": {
+    "message": "يجب أن يتكون رمز PIN من 3 أحرف على الأقل."
+  },
+  "alertPinIncorrect": {
+    "message": "رمز PIN غير صحيح!"
+  },
+  "alertPinRemoveLock": {
+    "message": "لإزالة رمز مقفل، أدخل رمز PIN الصحيح وانقر على إزالة رمز PIN."
+  },
+  "fakeNamesList": {
+    "message": "عميل,مورد,جهة اتصال هامة,أحمد,مريم,عمر,فاطمة,خالد"
+  },
+  "btnFactoryReset": {
+    "message": "نسيت رمز PIN (إعادة تعيين الإضافة)"
+  },
+  "btnConfirmReset": {
+    "message": "استعادة الإعدادات الافتراضية وحذف PIN؟ انقر مجددًا"
+  },
+  "fakeMessageEmpty": {
+    "message": "رسالة..."
+  },
+  "fakeMessageShort": {
+    "message": "جيد جدًا!"
+  },
+  "fakeMessageMedium": {
+    "message": "حسنًا، متفق عليه."
+  },
+  "fakeMessageLong": {
+    "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+  },
+  "tabFree": {
+    "message": "مجاني"
+  },
+  "tabPro": {
+    "message": "Pro"
+  },
+  "titleFreeFeatures": {
+    "message": "ميزات مجانية"
+  },
+  "titleProPlan": {
+    "message": "خطة Pro"
+  },
+  "titleProFeatures": {
+    "message": "ميزات Pro"
+  },
+  "licenseEyebrow": {
+    "message": "حالة الترخيص"
+  },
+  "licenseStatusFree": {
+    "message": "الخطة المجانية نشطة. ميزات Pro مقفلة."
+  },
+  "licenseStatusPro": {
+    "message": "الترخيص نشط. ميزات Pro متاحة."
+  },
+  "licenseHelp": {
+    "message": "فعّل Pro لفتح الرسائل والوسائط وفلاتر البيانات وFake Data وPIN وشدة مخصصة."
+  },
+  "placeholderLicenseKey": {
+    "message": "XXXX-XXXX-XXXX-XXXX"
+  },
+  "btnActivateLicense": {
+    "message": "تفعيل"
+  },
+  "btnUpgradePro": {
+    "message": "ترقية Pro"
+  },
+  "btnRefreshLicense": {
+    "message": "تحديث"
+  },
+  "btnResetDevices": {
+    "message": "إعادة ضبط الأجهزة"
+  },
+  "msgProFeatureLocked": {
+    "message": "ميزة Pro. فعّل الترخيص لفتحها."
+  },
+  "msgProSettingLocked": {
+    "message": "إعداد Pro. فعّل الترخيص لفتحه."
+  },
+  "msgPinProOnly": {
+    "message": "PIN ميزة Pro."
+  },
+  "msgEnterLicenseKey": {
+    "message": "أدخل مفتاح الترخيص."
+  },
+  "msgValidatingLicense": {
+    "message": "جارٍ التحقق من الترخيص..."
+  },
+  "msgLicenseActivated": {
+    "message": "تم تفعيل الترخيص بنجاح."
+  },
+  "msgDeviceLimit": {
+    "message": "تم بلوغ حد الأجهزة. اطلب إعادة الضبط عبر البريد."
+  },
+  "msgLicenseActivationFailed": {
+    "message": "تعذر تفعيل هذا الترخيص."
+  },
+  "msgRefreshingLicense": {
+    "message": "جارٍ تحديث الحالة..."
+  },
+  "msgLicenseProActive": {
+    "message": "ترخيص Pro نشط."
+  },
+  "msgLicenseFreeActive": {
+    "message": "الخطة المجانية نشطة."
+  },
+  "msgEnterKeyForReset": {
+    "message": "أدخل المفتاح لطلب إعادة الضبط."
+  },
+  "msgResetEmailSent": {
+    "message": "تم إرسال بريد التأكيد."
+  },
+  "msgResetFailed": {
+    "message": "تعذر طلب إعادة الضبط."
+  },
+  "cmdTogglePrivacy": {
+    "message": "تبديل الخصوصية"
+  },
+  "cmdLockPrivacy": {
+    "message": "تعتيم كامل (وضع الذعر)"
+  }
 }

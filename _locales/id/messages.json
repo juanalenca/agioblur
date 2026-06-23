@@ -1,221 +1,221 @@
 {
-    "extName":  {
-                    "message":  "AgioBlur | Privasi WhatsApp Web"
-                },
-    "extDescription":  {
-                           "message":  "Mengaburkan info rahasia di WhatsApp Web. Perlindungan layar dan filter data dari pengintip."
-                       },
-    "titleContentProtection":  {
-                                   "message":  "Perlindungan Konten"
-                               },
-    "labelPhotos":  {
-                        "message":  "Foto profil"
-                    },
-    "labelNames":  {
-                       "message":  "Nama / Nomor"
-                   },
-    "labelMessages":  {
-                          "message":  "Daftar pesan"
-                      },
-    "labelMedia":  {
-                       "message":  "Gambar mini media"
-                   },
-    "labelCompose":  {
-                         "message":  "Kolom input"
-                     },
-    "btnAllOn":  {
-                     "message":  "Aktifkan Semua"
-                 },
-    "btnAllOff":  {
-                      "message":  "Nonaktifkan Semua"
-                  },
-    "titleLgpdFilters":  {
-                             "message":  "Filter Pintar (PII)"
-                         },
-    "descLgpdFilters":  {
-                            "message":  "Mengaburkan data rahasia di dalam teks. Arahkan kursor untuk melihat."
-                        },
-    "labelCpf":  {
-                     "message":  "ID Nasional"
-                 },
-    "labelEmail":  {
-                       "message":  "E-mail"
-                   },
-    "labelCard":  {
-                      "message":  "Kartu Kredit"
-                  },
-    "labelPhone":  {
-                       "message":  "Nomor telepon"
-                   },
-    "labelPix":  {
-                     "message":  "Kredensial Bank"
-                 },
-    "titleCustomization":  {
-                               "message":  "Kustomisasi"
-                           },
-    "labelIntensity":  {
-                           "message":  "Intensitas"
-                       },
-    "labelSolidMode":  {
-                           "message":  "Sensor Solid"
-                       },
-    "descSolidMode":  {
-                          "message":  "Menggunakan bilah hitam solid sebagai ganti blur."
-                      },
-    "labelFakeData":  {
-                          "message":  "Data Palsu"
-                      },
-    "descFakeData":  {
-                         "message":  "Mengganti teks asli dengan data palsu yang dibuat."
-                     },
-    "titleSecurity":  {
-                          "message":  "Keamanan"
-                      },
-    "descSecurity":  {
-                         "message":  "PIN mengunci pengaturan dan mencegah terlihatnya data saat kursor diarahkan."
-                     },
-    "placeholderPin":  {
-                           "message":  "Masukkan PIN..."
-                       },
-    "btnSavePin":  {
-                       "message":  "Simpan PIN"
-                   },
-    "textPinActive":  {
-                          "message":  "Sesi dilindungi oleh PIN."
-                      },
-    "btnRemovePin":  {
-                         "message":  "Hapus PIN"
-                     },
-    "btnRelock":  {
-                      "message":  "Kunci Sekarang"
-                  },
-    "overlayTitle":  {
-                         "message":  "Ekstensi Terkunci"
-                     },
-    "overlayDesc":  {
-                        "message":  "Sesi Anda telah berakhir. Masukkan PIN untuk mengakses pengaturan dan membaca."
-                    },
-    "btnUnlock":  {
-                      "message":  "Buka Kunci"
-                  },
-    "alertPinLength":  {
-                           "message":  "PIN harus memiliki minimal 3 karakter."
-                       },
-    "alertPinIncorrect":  {
-                              "message":  "PIN salah!"
-                          },
-    "alertPinRemoveLock":  {
-                               "message":  "Untuk menghapus PIN yang terkunci, masukkan PIN yang benar di bidang dan klik Hapus PIN."
-                           },
-    "fakeNamesList":  {
-                          "message":  "Klien,Pemasok,Kontak VIP,Budi,Siti,Agus,Dewi,Hendra"
-                      },
-    "btnFactoryReset":  {
-                            "message":  "Lupa PIN saya (Setel Ulang Ekstensi)"
-                        },
-    "btnConfirmReset":  {
-                            "message":  "Apakah Anda yakin? Klik lagi"
-                        },
-    "fakeMessageEmpty":  {
-                             "message":  "Pesan..."
-                         },
-    "fakeMessageShort":  {
-                             "message":  "Bagus!"
-                         },
-    "fakeMessageMedium":  {
-                              "message":  "Oke, setuju."
-                          },
-    "fakeMessageLong":  {
-                            "message":  "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-                        },
-    "tabFree":  {
-                    "message":  "Gratis"
-                },
-    "tabPro":  {
-                   "message":  "Pro"
-               },
-    "titleFreeFeatures":  {
-                              "message":  "Fitur gratis"
-                          },
-    "titleProPlan":  {
-                         "message":  "Paket Pro"
-                     },
-    "titleProFeatures":  {
-                             "message":  "Fitur Pro"
-                         },
-    "licenseEyebrow":  {
-                           "message":  "Status lisensi"
-                       },
-    "licenseStatusFree":  {
-                              "message":  "Paket gratis aktif. Fitur Pro terkunci."
-                          },
-    "licenseStatusPro":  {
-                             "message":  "Lisensi aktif. Fitur Pro terbuka."
-                         },
-    "licenseHelp":  {
-                        "message":  "Aktifkan Pro untuk membuka pesan, media, filter data sensitif, Fake Data, PIN, dan intensitas khusus."
-                    },
-    "placeholderLicenseKey":  {
-                                  "message":  "XXXX-XXXX-XXXX-XXXX"
-                              },
-    "btnActivateLicense":  {
-                               "message":  "Aktifkan"
-                           },
-    "btnUpgradePro":  {
-                          "message":  "Upgrade Pro"
-                      },
-    "btnRefreshLicense":  {
-                              "message":  "Segarkan"
-                          },
-    "btnResetDevices":  {
-                            "message":  "Reset perangkat"
-                        },
-    "msgProFeatureLocked":  {
-                                "message":  "Fitur Pro. Aktifkan lisensi untuk membukanya."
-                            },
-    "msgProSettingLocked":  {
-                                "message":  "Pengaturan Pro. Aktifkan lisensi untuk membukanya."
-                            },
-    "msgPinProOnly":  {
-                          "message":  "PIN adalah fitur Pro."
-                      },
-    "msgEnterLicenseKey":  {
-                               "message":  "Masukkan kunci lisensi."
-                           },
-    "msgValidatingLicense":  {
-                                 "message":  "Memvalidasi lisensi..."
-                             },
-    "msgLicenseActivated":  {
-                                "message":  "Lisensi berhasil diaktifkan."
-                            },
-    "msgDeviceLimit":  {
-                           "message":  "Batas perangkat tercapai. Minta reset lewat e-mail."
-                       },
-    "msgLicenseActivationFailed":  {
-                                       "message":  "Lisensi ini tidak dapat diaktifkan."
-                                   },
-    "msgRefreshingLicense":  {
-                                 "message":  "Memperbarui status..."
-                             },
-    "msgLicenseProActive":  {
-                                "message":  "Lisensi Pro aktif."
-                            },
-    "msgLicenseFreeActive":  {
-                                 "message":  "Paket gratis aktif."
-                             },
-    "msgEnterKeyForReset":  {
-                                "message":  "Masukkan kunci untuk meminta reset."
-                            },
-    "msgResetEmailSent":  {
-                              "message":  "E-mail konfirmasi dikirim."
-                          },
-    "msgResetFailed":  {
-                           "message":  "Tidak dapat meminta reset."
-                       },
-    "cmdTogglePrivacy":  {
-                             "message":  "Ligar/Desligar Privacidade"
-                         },
-    "cmdLockPrivacy":  {
-                           "message":  "Censura Total (Modo Pânico)"
-                       }
+  "extName": {
+    "message": "AgioBlur | Privasi WhatsApp Web"
+  },
+  "extDescription": {
+    "message": "Mengaburkan info rahasia di WhatsApp Web. Perlindungan layar dan filter data dari pengintip."
+  },
+  "titleContentProtection": {
+    "message": "Perlindungan Konten"
+  },
+  "labelPhotos": {
+    "message": "Foto profil"
+  },
+  "labelNames": {
+    "message": "Nama / Nomor"
+  },
+  "labelMessages": {
+    "message": "Daftar pesan"
+  },
+  "labelMedia": {
+    "message": "Gambar mini media"
+  },
+  "labelCompose": {
+    "message": "Kolom input"
+  },
+  "btnAllOn": {
+    "message": "Aktifkan Semua"
+  },
+  "btnAllOff": {
+    "message": "Nonaktifkan Semua"
+  },
+  "titleLgpdFilters": {
+    "message": "Filter Pintar (PII)"
+  },
+  "descLgpdFilters": {
+    "message": "Mengaburkan data rahasia di dalam teks. Arahkan kursor untuk melihat."
+  },
+  "labelCpf": {
+    "message": "ID Nasional"
+  },
+  "labelEmail": {
+    "message": "E-mail"
+  },
+  "labelCard": {
+    "message": "Kartu Kredit"
+  },
+  "labelPhone": {
+    "message": "Nomor telepon"
+  },
+  "labelPix": {
+    "message": "Kredensial Bank"
+  },
+  "titleCustomization": {
+    "message": "Kustomisasi"
+  },
+  "labelIntensity": {
+    "message": "Intensitas"
+  },
+  "labelSolidMode": {
+    "message": "Sensor Solid"
+  },
+  "descSolidMode": {
+    "message": "Menggunakan bilah hitam solid sebagai ganti blur."
+  },
+  "labelFakeData": {
+    "message": "Data Palsu"
+  },
+  "descFakeData": {
+    "message": "Mengganti teks asli dengan data palsu yang dibuat."
+  },
+  "titleSecurity": {
+    "message": "Keamanan"
+  },
+  "descSecurity": {
+    "message": "PIN mengunci pengaturan dan mencegah terlihatnya data saat kursor diarahkan."
+  },
+  "placeholderPin": {
+    "message": "Masukkan PIN..."
+  },
+  "btnSavePin": {
+    "message": "Simpan PIN"
+  },
+  "textPinActive": {
+    "message": "Sesi dilindungi oleh PIN."
+  },
+  "btnRemovePin": {
+    "message": "Hapus PIN"
+  },
+  "btnRelock": {
+    "message": "Kunci Sekarang"
+  },
+  "overlayTitle": {
+    "message": "Ekstensi Terkunci"
+  },
+  "overlayDesc": {
+    "message": "Sesi Anda telah berakhir. Masukkan PIN untuk mengakses pengaturan dan membaca."
+  },
+  "btnUnlock": {
+    "message": "Buka Kunci"
+  },
+  "alertPinLength": {
+    "message": "PIN harus memiliki minimal 3 karakter."
+  },
+  "alertPinIncorrect": {
+    "message": "PIN salah!"
+  },
+  "alertPinRemoveLock": {
+    "message": "Untuk menghapus PIN yang terkunci, masukkan PIN yang benar di bidang dan klik Hapus PIN."
+  },
+  "fakeNamesList": {
+    "message": "Klien,Pemasok,Kontak VIP,Budi,Siti,Agus,Dewi,Hendra"
+  },
+  "btnFactoryReset": {
+    "message": "Lupa PIN saya (Setel Ulang Ekstensi)"
+  },
+  "btnConfirmReset": {
+    "message": "Apakah Anda yakin? Klik lagi"
+  },
+  "fakeMessageEmpty": {
+    "message": "Pesan..."
+  },
+  "fakeMessageShort": {
+    "message": "Bagus!"
+  },
+  "fakeMessageMedium": {
+    "message": "Oke, setuju."
+  },
+  "fakeMessageLong": {
+    "message": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+  },
+  "tabFree": {
+    "message": "Gratis"
+  },
+  "tabPro": {
+    "message": "Pro"
+  },
+  "titleFreeFeatures": {
+    "message": "Fitur gratis"
+  },
+  "titleProPlan": {
+    "message": "Paket Pro"
+  },
+  "titleProFeatures": {
+    "message": "Fitur Pro"
+  },
+  "licenseEyebrow": {
+    "message": "Status lisensi"
+  },
+  "licenseStatusFree": {
+    "message": "Paket gratis aktif. Fitur Pro terkunci."
+  },
+  "licenseStatusPro": {
+    "message": "Lisensi aktif. Fitur Pro terbuka."
+  },
+  "licenseHelp": {
+    "message": "Aktifkan Pro untuk membuka pesan, media, filter data sensitif, Fake Data, PIN, dan intensitas khusus."
+  },
+  "placeholderLicenseKey": {
+    "message": "XXXX-XXXX-XXXX-XXXX"
+  },
+  "btnActivateLicense": {
+    "message": "Aktifkan"
+  },
+  "btnUpgradePro": {
+    "message": "Upgrade Pro"
+  },
+  "btnRefreshLicense": {
+    "message": "Segarkan"
+  },
+  "btnResetDevices": {
+    "message": "Reset perangkat"
+  },
+  "msgProFeatureLocked": {
+    "message": "Fitur Pro. Aktifkan lisensi untuk membukanya."
+  },
+  "msgProSettingLocked": {
+    "message": "Pengaturan Pro. Aktifkan lisensi untuk membukanya."
+  },
+  "msgPinProOnly": {
+    "message": "PIN adalah fitur Pro."
+  },
+  "msgEnterLicenseKey": {
+    "message": "Masukkan kunci lisensi."
+  },
+  "msgValidatingLicense": {
+    "message": "Memvalidasi lisensi..."
+  },
+  "msgLicenseActivated": {
+    "message": "Lisensi berhasil diaktifkan."
+  },
+  "msgDeviceLimit": {
+    "message": "Batas perangkat tercapai. Minta reset lewat e-mail."
+  },
+  "msgLicenseActivationFailed": {
+    "message": "Lisensi ini tidak dapat diaktifkan."
+  },
+  "msgRefreshingLicense": {
+    "message": "Memperbarui status..."
+  },
+  "msgLicenseProActive": {
+    "message": "Lisensi Pro aktif."
+  },
+  "msgLicenseFreeActive": {
+    "message": "Paket gratis aktif."
+  },
+  "msgEnterKeyForReset": {
+    "message": "Masukkan kunci untuk meminta reset."
+  },
+  "msgResetEmailSent": {
+    "message": "E-mail konfirmasi dikirim."
+  },
+  "msgResetFailed": {
+    "message": "Tidak dapat meminta reset."
+  },
+  "cmdTogglePrivacy": {
+    "message": "Alihkan Privasi"
+  },
+  "cmdLockPrivacy": {
+    "message": "Sensor Total (Mode Panik)"
+  }
 }
