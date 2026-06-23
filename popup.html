@@ -176,17 +176,13 @@
         </div>
 
         <div class="card license-card">
-          <div class="license-summary">
+          <div class="license-summary" style="margin-bottom: 12px;">
             <div>
-              <span class="license-eyebrow" data-i18n="licenseEyebrow">Status da licença</span>
-              <strong id="license-status-text" data-i18n="licenseStatusFree">Plano gratuito ativo.</strong>
+              <strong id="license-status-text" data-i18n="licenseStatusFree" style="font-size: 14px; display: block; margin-bottom: 4px;">Plano gratuito ativo.</strong>
+              <span class="license-eyebrow" data-i18n="licenseHelp" style="font-size: 11px;">Ative para liberar mensagens, filtros e perfis.</span>
             </div>
             <span id="license-plan-badge" class="license-plan-badge">FREE</span>
           </div>
-
-          <p class="license-help" data-i18n="licenseHelp">
-            Ative o Pro para liberar mensagens, mídias, filtros LGPD, Fake Data, PIN e intensidade personalizada.
-          </p>
 
           <div class="license-actions">
             <input type="text" id="input-license-key" data-i18n-placeholder="placeholderLicenseKey" placeholder="XXXX-XXXX-XXXX-XXXX" autocomplete="off">
@@ -239,7 +235,7 @@
               <span data-i18n="labelAutoBlurTimer" style="font-size: 12px; color: var(--text-secondary);">Tempo limite (minutos)</span>
               <span class="range-val" id="auto-blur-val" style="font-size: 12px;">5m</span>
             </div>
-            <input type="range" id="slider-auto-blur" min="1" max="15" value="5" step="1">
+            <input type="range" id="slider-auto-blur" min="1" max="120" value="5" step="1">
           </div>
 
           <div class="range-container" data-feature-row="blurIntensity">

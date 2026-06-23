@@ -217,5 +217,11 @@
   },
   "cmdLockPrivacy": {
     "message": "تعتيم كامل (وضع الذعر)"
+  },
+  "labelAutoBlur": {
+    "message": "تعتيم تلقائي (عند عدم النشاط)"
+  },
+  "labelAutoBlurTimer": {
+    "message": "المهلة الزمنية (دقائق)"
   }
 }

@@ -217,5 +217,11 @@
   },
   "cmdLockPrivacy": {
     "message": "Tam Sansür (Panik Modu)"
+  },
+  "labelAutoBlur": {
+    "message": "Otomatik Bulanıklaştırma (Hareketsizlik)"
+  },
+  "labelAutoBlurTimer": {
+    "message": "Zaman sınırı (dakika)"
   }
 }

@@ -217,5 +217,11 @@
   },
   "cmdLockPrivacy": {
     "message": "Sensor Total (Mode Panik)"
+  },
+  "labelAutoBlur": {
+    "message": "Auto-Blur (Tidak Aktif)"
+  },
+  "labelAutoBlurTimer": {
+    "message": "Batas waktu (menit)"
   }
 }

@@ -214,5 +214,11 @@
   },
   "cmdLockPrivacy": {
     "message": "Total Censor (Panic Mode)"
+  },
+  "labelAutoBlur": {
+    "message": "Auto-Blur (Inactivity)"
+  },
+  "labelAutoBlurTimer": {
+    "message": "Time limit (minutes)"
   }
 }

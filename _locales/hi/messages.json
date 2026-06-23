@@ -217,5 +217,11 @@
   },
   "cmdLockPrivacy": {
     "message": "पूर्ण सेंसर (पैनिक मोड)"
+  },
+  "labelAutoBlur": {
+    "message": "ऑटो-ब्लर (निष्क्रियता)"
+  },
+  "labelAutoBlurTimer": {
+    "message": "समय सीमा (मिनट)"
   }
 }

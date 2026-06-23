@@ -299,6 +299,7 @@ function attachListeners() {
       if (!POPUP_STATE.getIsPremium()) {
         POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgProFeatureLocked', 'Recurso Pro. Ative uma licença para liberar.'), 'warning');
         e.target.value = 'custom';
+        document.getElementById('tab-pro').click();
         return;
       }
 

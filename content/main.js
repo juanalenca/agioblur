@@ -127,6 +127,7 @@ function listenForStorageChanges() {
         const isActive = incoming[key];
         if (wasActive && !isActive) WPB_DOM.clearCategory(key);
         else if (!wasActive && isActive) WPB_DOM.scanAndApply(document);
+      window.dispatchEvent(new Event('mousemove'));
       }
 
       if (piiChanged && typeof WPB_PII !== 'undefined' && WPB_STATE.getIsPremium()) {
@@ -156,6 +157,7 @@ function setupInactivityListener() {
     }
 
     if (isCurrentlyAutoBlurred) {
+      if (document.visibilityState === 'hidden') return; // Don't unblur if tab is hidden
       isCurrentlyAutoBlurred = false;
       if (savedStateBeforeInactivity) {
         WPB_STATE.setCategoryState(savedStateBeforeInactivity.categories);
