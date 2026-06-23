@@ -8,6 +8,7 @@ const POPUP_CONSTANTS = {
   SETTINGS_KEY: 'wpbSettings',
 
   TOGGLE_IDS: {
+    autoBlur: 'toggle-auto-blur',
     photos: 'toggle-photos',
     names: 'toggle-names',
     messages: 'toggle-messages',
@@ -21,6 +22,7 @@ const POPUP_CONSTANTS = {
   },
 
   DEFAULTS_CATEGORIES: {
+    autoBlur: false,
     photos: true,
     names: false,
     messages: true,
@@ -34,6 +36,8 @@ const POPUP_CONSTANTS = {
   },
 
   DEFAULTS_SETTINGS: {
+    autoBlurEnabled: false,
+    autoBlurTimer: 5,
     blurIntensity: 8,
     solidMode: false,
     fakeData: false,
@@ -41,8 +45,9 @@ const POPUP_CONSTANTS = {
   },
 
   FEATURE_TIERS: {
+    autoBlur: 'PRO',
     photos: 'FREE',
-    names: 'PRO',
+    names: 'FREE',
     compose: 'FREE',
     solidMode: 'FREE',
     messages: 'FREE',

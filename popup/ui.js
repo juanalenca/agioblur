@@ -14,6 +14,11 @@ const POPUP_UI = (function() {
     blurLabel: document.getElementById('blur-val'),
     toggleSolid: document.getElementById('toggle-solid'),
     toggleFakeData: document.getElementById('toggle-fake-data'),
+    toggleAutoBlur: document.getElementById('toggle-auto-blur'),
+    sliderAutoBlur: document.getElementById('slider-auto-blur'),
+    autoBlurLabel: document.getElementById('auto-blur-val'),
+    autoBlurContainer: document.getElementById('auto-blur-timer-container'),
+    profileSelect: document.getElementById('profile-select'),
     
     // Setup initial
     pinSetupContainer: document.getElementById('pin-setup-container'),
@@ -103,6 +108,9 @@ const POPUP_UI = (function() {
     }
 
     const proControls = [
+      elements.toggleAutoBlur,
+      elements.sliderAutoBlur,
+      elements.profileSelect,
       elements.sliderBlur,
       elements.toggleFakeData,
       elements.inputPin,
@@ -114,6 +122,11 @@ const POPUP_UI = (function() {
 
     if (!isPremium) {
       elements.toggleFakeData.checked = false;
+      if (elements.toggleAutoBlur) elements.toggleAutoBlur.checked = false;
+      if (elements.sliderAutoBlur) {
+        elements.sliderAutoBlur.value = POPUP_CONSTANTS.DEFAULTS_SETTINGS.autoBlurTimer;
+        if (elements.autoBlurLabel) elements.autoBlurLabel.textContent = POPUP_CONSTANTS.DEFAULTS_SETTINGS.autoBlurTimer + 'm';
+      }
       elements.sliderBlur.value = POPUP_CONSTANTS.DEFAULTS_SETTINGS.blurIntensity;
       elements.blurLabel.textContent = POPUP_CONSTANTS.DEFAULTS_SETTINGS.blurIntensity + 'px';
     }
@@ -124,6 +137,10 @@ const POPUP_UI = (function() {
     if (pinSettings) pinSettings.classList.toggle('premium-locked', !isPremium);
     if (blurRow) blurRow.classList.toggle('premium-locked', !isPremium);
     if (fakeDataRow) fakeDataRow.classList.toggle('premium-locked', !isPremium);
+    const autoBlurRow = document.querySelector('[data-feature-row="autoBlur"]');
+    if (autoBlurRow) autoBlurRow.classList.toggle('premium-locked', !isPremium);
+    const autoBlurTimerRow = document.querySelector('[data-feature-row="autoBlurTimer"]');
+    if (autoBlurTimerRow) autoBlurTimerRow.classList.toggle('premium-locked', !isPremium);
   }
 
   function showLicenseMessage(message, type = 'neutral') {

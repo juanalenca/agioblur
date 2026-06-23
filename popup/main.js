@@ -44,9 +44,17 @@ async function onSettingsChange(e) {
     blurIntensity: POPUP_STATE.getIsPremium() ? parseInt(POPUP_UI.elements.sliderBlur.value, 10) : 8,
     solidMode: POPUP_UI.elements.toggleSolid.checked,
     fakeData: POPUP_STATE.getIsPremium() && POPUP_UI.elements.toggleFakeData.checked,
+    autoBlurEnabled: POPUP_STATE.getIsPremium() && (POPUP_UI.elements.toggleAutoBlur ? POPUP_UI.elements.toggleAutoBlur.checked : false),
+    autoBlurTimer: POPUP_STATE.getIsPremium() && POPUP_UI.elements.sliderAutoBlur ? parseInt(POPUP_UI.elements.sliderAutoBlur.value, 10) : 5,
   };
   
   POPUP_UI.elements.blurLabel.textContent = newSettings.blurIntensity + 'px';
+  if (POPUP_UI.elements.autoBlurLabel && POPUP_UI.elements.sliderAutoBlur) {
+    POPUP_UI.elements.autoBlurLabel.textContent = newSettings.autoBlurTimer + 'm';
+  }
+  if (POPUP_UI.elements.autoBlurContainer) {
+    POPUP_UI.elements.autoBlurContainer.style.display = newSettings.autoBlurEnabled ? 'flex' : 'none';
+  }
   await POPUP_STORAGE.saveSettings(newSettings);
 }
 
@@ -283,6 +291,42 @@ function attachListeners() {
   POPUP_UI.elements.btnAllOff.addEventListener('click', () => setAll(false));
 
   POPUP_UI.elements.sliderBlur.addEventListener('input', onSettingsChange);
+  if (POPUP_UI.elements.toggleAutoBlur) POPUP_UI.elements.toggleAutoBlur.addEventListener('change', onSettingsChange);
+  if (POPUP_UI.elements.sliderAutoBlur) POPUP_UI.elements.sliderAutoBlur.addEventListener('input', onSettingsChange);
+  
+  if (POPUP_UI.elements.profileSelect) {
+    POPUP_UI.elements.profileSelect.addEventListener('change', async (e) => {
+      const val = e.target.value;
+      if (val === 'custom') return;
+      
+      const unlocked = POPUP_STATE.getIsUnlocked();
+      if (POPUP_STATE.getIsPremium() && POPUP_STATE.getSettings().savedPin && !unlocked) return;
+
+      const base = {
+        photos: false, names: false, messages: false, media: false, compose: false,
+        piiCpf: false, piiEmail: false, piiCard: false, piiPhone: false, piiPix: false
+      };
+      
+      let target = { ...base };
+      if (val === 'office') {
+        target = { photos: true, names: true, messages: true, media: true, compose: true, piiCpf: true, piiEmail: true, piiCard: true, piiPhone: true, piiPix: true };
+      } else if (val === 'presentation') {
+        target = { photos: true, names: true, messages: true, media: true, compose: true, piiCpf: false, piiEmail: false, piiCard: false, piiPhone: false, piiPix: false };
+      } else if (val === 'personal') {
+        target = { ...base, photos: true, media: true };
+      }
+
+      // Filter by permissions
+      const finalTarget = {};
+      for (const [k, v] of Object.entries(target)) {
+        finalTarget[k] = v && POPUP_UI.isFeatureAllowed(k);
+      }
+      
+      await POPUP_STORAGE.saveState(finalTarget);
+      
+      POPUP_UI.elements.profileSelect.value = 'custom';
+    });
+  }
   POPUP_UI.elements.toggleSolid.addEventListener('change', onSettingsChange);
   POPUP_UI.elements.toggleFakeData.addEventListener('change', onSettingsChange);
   POPUP_UI.elements.btnActivateLicense.addEventListener('click', handleActivateLicense);

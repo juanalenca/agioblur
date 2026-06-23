@@ -32,7 +32,8 @@
   </div>
 
   <!-- Banner -->
-  <div class="popup-banner">
+  
+  <div class="popup-banner" style="justify-content: space-between;">
     <div class="banner-content">
       <div class="banner-icon">
         <img src="icons/icon128.png" alt="AgioBlur Logo" style="width: 100%; height: 100%; object-fit: contain; border-radius: inherit;" />
@@ -41,6 +42,15 @@
         <h1>AgioBlur</h1>
         <p>WhatsApp Privacy Shield</p>
       </div>
+    </div>
+    
+    <div class="profiles-container" style="margin-left: 10px; z-index: 10;">
+      <select id="profile-select" class="profile-dropdown" aria-label="Perfis de Privacidade" title="Carregar Perfil de Privacidade">
+        <option value="custom" data-i18n="profileCustom">👤 Manual</option>
+        <option value="office" data-i18n="profileOffice">🏢 Escritório (Total)</option>
+        <option value="presentation" data-i18n="profilePresentation">📽️ Apresentação</option>
+        <option value="personal" data-i18n="profilePersonal">☕ Pessoal (Leve)</option>
+      </select>
     </div>
   </div>
 
@@ -58,12 +68,23 @@
 
         <div class="card">
           <div class="cat-row">
+<div class="cat-info">
+<span class="cat-emoji">🖼️<\/span>
+<span class="cat-label" data-i18n="labelPhotos">Fotos de Perfil<\/span>
+<\/div>
+<label class="toggle">
+<input type="checkbox" id="toggle-photos">
+<span class="toggle-track"><\/span>
+<\/label>
+<\/div>
+
+          <div class="cat-row">
             <div class="cat-info">
-              <span class="cat-emoji">🖼️</span>
-              <span class="cat-label" data-i18n="labelPhotos">Fotos de Perfil</span>
+              <span class="cat-emoji">👤</span>
+              <span class="cat-label" data-i18n="labelNames">Nomes e Números</span>
             </div>
             <label class="toggle">
-              <input type="checkbox" id="toggle-photos">
+              <input type="checkbox" id="toggle-names">
               <span class="toggle-track"></span>
             </label>
           </div>
@@ -149,16 +170,7 @@
         </div>
 
         <div class="card">
-          <div class="cat-row">
-            <div class="cat-info">
-              <span class="cat-emoji">👤</span>
-              <span class="cat-label" data-i18n="labelNames">Nomes e Números</span>
-            </div>
-            <label class="toggle">
-              <input type="checkbox" id="toggle-names">
-              <span class="toggle-track"></span>
-            </label>
-          </div>
+          
 
           <div class="cat-row">
             <div class="cat-info">
@@ -180,6 +192,24 @@
               <input type="checkbox" id="toggle-fake-data">
               <span class="toggle-track"></span>
             </label>
+          </div>
+
+          <div class="cat-row" data-feature-row="autoBlur">
+            <div class="cat-info">
+              <span class="cat-emoji">⏱️</span>
+              <span class="cat-label" data-i18n="labelAutoBlur">Auto-Blur (Inatividade)</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-auto-blur">
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+          <div class="range-container" data-feature-row="autoBlurTimer" id="auto-blur-timer-container" style="display: none; padding-top: 0; margin-top: -10px; border-top: none;">
+            <div class="range-header">
+              <span data-i18n="labelAutoBlurTimer" style="font-size: 12px; color: var(--text-secondary);">Tempo limite (minutos)</span>
+              <span class="range-val" id="auto-blur-val" style="font-size: 12px;">5m</span>
+            </div>
+            <input type="range" id="slider-auto-blur" min="1" max="15" value="5" step="1">
           </div>
 
           <div class="range-container" data-feature-row="blurIntensity">
