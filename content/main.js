@@ -182,51 +182,14 @@ let savedStateBeforeInactivity = null;
 let isCurrentlyAutoBlurred = false;
 
 function setupInactivityListener() {
-  // --- DEBUG UI ---
-  let debugEl = document.getElementById('wpb-debug-timer');
-  if (!debugEl) {
-    debugEl = document.createElement('div');
-    debugEl.id = 'wpb-debug-timer';
-    debugEl.style.position = 'fixed';
-    debugEl.style.bottom = '10px';
-    debugEl.style.left = '10px';
-    debugEl.style.background = 'rgba(0,0,0,0.8)';
-    debugEl.style.color = '#00FF00';
-    debugEl.style.padding = '10px';
-    debugEl.style.fontFamily = 'monospace';
-    debugEl.style.fontSize = '12px';
-    debugEl.style.zIndex = '9999999999';
-    debugEl.style.pointerEvents = 'none';
-    document.documentElement.appendChild(debugEl);
-  }
-
-  let countdownInterval = null;
-  let remainingSeconds = 0;
-
-  const updateDebugUI = (msg) => {
-    const settings = WPB_STATE.getSettings();
-    debugEl.innerHTML = `
-      <b>AutoBlur Debug</b><br>
-      Enabled: ${settings.autoBlurEnabled}<br>
-      Premium: ${WPB_STATE.getIsPremium()}<br>
-      Timer Set: ${settings.autoBlurTimer}m<br>
-      State: ${msg}<br>
-      Countdown: ${remainingSeconds}s
-    `;
-  };
-
   const resetTimer = (e) => {
     const settings = WPB_STATE.getSettings();
     if (!settings.autoBlurEnabled || !WPB_STATE.getIsPremium()) {
       if (inactivityTimer) clearTimeout(inactivityTimer);
-      if (countdownInterval) clearInterval(countdownInterval);
-      remainingSeconds = 0;
-      updateDebugUI('DISABLED');
       return;
     }
 
     if (e && !e.isTrusted && e.type !== 'wpb-settings-updated') {
-      updateDebugUI(`IGNORED UNTRUSTED ${e.type}`);
       return;
     }
 
@@ -247,25 +210,12 @@ function setupInactivityListener() {
     }
 
     if (inactivityTimer) clearTimeout(inactivityTimer);
-    if (countdownInterval) clearInterval(countdownInterval);
     
     const minutes = parseInt(settings.autoBlurTimer, 10) || 5;
-    remainingSeconds = minutes * 60;
-    
-    updateDebugUI(`RESET BY ${e ? e.type : 'INIT'}`);
-
-    countdownInterval = setInterval(() => {
-      remainingSeconds--;
-      updateDebugUI('COUNTING...');
-      if (remainingSeconds <= 0) clearInterval(countdownInterval);
-    }, 1000);
-
     inactivityTimer = setTimeout(triggerAutoBlur, minutes * 60 * 1000);
   };
 
   const triggerAutoBlur = () => {
-    if (countdownInterval) clearInterval(countdownInterval);
-    updateDebugUI('TRIGGERED!');
     isCurrentlyAutoBlurred = true;
     applyFullScreenBlur(true);
   };

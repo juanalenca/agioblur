@@ -1280,26 +1280,11 @@ A licença de teste idempotente ficou documentada. Agora vou rodar a bateria de 
 
 > Continue o processo qu estava fazendo neste chat.
 
-<details><summary>21 previous messages</summary>
+<details><summary>13 previous messages</summary>
 
 > Vou retomar da integração local. Já corrigi e comitei o `Solid Censor`; agora vou finalizar a primeira parte da branch `feature/license-worker-integration`, revisar o que ficou pendente e validar antes de comitar.
 >
-> <details><summary>Ran 3 commands</summary>
->
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short --branch`
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' diff -- background.js manifest.json infra/worker/README.md`
-> - Ran `Get-Content infra\worker\package.json`
->
-> </details>
->
 > O sandbox atual bloqueou o `git.exe` fora do ambiente da pasta, então vou pedir permissão só para ler o estado/diff do Git e, se passar, usar isso para fechar o commit da integração.
->
-> <details><summary>Ran 2 commands</summary>
->
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short --branch`
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' diff -- background.js manifest.json infra/worker/README.md`
->
-> </details>
 >
 > O diff está bom. Vou transformar a licença de teste em um seed SQL versionado também, para o processo ficar reproduzível em vez de depender só do README.
 >
@@ -1319,60 +1304,17 @@ A licença de teste idempotente ficou documentada. Agora vou rodar a bateria de 
 >
 > Vou rodar as validações de novo: lint geral, checagem sintática do background/Worker, parse do manifest e verificação de whitespace do Git.
 >
-> <details><summary>Ran 5 commands</summary>
->
-> - Ran `node -e "JSON.parse(require('fs').readFileSync('manifest.json','utf8')); console.log('manifest ok')"`
-> - Ran `node --check infra\worker\src\index.js`
-> - Ran `node --check background.js`
-> - Ran `npm run lint`
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' diff --check`
->
-> </details>
->
 > Tudo passou. Vou comitar essa parte inicial da integração local: override seguro da API, permissões locais e documentação/seed de licença de teste.
->
-> <details><summary>Ran a command</summary>
->
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short`
->
-> </details>
 >
 > Vou adicionar somente os arquivos da integração. O histórico da conversa continua de fora, como combinado.
 >
-> <details><summary>Ran a command</summary>
->
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' add background.js manifest.json infra/worker/README.md infra/supabase/seeds/local_test_license.sql`
->
-> </details>
->
 > Arquivos certos no stage. Vou criar o commit agora.
 >
-> <details><summary>Ran a command</summary>
->
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' commit -m "feat(extension): support local license API testing"`
->
-> </details>
->
 > Commit criado. Agora vou checar se a máquina já tem Supabase CLI/Docker/Wrangler prontos; isso define se consigo rodar a validação ponta a ponta agora ou se falta credencial/ambiente.
->
-> <details><summary>Ran 4 commands</summary>
->
-> - Ran `where.exe supabase`
-> - Ran `where.exe docker`
-> - Ran `Test-Path infra\worker\node_modules\.bin\wrangler.cmd`
-> - Ran `Get-Content infra\worker\.dev.vars`
->
-> </details>
 >
 > O estado do ambiente ficou claro: Docker existe, Wrangler já está instalado no projeto, mas Supabase CLI não está no PATH e o `.dev.vars` local ainda está com placeholders. Então a parte de código está pronta; para validar Pro de ponta a ponta falta uma base Supabase dev real ou instalar/usar Supabase local.
 >
 > Vou fazer a checagem final do repositório e então te deixo um próximo passo bem objetivo, porque agora chegamos no ponto em que depende de Supabase dev/credenciais.
->
-> <details><summary>Ran a command</summary>
->
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short --branch`
->
-> </details>
 </details>
 
 Corrigi o `Solid Censor` e comitei:
@@ -1409,34 +1351,13 @@ Sobre a validação Pro: sim, agora precisamos testar de ponta a ponta. O bloque
 
 > -Na extensão, a opção solid Censor não está funcionando ainda. Veja como ela foi feita na branch principal para você fazer da mesma forma.
 
-<details><summary>16 previous messages</summary>
+<details><summary>9 previous messages</summary>
 
 > Vou comparar diretamente com a `main` para ver como o `Solid Censor` funcionava antes, em vez de tentar adivinhar pelo CSS atual. Vou olhar principalmente `styles.css`, `content/main.js` e o fluxo do popup/storage.
 >
-> <details><summary>Ran 4 commands</summary>
->
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' show main:styles.css`
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' branch --show-current`
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' show main:content/main.js`
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' show main:popup/main.js`
->
-> </details>
->
 > Comparando com a `main`, vi que minha última tentativa mudou justamente o bloco CSS do modo sólido, enquanto a `main` usava outra semântica: o solid mode não “escurecia” a imagem com filtro, ele removia o blur e controlava opacidade/background nos mesmos seletores originais. Vou restaurar esse bloco do jeito da `main` e manter só a compatibilidade com o fluxo Freemium atual.
 >
-> <details><summary>Ran a command</summary>
->
-> - Ran `Get-Content styles.css | Select-Object -Index (84..235)`
->
-> </details>
->
 > Vou aplicar a restauração cirúrgica no `styles.css`: voltar o bloco do solid mode para os seletores/propriedades da `main`. Depois valido com lint e comparo o bloco para garantir que ficou igual.
->
-> <details><summary>Ran a command</summary>
->
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' show main:styles.css > C:\tmp\main-styles.css`
->
-> </details>
 >
 > Peguei uma cópia temporária do CSS da `main` só para conferir a equivalência do bloco, sem tocar no repositório. Agora vou editar o arquivo do projeto com patch.
 >
@@ -1448,39 +1369,11 @@ Sobre a validação Pro: sim, agora precisamos testar de ponta a ponta. O bloque
 >
 > O bloco foi restaurado. Vou confirmar se `styles.css` voltou a ficar igual à `main` e depois rodar as validações.
 >
-> <details><summary>Ran 4 commands</summary>
->
-> - Ran `npm run lint`
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' diff main -- styles.css`
-> - Ran `node --check content\main.js`
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' diff --check`
->
-> </details>
->
 > `styles.css` agora não tem diferença nenhuma contra a `main`, então o Solid Censor voltou ao comportamento original nessa camada. Vou comitar só essa restauração, mantendo o histórico fora do commit.
->
-> <details><summary>Ran 2 commands</summary>
->
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short --branch`
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' diff -- styles.css`
->
-> </details>
 >
 > A alteração pendente é exatamente a reversão do bloco para o padrão da `main`. Vou comitar isso agora como correção de regressão.
 >
-> <details><summary>Ran a command</summary>
->
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' add styles.css; & 'C:\Program Files\Git\cmd\git.exe' commit -m "fix(extension): match main solid censor styles"`
->
-> </details>
->
 > Commit feito. Vou só confirmar o estado final da branch para fechar com segurança.
->
-> <details><summary>Ran a command</summary>
->
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short --branch`
->
-> </details>
 </details>
 
 Feito. Comparei com a `main` e restaurei o bloco do `Solid Censor` em [styles.css](./styles.css) para ficar exatamente como era na branch principal.
@@ -1503,33 +1396,13 @@ Para testar no Chrome, recarregue a extensão em `chrome://extensions`, recarreg
 
 > de um push nas branchs para o github
 
-<details><summary>6 previous messages</summary>
+<details><summary>3 previous messages</summary>
 
 > Vou verificar quais branches locais existem, quais ainda não têm upstream no GitHub e então faço push delas. Vou tomar cuidado para não mexer no `historico-conversa.txt`, que segue fora do commit.
 >
-> <details><summary>Ran 3 commands</summary>
->
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' branch -vv`
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' remote -v`
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short --branch`
->
-> </details>
->
 > As branches do fluxo Freemium ainda estão locais sem upstream. Vou enviar para `origin`: `feature/freemium-architecture`, `feature/license-worker`, `feature/extension-premium-gates`, `feature/landing-page-freemium` e `feature/license-worker-integration`.
 >
-> <details><summary>Ran a command</summary>
->
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' push -u origin feature/freemium-architecture feature/license-worker feature/extension-premium-gates feature/landing-page-freemium feature/license-worker-integration`
->
-> </details>
->
 > Push concluído. O Git mostrou só um aviso de `credential-manager-core` ausente depois do envio, mas as branches foram criadas no GitHub e já ficaram com upstream configurado. Vou conferir o estado final local.
->
-> <details><summary>Ran a command</summary>
->
-> - Ran `& 'C:\Program Files\Git\cmd\git.exe' status --short --branch; & 'C:\Program Files\Git\cmd\git.exe' branch -vv`
->
-> </details>
 </details>
 
 Push feito para o GitHub em `origin`:
@@ -1543,3 +1416,86 @@ Push feito para o GitHub em `origin`:
 Todas ficaram com upstream configurado. A branch atual é `feature/license-worker-integration` e está sincronizada com `origin/feature/license-worker-integration`.
 
 Único arquivo fora do Git continua sendo `landing-page-extensao/historico-conversa.txt`, como combinado.
+
+> Certo, vamos continuar com o que ainda precisa ser feito:
+> "
+> obre a validação Pro: sim, agora precisamos testar de ponta a ponta. O bloqueio atual é que o Supabase CLI não está instalado e o .dev.vars ainda está com placeholders. Para continuar preciso de uma destas opções:
+> Dados de um Supabase dev: SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY.
+> Permissão para preparar Supabase local via Docker, instalando/baixando o Supabase CLI.
+
+<details><summary>29 previous messages</summary>
+
+> Perfeito, vamos continuar. Como você não passou credenciais de um Supabase dev, vou seguir pela opção local: Supabase CLI + Docker, subir um ambiente local, aplicar migration/seed, configurar `.dev.vars`, subir o Worker e testar a ativação Pro pela API local.
+>
+> Docker está instalado, mas o daemon do Docker Desktop não está rodando. Vou iniciar o Docker Desktop e, enquanto ele sobe, verificar/baixar o Supabase CLI via `npx` para evitar instalação global na máquina.
+>
+> O Supabase CLI via `npx` baixou e respondeu versão `2.107.0`. Agora vou ver os parâmetros dele antes de criar qualquer estrutura, porque o projeto guarda migrations em `infra/supabase/migrations`, não no caminho padrão `supabase/migrations`.
+>
+> O CLI aceita `--workdir`, então dá para manter a estrutura em `infra/supabase` sem criar uma pasta `supabase/` solta na raiz. Docker ainda está subindo/instável; enquanto isso vou inicializar a configuração local do Supabase dentro de `infra/supabase`.
+>
+> Configuração local criada. Vou inspecionar o que o CLI gerou antes de editar ou iniciar serviços.
+>
+> O `--workdir infra\\supabase` criou uma pasta aninhada `infra/supabase/supabase`, que não é o que queremos. Vou desfazer só essa pasta recém-gerada e reinicializar com `--workdir infra`, para o CLI usar `infra/supabase/migrations` como caminho padrão.
+>
+> Agora a estrutura está no lugar esperado. Vou conferir o config gerado e pensar nos mínimos ajustes para seed/migrations locais.
+>
+> O config padrão aponta o seed para `./seed.sql`, mas nosso seed está em `./seeds/local_test_license.sql`. Vou ajustar isso e trocar o `project_id` para algo mais explícito, para os containers locais ficarem identificáveis como AgioBlur.
+>
+> Vou editar só essas duas linhas do `config.toml`, mantendo o restante do arquivo gerado pelo CLI.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./infra/supabase/config.toml` (+2 -2)
+>
+> </details>
+>
+> Config local ajustado. Vou verificar se o Docker terminou de subir; se sim, inicio o Supabase local com os serviços mínimos para API REST/RPC.
+>
+> Docker ainda não respondeu dentro do tempo limite, então parece que o Desktop está travado subindo ou aguardando inicialização. Vou checar de forma mais leve os processos e tentar novamente com um timeout maior antes de mexer em qualquer outra coisa.
+>
+> Os processos do Docker Desktop existem, mas qualquer comando Docker está ficando preso. Vou checar o WSL/engine por baixo, porque no Windows esse é o motivo mais comum de o Docker Desktop abrir mas não aceitar comandos.
+>
+> O WSL `docker-desktop` está rodando; os dois processos `docker.exe` presos parecem ser comandos antigos que ficaram pendurados. Vou encerrar só esses clientes CLI e tentar uma consulta nova.
+>
+> Vou testar de novo com um comando curto. Se continuar preso, a alternativa prática será reiniciar o Docker Desktop/WSL.
+>
+> Docker respondeu. Vou subir Supabase local com serviços mínimos para DB + REST/RPC + gateway, evitando Studio, Storage, Realtime e outros serviços que não precisamos para validar licença. Isso pode demorar porque baixa imagens Docker na primeira vez.
+>
+> Supabase local subiu, aplicou a migration e executou o seed `AGIO-TEST-0001`. Agora vou coletar as URLs/chaves locais no formato do CLI e atualizar o `.dev.vars` local, que continua ignorado pelo Git.
+>
+> Vou apontar o Worker para `http://127.0.0.1:54321` com `SERVICE_ROLE_KEY` local. Para validação de licença, os segredos de gateway/e-mail só precisam existir; não serão usados nesse teste de ativação.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./infra/worker/.dev.vars` (+5 -5)
+>
+> </details>
+>
+> Agora vou subir o Worker local em `127.0.0.1:8787`, testar `/health` e depois validar a licença `AGIO-TEST-0001` contra o Supabase local. Vou manter o Worker em processo temporário e encerrar ao final do teste.
+>
+> Worker respondeu `/health` com `{ ok: true }`. Vou chamar `/licenses/validate` com a licença local e conferir se ele devolve receipt assinado.
+>
+> A API local já validou a licença e gerou um receipt Pro. Vou testar agora se a assinatura desse receipt é aceita pela mesma chave pública embutida na extensão; isso prova a ponte Worker → extensão na parte criptográfica.
+>
+> A assinatura foi aceita pela chave pública da extensão (`receiptSignatureValid: true`). Vou tentar uma verificação ainda mais próxima da extensão: carregar o diretório como extensão no Chrome via Playwright e chamar o background com `license:setApiBase` e `license:activate`.
+>
+> Playwright não está instalado no projeto; em vez de adicionar dependência só para isso, vou fazer um teste de integração do `background.js` com um mock fiel das APIs `chrome.*`. Ele chama o Worker real em `127.0.0.1:8787`, ativa `AGIO-TEST-0001` e passa pela verificação de assinatura do próprio código da extensão.
+>
+> O teste de integração passou: o `background.js` ativou a licença via Worker local e retornou `isPremium: true` com features Pro. Vou documentar e organizar os comandos Supabase locais no projeto para essa etapa ficar reproduzível.
+>
+> Vou adicionar scripts `supabase:*` no `package.json` e atualizar a documentação do Supabase/Worker para refletir exatamente o fluxo que acabou de passar: start, reset/seed, `.dev.vars`, Worker e licença teste.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./package.json` (+4 -0)
+>
+> </details>
+>
+> Scripts adicionados. Agora vou atualizar os READMEs com o procedimento local reproduzível.
+>
+> <details><summary>Edited a file</summary>
+>
+> - Wrote `./infra/supabase/README.md` (+34 -2)
+>
+> </details>
+</details>

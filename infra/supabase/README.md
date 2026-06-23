@@ -2,9 +2,41 @@
 
 Migrations for the AgioBlur Freemium license system.
 
-## Apply migrations
+## Local development
 
-Run the SQL files in `migrations/` against a Supabase development project before connecting the Worker.
+Start Supabase locally with Docker:
+
+```powershell
+npm run supabase:start
+```
+
+Reset the local database, apply migrations and seed the test license:
+
+```powershell
+npm run supabase:reset
+```
+
+Show local API URLs and keys:
+
+```powershell
+npm run supabase:status
+```
+
+Stop local services:
+
+```powershell
+npm run supabase:stop
+```
+
+The local seed creates this reusable Pro test license:
+
+```text
+AGIO-TEST-0001
+```
+
+## Apply Migrations Remotely
+
+Run the SQL files in `migrations/` against a Supabase development project before connecting the Worker to a remote environment.
 
 The schema creates:
 

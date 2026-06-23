@@ -5,6 +5,10 @@
   "scripts": {
     "lint": "eslint .",
     "landing:dev": "python -m http.server 4177 --bind 127.0.0.1 --directory landing-page-extensao",
+    "supabase:start": "npx supabase start --workdir infra",
+    "supabase:stop": "npx supabase stop --workdir infra",
+    "supabase:status": "npx supabase status --workdir infra",
+    "supabase:reset": "npx supabase db reset --workdir infra",
     "worker:dev": "npm --prefix infra/worker run dev",
     "worker:deploy": "npm --prefix infra/worker run deploy"
   },

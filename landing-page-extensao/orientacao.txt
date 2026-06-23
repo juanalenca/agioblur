@@ -824,3 +824,25 @@ Critério de aceite:
 8. E-mail remetente verificado no Resend.
 9. Se PIN será Pro desde a primeira release Freemium ou ficará temporariamente Free.
 10. Como comunicar a migração aos usuários atuais.
+
+---
+
+## 14. Revisão Estratégica: Reposicionamento Freemium (Adicionado em 2026-06-23)
+
+O plano Freemium original foi revisado devido ao risco de bloquear recursos essenciais (mensagens e fotos) e afastar os usuários básicos, que buscariam concorrentes gratuitos.
+
+### 14.1 Novo Nível Free (Privacidade Básica)
+- Fotos, Mensagens, Mídias, Compose, SolidMode, Nomes e Números e Segurança (PIN).
+- A extensão funciona de forma completa e satisfatória sem pagamento.
+
+### 14.2 Novo Nível Pro (Superpoderes de Produtividade)
+Para justificar o upgrade, foram criadas novas ferramentas exclusivas focadas no usuário de escritório/corporativo:
+1. **Auto-Blur por inatividade:** Monitora mouse e teclado; censura tudo ao afastar-se do PC e restaura instantaneamente ao voltar.
+2. **Perfis de Privacidade (Presets):** Alternância rápida entre conjuntos de configurações (Escritório, Apresentação, Pessoal, Manual).
+3. **Atalhos de Teclado (Boss Key):** `Alt+Z` (Toggle) e `Alt+X` (Pânico/Censura Total) via `chrome.commands`.
+4. **Filtros LGPD (Fake Data / PII):** Permanece como PRO.
+5. **Intensidade Customizada do Blur:** Permanece como PRO.
+
+As Fases A, B, C e D agora contemplam estas novas funcionalidades (desenvolvidas na branch `feature/pro-productivity-tools`).
+
+O próximo passo efetivo é a **Fase E (Release)**, focada no ecossistema e deploy (Cakto, Lemon Squeezy, Cloudflare Pages, Resend).
