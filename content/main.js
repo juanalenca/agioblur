@@ -411,7 +411,6 @@ async function initialize() {
   listenForRuntimeMessages();
 
   // Observer do WhatsApp
-  WPB_DOM.initObserver();
   applyFullScreenBlur(WPB_STATE.getCategoryState().fullScreenBlur);
   setupInactivityListener();
 }
