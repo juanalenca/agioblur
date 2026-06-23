@@ -81,9 +81,9 @@ function listenForStorageChanges() {
       WPB_STATE.setSettings(mergedSettings);
 
       const isUnlocked = WPB_STATE.getIsUnlocked();
-      if (WPB_STATE.getIsPremium() && mergedSettings.savedPin && !isUnlocked) {
+      if (mergedSettings.savedPin && !isUnlocked) {
         document.body.classList.add('wpb-locked');
-      } else if (!mergedSettings.savedPin || !WPB_STATE.getIsPremium()) {
+      } else if (!mergedSettings.savedPin) {
         document.body.classList.remove('wpb-locked');
       }
     }
@@ -103,7 +103,7 @@ function listenForStorageChanges() {
 
       const currentSettings = WPB_STATE.getSettings();
       const isUnlocked = WPB_STATE.getIsUnlocked();
-      const pinActive = WPB_STATE.getIsPremium() && !!currentSettings.savedPin && !isUnlocked;
+      const pinActive = !!currentSettings.savedPin && !isUnlocked;
 
       for (const key of Object.keys(WPB_CONSTANTS.CATEGORIES)) {
         const wasActive = oldState[key];
@@ -222,7 +222,7 @@ function listenForRuntimeMessages() {
       unlockTimeout = setTimeout(() => {
         WPB_STATE.setIsUnlocked(false);
         const currentSettings = WPB_STATE.getSettings();
-        if (currentSettings.savedPin && WPB_STATE.getIsPremium()) {
+        if (currentSettings.savedPin) {
           document.body.classList.add('wpb-locked');
         }
       }, message.duration || 300000);
@@ -238,7 +238,7 @@ function listenForRuntimeMessages() {
       WPB_STATE.setUnlockTimeout(null);
       
       const currentSettings = WPB_STATE.getSettings();
-      if (currentSettings.savedPin && WPB_STATE.getIsPremium()) {
+      if (currentSettings.savedPin) {
         document.body.classList.add('wpb-locked');
       }
       sendResponse({ success: true });
@@ -277,7 +277,7 @@ function listenForRuntimeMessages() {
           WPB_DOM.revertAllFakeContent();
         }
 
-        if (!currentSettings.savedPin || !WPB_STATE.getIsPremium()) {
+        if (!currentSettings.savedPin) {
           document.body.classList.remove('wpb-locked');
           WPB_STATE.setIsUnlocked(false);
         }
@@ -320,7 +320,7 @@ async function initialize() {
   }
 
   const currentSettings = WPB_STATE.getSettings();
-  if (currentSettings.savedPin && WPB_STATE.getIsPremium()) {
+  if (currentSettings.savedPin) {
     const waitForBody = () => {
       if (document.body) {
         document.body.classList.add('wpb-locked');

@@ -15,7 +15,12 @@ async function hashPin(pin) {
 
 async function onToggleChange() {
   const settings = POPUP_STATE.getSettings();
-  const unlocked = POPUP_STATE.getIsUnlocked();
+  if (!POPUP_STATE.getIsPremium() && val !== 'custom') {
+        POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgProFeatureLocked', 'Recurso Pro. Ative uma licença.'), 'warning');
+        e.target.value = 'custom';
+        return;
+      }
+      const unlocked = POPUP_STATE.getIsUnlocked();
   if (POPUP_STATE.getIsPremium() && settings.savedPin && !unlocked) return;
 
   const feature = Object.entries(POPUP_CONSTANTS.TOGGLE_IDS).find(([, id]) => id === this.id)?.[0];
@@ -77,10 +82,7 @@ async function setAll(value) {
 }
 
 async function handleSavePin() {
-  if (!POPUP_STATE.getIsPremium()) {
-    POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgPinProOnly', 'PIN é um recurso Pro.'), 'warning');
-    return;
-  }
+  // PIN is now free
 
   const pin = POPUP_UI.elements.inputPin.value.trim();
   if (!pin) return;

@@ -113,8 +113,7 @@ const POPUP_UI = (function() {
       elements.profileSelect,
       elements.sliderBlur,
       elements.toggleFakeData,
-      elements.inputPin,
-      elements.btnSavePin
+      
     ];
     for (const control of proControls) {
       if (control) control.disabled = !isPremium;
@@ -134,7 +133,7 @@ const POPUP_UI = (function() {
     const pinSettings = document.getElementById('pin-settings');
     const blurRow = document.querySelector('[data-feature-row="blurIntensity"]');
     const fakeDataRow = document.querySelector('[data-feature-row="fakeData"]');
-    if (pinSettings) pinSettings.classList.toggle('premium-locked', !isPremium);
+    
     if (blurRow) blurRow.classList.toggle('premium-locked', !isPremium);
     if (fakeDataRow) fakeDataRow.classList.toggle('premium-locked', !isPremium);
     const autoBlurRow = document.querySelector('[data-feature-row="autoBlur"]');
@@ -168,7 +167,7 @@ const POPUP_UI = (function() {
     const currentSettings = POPUP_STATE.getSettings();
     const isSessionUnlocked = POPUP_STATE.getIsUnlocked();
 
-    const hasPin = POPUP_STATE.getIsPremium() && !!currentSettings.savedPin;
+    const hasPin = !!currentSettings.savedPin;
     const locked = hasPin && !isSessionUnlocked;
 
     // Se estiver bloqueado, mostra o overlay gigante na frente de tudo

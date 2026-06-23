@@ -102,6 +102,17 @@
 
           <div class="cat-row">
             <div class="cat-info">
+              <span class="cat-emoji">📸</span>
+              <span class="cat-label" data-i18n="labelMedia">Mídias Recebidas</span>
+            </div>
+            <label class="toggle">
+              <input type="checkbox" id="toggle-media">
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="cat-row">
+            <div class="cat-info">
               <span class="cat-emoji">⌨️</span>
               <span class="cat-label" data-i18n="labelCompose">O que estou digitando</span>
             </div>
@@ -127,9 +138,37 @@
           <button id="btn-all-on" class="btn" data-i18n="btnAllOn">Ativar Tudo</button>
           <button id="btn-all-off" class="btn" data-i18n="btnAllOff">Desativar Tudo</button>
         </div>
+
+        <div class="shortcut-hints" style="margin-top: 16px; padding: 12px; background: var(--bg-elevated); border-radius: var(--radius-sm); border: 1px solid var(--border); font-size: 11px; color: var(--text-secondary); line-height: 1.4;">
+          <strong style="color: var(--text-primary); display: block; margin-bottom: 4px;">⌨️ Atalhos de Teclado (Boss Key)</strong>
+          <div><kbd style="background: var(--bg-surface); border: 1px solid var(--border); padding: 2px 4px; border-radius: 4px;">Alt</kbd> + <kbd style="background: var(--bg-surface); border: 1px solid var(--border); padding: 2px 4px; border-radius: 4px;">Z</kbd> : Ligar/Desligar Privacidade</div>
+          <div style="margin-top: 4px;"><kbd style="background: var(--bg-surface); border: 1px solid var(--border); padding: 2px 4px; border-radius: 4px;">Alt</kbd> + <kbd style="background: var(--bg-surface); border: 1px solid var(--border); padding: 2px 4px; border-radius: 4px;">X</kbd> : Censura Total (Modo Pânico)</div>
+        </div>
+        
+        <div class="section-header" style="margin-top: 24px;">
+          <span class="section-title" data-i18n="titleSecurity">Segurança</span>
+        </div>
+        
+
+        <div class="card" id="pin-settings">
+          <div id="pin-setup-container">
+            <p data-i18n="descSecurity">Defina um PIN para impedir que desativem a proteção ou leiam com o hover.</p>
+            <div class="input-group">
+              <input type="password" id="input-pin" data-i18n-placeholder="placeholderPin" placeholder="Criar novo PIN..." autocomplete="off">
+              <button id="btn-save-pin" class="btn-primary" data-i18n="btnSavePin">Salvar PIN</button>
+            </div>
+          </div>
+
+          <div id="pin-active-container" style="display: none;">
+            <p style="color:var(--accent); font-weight:500;" data-i18n="textPinActive">Sessão desbloqueada temporariamente.</p>
+            <div class="quick-row">
+              <button id="btn-relock" class="btn" style="border-color:var(--accent); color:var(--accent);" data-i18n="btnRelock">Bloquear Agora</button>
+              <button id="btn-remove-pin" class="btn" style="border-color:var(--danger); color:var(--danger);" data-i18n="btnRemovePin">Remover PIN</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
     <div class="plan-panel" id="panel-pro" role="tabpanel" aria-labelledby="tab-pro" data-plan-panel="pro" hidden>
       <div class="section">
         <div class="section-header">
@@ -172,16 +211,7 @@
         <div class="card">
           
 
-          <div class="cat-row">
-            <div class="cat-info">
-              <span class="cat-emoji">📸</span>
-              <span class="cat-label" data-i18n="labelMedia">Mídias Recebidas</span>
-            </div>
-            <label class="toggle">
-              <input type="checkbox" id="toggle-media">
-              <span class="toggle-track"></span>
-            </label>
-          </div>
+          
 
           <div class="cat-row" data-feature-row="fakeData">
             <div class="cat-info">
@@ -290,27 +320,7 @@
       </div>
 
       <div class="section">
-        <div class="section-header">
-          <span class="section-title" data-i18n="titleSecurity">Segurança Pro</span>
-        </div>
-
-        <div class="card" id="pin-settings">
-          <div id="pin-setup-container">
-            <p data-i18n="descSecurity">Defina um PIN para impedir que desativem a proteção ou leiam com o hover.</p>
-            <div class="input-group">
-              <input type="password" id="input-pin" data-i18n-placeholder="placeholderPin" placeholder="Criar novo PIN..." autocomplete="off">
-              <button id="btn-save-pin" class="btn-primary" data-i18n="btnSavePin">Salvar PIN</button>
-            </div>
-          </div>
-
-          <div id="pin-active-container" style="display: none;">
-            <p style="color:var(--accent); font-weight:500;" data-i18n="textPinActive">Sessão desbloqueada temporariamente.</p>
-            <div class="quick-row">
-              <button id="btn-relock" class="btn" style="border-color:var(--accent); color:var(--accent);" data-i18n="btnRelock">Bloquear Agora</button>
-              <button id="btn-remove-pin" class="btn" style="border-color:var(--danger); color:var(--danger);" data-i18n="btnRemovePin">Remover PIN</button>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </div>
 
