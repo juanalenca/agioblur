@@ -20,13 +20,29 @@ function toggleDocumentClass(className, enabled) {
  */
 
 function applyFullScreenBlur(isActive) {
+  let overlay = document.getElementById('wpb-full-screen-overlay');
   if (isActive) {
-    document.body.style.filter = 'blur(15px)';
-    document.body.style.pointerEvents = 'none';
-    document.body.style.transition = 'filter 0.3s ease';
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'wpb-full-screen-overlay';
+      overlay.style.position = 'fixed';
+      overlay.style.top = '0';
+      overlay.style.left = '0';
+      overlay.style.width = '100vw';
+      overlay.style.height = '100vh';
+      overlay.style.zIndex = '2147483647'; // max z-index
+      overlay.style.backdropFilter = 'blur(15px)';
+      overlay.style.background = 'rgba(0, 0, 0, 0.4)';
+      overlay.style.transition = 'opacity 0.3s ease';
+      document.documentElement.appendChild(overlay);
+    }
+    overlay.style.display = 'block';
+    overlay.style.opacity = '1';
   } else {
-    document.body.style.filter = '';
-    document.body.style.pointerEvents = '';
+    if (overlay) {
+      overlay.style.opacity = '0';
+      setTimeout(() => { if (overlay) overlay.style.display = 'none'; }, 300);
+    }
   }
 }
 
