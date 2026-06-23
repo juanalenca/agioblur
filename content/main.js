@@ -34,7 +34,7 @@ function applyFullScreenBlur(isActive) {
       overlay.style.backdropFilter = 'blur(15px)';
       overlay.style.background = 'rgba(0, 0, 0, 0.4)';
       overlay.style.transition = 'opacity 0.3s ease';
-      document.body.appendChild(overlay);
+      document.documentElement.appendChild(overlay);
     }
     overlay.style.display = 'block';
     overlay.style.opacity = '1';
@@ -197,7 +197,7 @@ function setupInactivityListener() {
     debugEl.style.fontSize = '12px';
     debugEl.style.zIndex = '9999999999';
     debugEl.style.pointerEvents = 'none';
-    document.body.appendChild(debugEl);
+    document.documentElement.appendChild(debugEl);
   }
 
   let countdownInterval = null;
