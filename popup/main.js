@@ -43,6 +43,7 @@ async function onSettingsChange(e) {
     ...settings,
     blurIntensity: POPUP_STATE.getIsPremium() ? parseInt(POPUP_UI.elements.sliderBlur.value, 10) : 8,
     solidMode: POPUP_UI.elements.toggleSolid.checked,
+    fullScreenBlur: POPUP_UI.getToggle('fullScreenBlur') ? POPUP_UI.getToggle('fullScreenBlur').checked : false,
     fakeData: POPUP_STATE.getIsPremium() && POPUP_UI.elements.toggleFakeData.checked,
     autoBlurEnabled: POPUP_STATE.getIsPremium() && (POPUP_UI.elements.toggleAutoBlur ? POPUP_UI.elements.toggleAutoBlur.checked : false),
     autoBlurTimer: POPUP_STATE.getIsPremium() && POPUP_UI.elements.sliderAutoBlur ? parseInt(POPUP_UI.elements.sliderAutoBlur.value, 10) : 5,

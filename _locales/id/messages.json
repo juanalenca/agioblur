@@ -223,5 +223,8 @@
   },
   "labelAutoBlurTimer": {
     "message": "Batas waktu (menit)"
+  },
+  "labelFullScreenBlur": {
+    "message": "Buram Layar Penuh"
   }
 }

@@ -223,5 +223,8 @@
   },
   "labelAutoBlurTimer": {
     "message": "समय सीमा (मिनट)"
+  },
+  "labelFullScreenBlur": {
+    "message": "फुल स्क्रीन ब्लर"
   }
 }

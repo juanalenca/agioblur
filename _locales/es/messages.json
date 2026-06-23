@@ -223,5 +223,8 @@
   },
   "labelAutoBlurTimer": {
     "message": "Tiempo límite (minutos)"
+  },
+  "labelFullScreenBlur": {
+    "message": "Desenfoque de Pantalla Completa"
   }
 }

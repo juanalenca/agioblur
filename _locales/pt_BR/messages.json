@@ -223,5 +223,8 @@
   },
   "labelAutoBlurTimer": {
     "message": "Time limit (minutes)"
+  },
+  "labelFullScreenBlur": {
+    "message": "Full Screen Blur"
   }
 }

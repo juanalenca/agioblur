@@ -223,5 +223,8 @@
   },
   "labelAutoBlurTimer": {
     "message": "Limite de temps (minutes)"
+  },
+  "labelFullScreenBlur": {
+    "message": "Flou Plein Écran"
   }
 }

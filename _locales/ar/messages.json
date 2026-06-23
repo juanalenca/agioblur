@@ -223,5 +223,8 @@
   },
   "labelAutoBlurTimer": {
     "message": "المهلة الزمنية (دقائق)"
+  },
+  "labelFullScreenBlur": {
+    "message": "طمس الشاشة بالكامل"
   }
 }

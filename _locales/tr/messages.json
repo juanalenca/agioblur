@@ -223,5 +223,8 @@
   },
   "labelAutoBlurTimer": {
     "message": "Zaman sınırı (dakika)"
+  },
+  "labelFullScreenBlur": {
+    "message": "Tam Ekran Bulanıklığı"
   }
 }

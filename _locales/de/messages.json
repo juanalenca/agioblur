@@ -223,5 +223,8 @@
   },
   "labelAutoBlurTimer": {
     "message": "Zeitlimit (Minuten)"
+  },
+  "labelFullScreenBlur": {
+    "message": "Vollbildunschärfe"
   }
 }

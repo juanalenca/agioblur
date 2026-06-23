@@ -223,5 +223,8 @@
   },
   "labelAutoBlurTimer": {
     "message": "Limite di tempo (minuti)"
+  },
+  "labelFullScreenBlur": {
+    "message": "Sfocatura Schermo Intero"
   }
 }
