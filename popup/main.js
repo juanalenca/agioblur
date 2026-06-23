@@ -26,6 +26,7 @@ async function onToggleChange() {
   }
 
   const state = POPUP_UI.readUIState();
+  if (POPUP_UI.elements.profileSelect) POPUP_UI.elements.profileSelect.value = 'custom';
   await POPUP_STORAGE.saveState(state);
 }
 
@@ -56,6 +57,7 @@ async function onSettingsChange(e) {
   if (POPUP_UI.elements.autoBlurContainer) {
     POPUP_UI.elements.autoBlurContainer.style.display = newSettings.autoBlurEnabled ? 'flex' : 'none';
   }
+  if (POPUP_UI.elements.profileSelect) POPUP_UI.elements.profileSelect.value = 'custom';
   await POPUP_STORAGE.saveSettings(newSettings);
 }
 
@@ -329,8 +331,7 @@ function attachListeners() {
       
       await POPUP_STORAGE.saveState(finalTarget);
       
-      POPUP_UI.elements.profileSelect.value = 'custom';
-    });
+      });
   }
   POPUP_UI.elements.toggleSolid.addEventListener('change', onSettingsChange);
   POPUP_UI.elements.toggleFakeData.addEventListener('change', onSettingsChange);

@@ -18,6 +18,18 @@ function toggleDocumentClass(className, enabled) {
  * Aplica as configurações globais de estilo (blur, modo dark) na raiz
  * @param {Object} settings 
  */
+
+function applyFullScreenBlur(isActive) {
+  if (isActive) {
+    document.body.style.filter = 'blur(15px)';
+    document.body.style.pointerEvents = 'none';
+    document.body.style.transition = 'filter 0.3s ease';
+  } else {
+    document.body.style.filter = '';
+    document.body.style.pointerEvents = '';
+  }
+}
+
 function applySettingsToRoot(settings) {
   const root = document.documentElement;
   const premium = WPB_STATE.getIsPremium();
@@ -127,6 +139,7 @@ function listenForStorageChanges() {
         const isActive = incoming[key];
         if (wasActive && !isActive) WPB_DOM.clearCategory(key);
         else if (!wasActive && isActive) WPB_DOM.scanAndApply(document);
+      applyFullScreenBlur(newCats.fullScreenBlur);
       window.dispatchEvent(new Event('mousemove'));
       }
 
@@ -149,7 +162,7 @@ let savedStateBeforeInactivity = null;
 let isCurrentlyAutoBlurred = false;
 
 function setupInactivityListener() {
-  const resetTimer = () => {
+  const resetTimer = (e) => {
     const settings = WPB_STATE.getSettings();
     if (!settings.autoBlurEnabled || !WPB_STATE.getIsPremium()) {
       if (inactivityTimer) clearTimeout(inactivityTimer);
@@ -157,7 +170,13 @@ function setupInactivityListener() {
     }
 
     if (isCurrentlyAutoBlurred) {
-      if (document.visibilityState === 'hidden') return; // Don't unblur if tab is hidden
+      if (document.visibilityState === 'hidden') return;
+      if (e && (e.type === 'mousemove' || e.type === 'scroll')) {
+        if (inactivityTimer) clearTimeout(inactivityTimer);
+        const minutes = parseInt(settings.autoBlurTimer, 10) || 5;
+        inactivityTimer = setTimeout(triggerAutoBlur, minutes * 60 * 1000);
+        return;
+      } // Don't unblur if tab is hidden
       isCurrentlyAutoBlurred = false;
       if (savedStateBeforeInactivity) {
         WPB_STATE.setCategoryState(savedStateBeforeInactivity.categories);
