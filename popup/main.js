@@ -304,6 +304,14 @@ function attachListeners() {
   if (POPUP_UI.elements.sliderAutoBlur) POPUP_UI.elements.sliderAutoBlur.addEventListener('change', onSettingsChange);
   
   if (POPUP_UI.elements.profileSelect) {
+    POPUP_UI.elements.profileSelect.addEventListener('mousedown', (e) => {
+      if (!POPUP_STATE.getIsPremium()) {
+        e.preventDefault(); // Impede o select de abrir
+        POPUP_UI.showLicenseMessage(POPUP_UI.getMessage('msgProFeatureLocked', 'Recurso Pro. Ative uma licença para liberar.'), 'warning');
+        document.getElementById('tab-pro').click();
+      }
+    });
+
     POPUP_UI.elements.profileSelect.addEventListener('change', async (e) => {
       const val = e.target.value;
       if (val === 'custom') return;

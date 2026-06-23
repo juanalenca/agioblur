@@ -110,10 +110,8 @@ const POPUP_UI = (function() {
     const proControls = [
       elements.toggleAutoBlur,
       elements.sliderAutoBlur,
-      elements.profileSelect,
       elements.sliderBlur,
       elements.toggleFakeData,
-      
     ];
     for (const control of proControls) {
       if (control) control.disabled = !isPremium;
