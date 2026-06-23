@@ -290,9 +290,18 @@ function attachListeners() {
   POPUP_UI.elements.btnAllOn.addEventListener('click', () => setAll(true));
   POPUP_UI.elements.btnAllOff.addEventListener('click', () => setAll(false));
 
-  POPUP_UI.elements.sliderBlur.addEventListener('input', onSettingsChange);
+  POPUP_UI.elements.sliderBlur.addEventListener('input', (e) => {
+    POPUP_UI.elements.blurLabel.textContent = e.target.value + 'px';
+  });
+  if (POPUP_UI.elements.sliderAutoBlur) {
+    POPUP_UI.elements.sliderAutoBlur.addEventListener('input', (e) => {
+      POPUP_UI.elements.autoBlurLabel.textContent = e.target.value + 'm';
+    });
+  }
+
+  POPUP_UI.elements.sliderBlur.addEventListener('change', onSettingsChange);
   if (POPUP_UI.elements.toggleAutoBlur) POPUP_UI.elements.toggleAutoBlur.addEventListener('change', onSettingsChange);
-  if (POPUP_UI.elements.sliderAutoBlur) POPUP_UI.elements.sliderAutoBlur.addEventListener('input', onSettingsChange);
+  if (POPUP_UI.elements.sliderAutoBlur) POPUP_UI.elements.sliderAutoBlur.addEventListener('change', onSettingsChange);
   
   if (POPUP_UI.elements.profileSelect) {
     POPUP_UI.elements.profileSelect.addEventListener('change', async (e) => {

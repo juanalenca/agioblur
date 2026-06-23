@@ -203,18 +203,11 @@ function setupInactivityListener() {
 
     if (isCurrentlyAutoBlurred) {
       if (document.visibilityState === 'hidden') return;
-      if (e && (e.type === 'mousemove' || e.type === 'scroll' || e.type === 'keydown' || e.type === 'click' || e.type === 'touchstart')) {
-        if (inactivityTimer) clearTimeout(inactivityTimer);
-        const minutes = parseInt(settings.autoBlurTimer, 10) || 5;
-        inactivityTimer = setTimeout(triggerAutoBlur, minutes * 60 * 1000);
-        return;
-      } // Don't unblur if tab is hidden
       isCurrentlyAutoBlurred = false;
       applyFullScreenBlur(WPB_STATE.getCategoryState().fullScreenBlur);
     }
 
     if (inactivityTimer) clearTimeout(inactivityTimer);
-    
     const minutes = parseInt(settings.autoBlurTimer, 10) || 5;
     inactivityTimer = setTimeout(triggerAutoBlur, minutes * 60 * 1000);
   };
